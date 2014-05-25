@@ -1,0 +1,19 @@
+{
+  "name": "happy-meter",
+  "version": "0.0.0",
+  "description": "Android =======",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OrgCurrent/Android.git"
+  },
+  "author": "Steve Hall <hall.steven.g@gmail.com> (http://delimited.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OrgCurrent/Android/issues"
+  },
+  "homepage": "https://github.com/OrgCurrent/Android"
+}
