@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/OrgCurrent/Android/issues"
   },
-  "homepage": "https://github.com/OrgCurrent/Android"
+  "homepage": "https://github.com/OrgCurrent/Android",
+  "dependencies": {
+    "nodemailer": "^0.6.5"
+  }
 }
