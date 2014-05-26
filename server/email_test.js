@@ -1,36 +1,48 @@
-var fs         = require("fs"),
-    mailer     = require("nodemailer"), 
-    config     = require("./server_config/settings"),
-    Handlebars = require("handlebars");
+var fs             = require("fs"),
+    mailer         = require("nodemailer"),
+    templates      = require('email-templates')
+    config         = require("./server_config/settings"),
+    Handlebars     = require("handlebars");
 
-var template, html;
-var templatePath = __dirname + '/mail-templates/responsive/base_boxed_basic_query.html';
-var source = fs.readFile(templatePath, 'utf8', function (err, file) {
-    template = file;
-    console.log("template", template);
-});
+templates(__dirname + '/email-templates/', function(err, template) {
 
-var smtpTransport = mailer.createTransport("SMTP",{
-    service: "Gmail",
-    auth: {
-        user: config.user,
-        pass: config.pass
+  if (err) throw err;
+
+  var transport = mailer.createTransport("SMTP",{
+      service: "Gmail",
+      auth: {
+          user: config.user,
+          pass: config.pass
+      }
+  });
+
+  var locals = {
+    email: 'user@example.com',
+    buttons: {
+      link1: '5456h6hfghhghfghfghfgh',
+      link2: 'rtytrtytyrthynbytvgvgg'
     }
-});
+  };
 
-var mailOptions = {
-    from: config.from,
-    to: config.test,
-    subject: "Please Verify Your Email Address",
-    html: template
-}
-
-smtpTransport.sendMail(mailOptions, function(error, response){
-    if(error){
-        console.log(error);
-    }else{
-        console.log("Message sent: " + response.message);
+  template('verify', locals, function(err, html, text) {
+    if (err) {
+      console.log(err);
+    } else {
+      transport.sendMail({
+        from: config.from,
+        to: config.test,
+        subject: 'Happy Meter | Please Verify Your Email',
+        html: html,
+        //generateTextFromHTML: true,
+        text: text
+      }, function(err, responseStatus) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(responseStatus.message);
+          transport.close();
+        }
+      });
     }
-
-    smtpTransport.close(); // shut down the connection pool, no more messages
+  });
 });
