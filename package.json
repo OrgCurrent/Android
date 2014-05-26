@@ -14,7 +14,9 @@
   },
   "homepage": "https://github.com/OrgCurrent/Android",
   "dependencies": {
+    "email-templates": "^0.1.8",
     "express": "3.x.x",
+    "handlebars": "^2.0.0-alpha.4",
     "mongodb": "^1.4.5",
     "mongoose": "^3.8.11",
     "nodemailer": "^0.6.5"
