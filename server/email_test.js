@@ -33,7 +33,6 @@ templates(__dirname + '/email-templates/', function(err, template) {
         to: config.test,
         subject: 'Happy Meter | Please Verify Your Email',
         html: html,
-        //generateTextFromHTML: true,
         text: text
       }, function(err, responseStatus) {
         if (err) {
