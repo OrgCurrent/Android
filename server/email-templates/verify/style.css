@@ -10,11 +10,11 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
-p {
-  color: black;
-}
 body {
   margin: 0;
+}
+p {
+  color: black;
 }
 article,
 aside,
@@ -368,7 +368,7 @@ h6,
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
-  color: inherit;
+  color: black;
 }
 h1 small,
 h2 small,

@@ -31,7 +31,7 @@ templates(__dirname + '/email-templates/', function(err, template) {
       transport.sendMail({
         from: config.from,
         to: config.list.toString(),
-        subject: 'Please Verify Your Email Address with Happy Meter',
+        subject: 'Please Verify Your Email Address',
         html: html,
         text: text
       }, function(err, responseStatus) {
