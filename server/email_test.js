@@ -19,8 +19,8 @@ templates(__dirname + '/email-templates/', function(err, template) {
   var locals = {
     email: 'user@example.com',
     buttons: {
-      link1: '5456h6hfghhghfghfghfgh',
-      link2: 'rtytrtytyrthynbytvgvgg'
+      link1: '/happy-meter/verify',
+      link2: '/happy-meter/do-not-send'
     }
   };
 
@@ -30,8 +30,8 @@ templates(__dirname + '/email-templates/', function(err, template) {
     } else {
       transport.sendMail({
         from: config.from,
-        to: config.test,
-        subject: 'Happy Meter | Please Verify Your Email',
+        to: config.list.toString(),
+        subject: 'Please Verify Your Email Address with Happy Meter',
         html: html,
         text: text
       }, function(err, responseStatus) {

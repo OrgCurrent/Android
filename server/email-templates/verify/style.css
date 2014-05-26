@@ -10,6 +10,9 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+p {
+  color: black;
+}
 body {
   margin: 0;
 }
