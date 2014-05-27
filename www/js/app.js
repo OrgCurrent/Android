@@ -25,7 +25,7 @@ angular.module('app', [
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
-      url: '/home',
+      url: '/',
       templateUrl: 'templates/home.html',
       controller: 'HomeCtrl'
     })
