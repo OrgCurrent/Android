@@ -19,6 +19,12 @@
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
+    <feature name="Console">
+        <param name="ios-package" value="CDVLogger" />
+    </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
     <name>HelloCordova</name>
     <description>
         An Ionic Framework and Cordova project.
@@ -35,11 +41,5 @@
     <preference name="BackupWebStorage" value="none" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
-    </feature>
-    <feature name="Console">
-        <param name="ios-package" value="CDVLogger" />
-    </feature>
-    <feature name="Device">
-        <param name="ios-package" value="CDVDevice" />
     </feature>
 </widget>
