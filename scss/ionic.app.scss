@@ -21,3 +21,22 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+$font-stack: Helvetica, sans-serif;
+$font-color: $dark;
+$dark-green: $dark;
+
+.main-content {
+  background-color: $stable;
+  padding: 10px;
+  font-style: $font-stack;
+  color: $font-color;
+}
+
+.active-tab {
+  background-color: $dark-green;
+}
+
+.app-flow {
+  text-align: center;
+  font-size: 75%;
+}

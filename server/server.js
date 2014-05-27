@@ -1,7 +1,7 @@
 var express = require('express'),
     path = require('path'),
-    http = require('http'),
-    data = require('./routes.js');
+    http = require('http');
+    // data = require('./routes.js');
 
 var app = express();
 
@@ -10,12 +10,15 @@ app.configure(function () {
     app.use(express.compress());
     app.use(express.logger('tiny')); /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser()),
-    //app.use(express.static(path.join(__dirname, '../client')));
+    app.use(express.static(path.join(__dirname, '../www')));
 });
 
-app.get('/user/add/:username/:domain', data.addUser);
-app.get('/user/verified/:username/:domain', data.getUserStatus);
-app.get('/domain/data/:domain', data.getDomainData);
+// app.get('/user/add/:username/:domain', data.addUser);
+// app.get('/user/verified/:username/:domain', data.getUserStatus);
+// app.get('/domain/data/:domain', data.getDomainData);
+app.get('/', function(req, res) {
+  res.render('index');
+});
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));
