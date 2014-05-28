@@ -6455,7 +6455,7 @@ a.button {
   font-size: 75%; }
 
 .opinion-graph {
-  height: 300px;
+  height: 100%;
   width: 100%;
   border: 5px solid black; }
 
