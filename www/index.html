@@ -18,7 +18,12 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <!-- d3 -->
+    <script src="bower_components/d3/d3.js"></script>
+
     <!-- your app's js -->
+    <script src="js/graph.js"></script>
+    <script src="js/http.js"></script>
     <script src="js/email.js"></script>
     <script src="js/verify.js"></script>
     <script src="js/opinion.js"></script>
@@ -27,7 +32,7 @@
   <body ng-app="app">
 
     <ion-pane>
-      <div ui-view></div>
+      <ion-nav-view> </ion-nav-view>
     </ion-pane>
   </body>
 
