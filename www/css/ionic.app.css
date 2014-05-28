@@ -6459,6 +6459,9 @@ a.button {
   width: 100%;
   border: 5px solid black; }
 
+.x-y-coordinates {
+  font-size: 75%; }
+
 html, body {
   height: 100%; }
 
