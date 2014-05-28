@@ -6,7 +6,9 @@
 angular.module('app', [
   'ionic',
   'ui.router',
-  'app.verify'
+  'app.email',
+  'app.verify',
+  'app.opinion'
   ])
 
 .run(function($ionicPlatform) {
@@ -30,26 +32,42 @@ angular.module('app', [
       controller: 'HomeCtrl'
     })
     .state('home.verify', {
-      url: '/verify',
+      url: 'verify',
       templateUrl: 'templates/verify.html',
       controller: 'VerifyCtrl'
     })
     .state('home.email', {
-      url: '/email',
+      url: 'email',
       templateUrl: 'templates/email.html',
       controller: 'EmailCtrl'
     })
     .state('home.opinion', {
-      url: '/opinion',
+      url: 'opinion',
       templateUrl: 'templates/opinion.html',
       controller: 'OpinionCtrl'
     })
-
-
 
   $urlRouterProvider.otherwise('/');
 })
 
 .controller('HomeCtrl', function($scope) {
   console.log('we be home');
+
+  $scope.$on("email", function(event, user) {
+    $scope.email = 'button-balanced';
+    $scope.verify = '';
+    $scope.opinion = '';
+  });
+
+  $scope.$on("verify", function(event, user) {
+    $scope.email = '';
+    $scope.verify = 'button-balanced';
+    $scope.opinion = '';
+  });
+  
+  $scope.$on("opinion", function(event, user) {
+    $scope.email = '';
+    $scope.verify = '';
+    $scope.opinion = 'button-balanced';
+  });
 })
