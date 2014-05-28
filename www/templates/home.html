@@ -2,21 +2,30 @@
 <ion-header-bar class="bar-stable bar-header bar-balanced">
   <h1 class="title">Happy Meter</h1>
 </ion-header-bar>
-<ion-header-bar class="bar-stable bar-subheader">
+
+
+<ion-header-bar class="bar-stable bar-subheader" ng-hide="verified">
   <div class="button-bar">
     <a class="button {{ email }}" ui-sref="home.email">email</a>
     <a class="button {{ verify }}" ui-sref="home.verify">verify</a>
-    <a class="button {{ opinion }}" ui-sref="home.opinion">opinion</a>
+    <a class="button" ui-sref="home.opinion">opinion</a>
   </div>
-</ion-header-bar><ion-pane>
+</ion-header-bar>
 
-<ion-content class="main-content">
-  <div ui-view></div>
-</ion-content>
+<ion-pane>
+
+  <ion-content class="main-content has-header has-footer">
+      <ion-nav-view animation="slide-left-right"> </ion-nav-view>
+  </ion-content>
+
+</ion-pane>
+
+<ion-footer-bar class="bar bar-footer bar-balanced">
+</ion-footer-bar>
 
 
 <!-- <ion-footer-bar> -->
-<div class="tabs tabs-balanced">
+<!-- <div class="tabs tabs-balanced">
   <a class="tab-item active-tab">
     verify
   </a>
@@ -27,6 +36,6 @@
     co-workers
   </a>
 </div>
-<!-- tabs -->
+ --><!-- tabs -->
 <!-- </ion-footer-bar> -->
 
