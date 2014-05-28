@@ -1,4 +1,6 @@
-angular.module('app.opinion', [])
+angular.module('app.opinion', [
+  'graph'
+  ])
 .controller('OpinionCtrl', function($scope, $ionicModal) {
   console.log('opinion');
   $scope.$emit('opinion');
