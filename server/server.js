@@ -20,6 +20,11 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+app.post('/user/add/:username/:domain', function(req, res) {
+    console.log(req.params.username, req.params.domain);
+    res.send({success: true});
+})
+
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));
 });
