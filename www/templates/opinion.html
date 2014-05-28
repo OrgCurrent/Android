@@ -1,11 +1,17 @@
 <h2>Your opinion matters!</h2>
 <p>Touch and hold on the graphic below to submit your opinion</p>
 
-<div class="opinion-graph" ng-click="clickGraph()">yaknow</div> 
+<svg class="opinion-graph" ng-click="clickGraph($event)">
+  <circle style="fill:black" r={{r}} cx={{cx}} cy={{cy}} ng-show="showCircle">
+</svg> 
 
 <!-- <h3>Touch and Hold Anywhere (Mobile/Tablets Only)</h3> -->
 
+<span class="x-y-coordinates">x: How successful you will be at this company</span><br>
+<span class="x-y-coordinates">y: How successful the company will be</span>
 <button class="button button-balanced button-block" ng-click="submit()" ng-show="pointer">Submit your answer, See what others said</button>
+
+
 
 <!-- 
 <script type="text/javascript">
