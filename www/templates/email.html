@@ -1,2 +1,31 @@
-<input type="email" placeholder="work email">
+<div class="Intro">
+  <p>Thank you for downloading Happy Meter! The best way to understand how happy you and your co-workers are at your company.</p>
+<!--   <p>We're going to ask you ONE simple question and after receiving your answer you will be able to see how fellow co-workers responded to the same question.</p> -->
+</div>
+<div>
+  <h2>Let's get started...</h2>
+</div>
+<div ng-controller="EmailCtrl"> 
+  <form name="email_form" novalidate ng-submit="sendEmail()" >
+    <div class='error' ng-show="email_form">
+      <small class="error"
+        ng-show="email_form.email.$dirty && email_form.email.$error.email && email_form.submitted">
+         That is not a valid email. Please input a valid email.
+      </small>
+      <small class="error"
+        ng-show="email_form.email.$error.unique">
+         That email is taken, please try another.
+      </small>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="email" name="email" ng-model='email.userInput' placeholder="Please enter your work email">
+      </label>
+    </div>
+    <button type="submit" class="button button-block button-balanced" 
+            ng-disabled="email_form.$invalid">
+      Verify
+    </button>
+  </form>
+</div>
 
