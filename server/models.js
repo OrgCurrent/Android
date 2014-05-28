@@ -12,10 +12,11 @@ var scoreSchema = new Schema({
 
 var userSchema = new Schema({
   username: String,
-  email: String,
+  userdomain: String,
   code: String,
   verified: {type: Boolean, default: false},
-  votes: [scoreSchema],
+  scores: [scoreSchema],
+  updated: { type: Date, default: Date.now },
   created: { type: Date, default: Date.now }
 });
 
