@@ -29,6 +29,19 @@ var createUser = function (username, userdomain) {
   });
 };
 
+var getUserStatus = function (username, userdomain) {
+  return new Promise (function (pass, fail) {
+    DB.User.find({username: username, userdomain: userdomain}, function (err, result) {
+      if (err) return fail(err);
+      if (result.length !== 0) {
+        return pass({status: result[0].verified });
+      } else {
+        fail({error: 'user not found'});
+      }
+    });
+  });
+};
+
 exports.addUser = function (req, res) {
   createUser(req.param("user"), req.param("domain")).then(function (result) {
     if (result.status === 'new' && SEND_MAIL) {
@@ -45,10 +58,10 @@ exports.addUser = function (req, res) {
   });
 };
 
-// exports.addUser = function (req, res) {
-//   createUser(req.param("user"), req.param("domain")).then(function (data) {
-//     res.send(200, data);
-//   }).catch(function (data) {
-//     res.send(500, data);
-//   });
-// };
+exports.getVerificationStatus = function (req, res) {
+  getUserStatus(req.param("user"), req.param("domain")).then(function (result) {
+      res.send(200, result);
+  }, function (e) {
+      res.send(500, e);
+  });
+};
