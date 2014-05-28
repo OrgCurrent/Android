@@ -31,15 +31,15 @@ angular.module('app', [
       templateUrl: 'templates/home.html',
       controller: 'HomeCtrl'
     })
-    .state('home.verify', {
-      url: 'verify',
-      templateUrl: 'templates/verify.html',
-      controller: 'VerifyCtrl'
-    })
     .state('home.email', {
       url: 'email',
       templateUrl: 'templates/email.html',
       controller: 'EmailCtrl'
+    })
+    .state('home.verify', {
+      url: 'verify',
+      templateUrl: 'templates/verify.html',
+      controller: 'VerifyCtrl'
     })
     .state('home.opinion', {
       url: 'opinion',
@@ -54,20 +54,23 @@ angular.module('app', [
   console.log('we be home');
 
   $scope.$on("email", function(event, user) {
+    $scope.verified = false;
     $scope.email = 'button-balanced';
     $scope.verify = '';
     $scope.opinion = '';
   });
 
   $scope.$on("verify", function(event, user) {
+    $scope.verified = false;
     $scope.email = '';
     $scope.verify = 'button-balanced';
     $scope.opinion = '';
   });
   
   $scope.$on("opinion", function(event, user) {
-    $scope.email = '';
-    $scope.verify = '';
-    $scope.opinion = 'button-balanced';
+    $scope.verified = true;
+    // $scope.email = '';
+    // $scope.verify = '';
+    // $scope.opinion = 'button-balanced';
   });
 })
