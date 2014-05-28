@@ -3,7 +3,7 @@ var Promise = require("bluebird"),
     emails  = require("./emails"),
     uuid    = require('node-uuid');
 
-var SEND_MAIL = true; // TURN ON EMAILS
+var SEND_MAIL = false; // TURN ON/OFF EMAILS
 
 var createUser = function (username, userdomain) {
   return new Promise (function (pass, fail) {
@@ -36,6 +36,14 @@ var getUserStatus = function (username, userdomain) {
         fail({error: 'user not found'});
       }
     });
+  });
+};
+
+exports.verifyUserEmail = function (req, res) {
+  var query = { code: req.param("code") };
+  DB.User.update(query, { $set: { verified: true }}, {}, function (err, count) {
+    if (err) console.log(err);
+    count > 0 ? res.send(200, "Verified, go back to the app."):res.send(500, "Error");
   });
 };
 
