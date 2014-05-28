@@ -26,23 +26,35 @@ var createUser = function (username, userdomain) {
   });
 };
 
-var getUserStatus = function (username, userdomain) {
+var getUserData = function (username, userdomain) {
   return new Promise (function (pass, fail) {
     DB.User.find({username: username, userdomain: userdomain}, function (err, result) {
       if (err) return fail(err);
       if (result.length !== 0) {
-        return pass({status: result[0].verified });
+        return pass(result[0]);
       } else {
-        fail({error: 'user not found'});
+        return fail({error: 'user not found'});
       }
     });
+  });
+};
+
+exports.resendVerifyEmail = function (req, res) {
+  getUserData(req.param("user"), req.param("domain")).then(function (result) {
+      emails.sendVerifyMail(result).then(function () {
+        res.send(200, {status: 'sent'});
+      }, function (e) {
+        res.send(500, e);
+      });
+    }, function (e) {
+      res.send(500, e);
   });
 };
 
 exports.verifyUserEmail = function (req, res) {
   var query = { code: req.param("code") };
   DB.User.update(query, { $set: { verified: true }}, {}, function (err, count) {
-    if (err) console.log(err);
+    if (err) res.send(500, "Error");
     count > 0 ? res.send(200, "Verified, go back to the app."):res.send(500, "Error");
   });
 };
@@ -50,7 +62,7 @@ exports.verifyUserEmail = function (req, res) {
 exports.addUser = function (req, res) {
   createUser(req.param("user"), req.param("domain")).then(function (result) {
     if (result.status === 'new' && SEND_MAIL) {
-      emails.sendVerifyMail(result).then(function () {
+      emails.sendVerifyMail(result.data).then(function () {
         res.send(200, {status: 'new'});
       }, function (e) {
         res.send(500, e);
@@ -64,8 +76,8 @@ exports.addUser = function (req, res) {
 };
 
 exports.getVerificationStatus = function (req, res) {
-  getUserStatus(req.param("user"), req.param("domain")).then(function (result) {
-      res.send(200, result);
+  getUserData(req.param("user"), req.param("domain")).then(function (result) {
+      res.send(200, result.verified);
   }, function (e) {
       res.send(500, e);
   });
