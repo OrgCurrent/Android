@@ -1,9 +1,9 @@
 var Promise = require("bluebird"),
-    crypto  = require("crypto"),
     DB      = require("./models"),
-    emails  = require("./emails");
+    emails  = require("./emails"),
+    uuid    = require('node-uuid');
 
-var SEND_MAIL = false; // TURN ON EMAILS
+var SEND_MAIL = true; // TURN ON EMAILS
 
 var createUser = function (username, userdomain) {
   return new Promise (function (pass, fail) {
@@ -12,17 +12,14 @@ var createUser = function (username, userdomain) {
       if (result.length !== 0) {
         return pass({status: 'existing', data: result[0]});
       } else {
-        crypto.randomBytes(24, function(err, buffer) {
+        var userData = {
+          username: username, 
+          userdomain: userdomain, 
+          code: uuid.v4()
+        };
+        DB.User.create(userData, function (err) {
           if (err) return fail(err);
-          var userData = {
-            username: username, 
-            userdomain: userdomain, 
-            code: buffer.toString('hex')
-          };
-          DB.User.create(userData, function (err) {
-            if (err) return fail(err);
-            return pass({status: 'new', data: userData});
-          });
+          return pass({status: 'new', data: userData});
         });
       }
     });
