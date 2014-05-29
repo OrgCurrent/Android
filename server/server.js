@@ -19,6 +19,8 @@ app.get('/user/verification/:code', route.verifyUserEmail);
 app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
 app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
 app.get('/user/verified/:user/:domain', route.getVerificationStatus);
+app.get('/domain/data/:domain', route.getDomainData);
+
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));

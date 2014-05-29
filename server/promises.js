@@ -20,10 +20,10 @@ exports.verifyUser = function (code) {
 
 exports.addUser = function (username, userdomain) {
   return new Promise (function (pass, fail) {
-    DB.User.find({username: username, userdomain: userdomain}, function (err, result) {
+    DB.User.findOne({username: username, userdomain: userdomain}, function (err, result) {
       if (err) return fail(err);
-      if (result.length !== 0) {
-        return pass({status: 'existing', data: result[0]});
+      if (result) {
+        return pass({status: 'existing', data: result});
       } else {
         var userData = {
           username: username, 
@@ -39,12 +39,25 @@ exports.addUser = function (username, userdomain) {
   });
 };
 
-exports.userData = function (username, userdomain) {
+exports.domainData = function (userdomain) {
   return new Promise (function (pass, fail) {
-    DB.User.find({username: username, userdomain: userdomain}, function (err, result) {
+    DB.User.find({userdomain: userdomain}, 'username scores', function (err, result) {
       if (err) return fail(err);
       if (result.length !== 0) {
-        return pass(result[0]);
+        return pass(result);
+      } else {
+        return fail({error: 'domain not found'});
+      }
+    });
+  });
+};
+
+exports.userData = function (username, userdomain) {
+  return new Promise (function (pass, fail) {
+    DB.User.findOne({username: username, userdomain: userdomain}, function (err, result) {
+      if (err) return fail(err);
+      if (result) {
+        return pass(result);
       } else {
         return fail({error: 'user not found'});
       }
