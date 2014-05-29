@@ -20,10 +20,12 @@ angular.module('graph', [])
         .outerRadius(initR)
         .innerRadius(initR - thickness);
               
+      // send the click coordinates back up to controller scope
       scope.$apply(function() {
         var coords = clickPos;
         scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
       });
+
               
       var g = svg.selectAll("g.click")
         .data([clickPos]);
@@ -54,11 +56,11 @@ angular.module('graph', [])
       g.exit().remove().each(function () {
           this.__stopped__ = true;
       });
-    }
+    };
 
     var complete = function(g) {
       return g.node().__stopped__ !== true;
-    }
+    };
 
     var ripples = function(position) {
       for (var i = 1; i < 5; ++i) {
@@ -66,6 +68,7 @@ angular.module('graph', [])
           .attr("cx", position[0])
           .attr("cy", position[1])
           .attr("r", initR - (thickness / 2))
+          .attr('class', 'ripples')
           .style("stroke-width", thickness / (i))
         .transition()
           .delay(Math.pow(i, 2.5) * 50)
@@ -76,12 +79,19 @@ angular.module('graph', [])
               d3.select(this).remove();
           });
       }
-    }
+    };
+
+    var screenWidth = screen.width;
+    var screenHeight = screen.height;
 
     var svg = d3.select(element[0])
-      .append("svg");
+      .append('svg')
+      .attr('height', screenHeight/2)
+      .attr('width', screenWidth);
 
-    var margin = {top: 10, right: 10, bottom: 30, left: 30};
+    console.log(window, screen);
+
+    var margin = {top: 10, right: 10, bottom: 20, left: 25};
     var width = svg[0][0].clientWidth - margin.left;
     var height = svg[0][0].clientHeight - margin.bottom;
 
@@ -89,14 +99,6 @@ angular.module('graph', [])
     var xMax = width;
     var yMin = height;
     var yMax = margin.top;
-
-    console.log(width, height);
-
-    // var x = d3.time.scale().range([0, width]),
-    // y = d3.scale.linear().range([height, 0]),
-    // xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true),
-    // yAxis = d3.svg.axis().scale(y).ticks(4).orient("right");
-
 
     var xScale = d3.scale.linear()
       .domain([0, 10])
@@ -112,30 +114,40 @@ angular.module('graph', [])
     var xAxis = d3.svg.axis()
       .scale(xScale)
       .orient('bottom')
-      .tickValues([0,5,10]);
 
     var yAxis = d3.svg.axis()
       .scale(yScale)
       .orient('left')
-      .tickValues([5,10]);
 
-
-
-    svg.append('g').call(xAxis).attr({
+    // Actual x-axis
+    svg.append('g').call(xAxis.tickValues([0,5,10])).attr({
       transform: 'translate(0,' + height + ')',
       class: 'x axis'
       })
       .append('text')
       .attr({
-        // transform: 'translate(0,' + height + ')',
-        x: margin.left,
-        dy: margin.bottom,
-        'font-size': 8
+        x: margin.left + 40,
+        dy: -margin.bottom + 10,
+        'font-size': 12
       })
       // .style('text-anchor', 'end')
       .text('How successful I will be at this company');
 
-    svg.append('g').call(yAxis).attr({
+    // x-axis top
+    svg.append('g').call(xAxis.tickValues([])).attr({
+      transform: 'translate(0,' + margin.top + ')',
+      class: 'x axis'
+      });
+
+    // x-axis middle
+    svg.append('g').call(xAxis.tickValues([])).attr({
+      transform: 'translate(0,' + ((height + margin.top) / 2) + ')',
+      class: 'x axis',
+      'stroke-dasharray': '5,10,5'
+      });
+    
+    // Actual y-axis
+    svg.append('g').call(yAxis.tickValues([5,10])).attr({
         transform: 'translate(' + margin.left + ', 0)',
         class: 'y axis'
       })
@@ -143,20 +155,62 @@ angular.module('graph', [])
       .attr({
         transform: 'rotate(-90)',
         dx: -2*margin.bottom,
-        dy: -margin.left + 10,
-        'font-size': 8
+        dy: margin.left - 10,
+        'font-size': 12
       })
       .style("text-anchor", "end")
       .text("How successful the company will be");
 
+    // y-axis right
+    svg.append('g').call(yAxis.tickValues([])).attr({
+        transform: 'translate(' + width + ', 0)',
+        class: 'y axis'
+      })
+
+    // y-axis middle
+    svg.append('g').call(yAxis.tickValues([])).attr({
+        transform: 'translate(' + ((width + margin.left) / 2) + ', 0)',
+        class: 'y axis',
+        'stroke-dasharray': '5,10,5'
+      })
+
     svg.on("mousedown", click)
       .on("mouseup", click);
+
+    // watch for submitted - when submitted, turn off listeners for mouseup, mousedown
+    scope.$watch('submitted', function(newValue, oldValue) {
+      console.log('submitted changed', newValue, oldValue);
+      if (newValue) {
+        svg.on("mousedown", null)
+          .on("mouseup", null);
+      }
+    });
   };
 
   return {
     restrict: 'E',
     link: link,
-    scope: {selectedPoint: '='}
+    scope: {selectedPoint: '=', submitted: '='}
+  }
+})
 
+.factory('PopulateGraph', function() {
+  return {
+    dailyAvg: function(data) {
+      // need to translate data into correct pixels
+      var svg = d3.select('svg');
+      var others = svg.selectAll("circle.others")
+        .data(data);
+
+      others.enter()
+        .append("circle")
+        .attr({
+          class: 'others',
+          cx: function(d) { return d[0] },
+          cy: function(d) { return d[1] },
+          r: 5,
+          fill: 'black'
+        });
+    }
   }
 });
