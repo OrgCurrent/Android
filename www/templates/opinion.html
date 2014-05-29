@@ -5,4 +5,9 @@
 
 <span class="x-y-coordinates">x: {{ coordinates.x }}</span><br>
 <span class="x-y-coordinates">y: {{ coordinates.y }}</span>
-<button class="button button-dark button-block x-y-coordinates" ng-click="submit()" ng-show="clickData">Submit your answer, See what others said</button>
+<button class="button button-dark button-block x-y-coordinates" ng-click="submit()" ng-show="clickData && !clickSubmitted" >Submit your answer, See what others think</button>
+<!-- <div class="progress" ng-show="clickSubmitted">
+  <div class="bar" ng-style="{width: (percentDone + '%')}"></div>
+</div>
+ -->
+<!-- <progress totalDays="totalDays" day="day" ng-show="clickSubmitted"></progress> -->

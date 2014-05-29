@@ -193,7 +193,7 @@ angular.module('graph', [])
   }
 })
 
-.factory('PopulateGraph', function() {
+.factory('CircleGraph', function() {
   return {
     dailyAvg: function(data, margin) {
 
