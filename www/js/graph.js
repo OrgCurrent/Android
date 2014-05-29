@@ -81,6 +81,7 @@ angular.module('graph', [])
       }
     };
 
+
     var screenWidth = screen.width;
     var screenHeight = screen.height;
 
@@ -88,8 +89,6 @@ angular.module('graph', [])
       .append('svg')
       .attr('height', screenHeight/2)
       .attr('width', screenWidth);
-
-    console.log(window, screen);
 
     var margin = {top: 10, right: 10, bottom: 20, left: 25};
     var width = svg[0][0].clientWidth - margin.left;
@@ -131,7 +130,7 @@ angular.module('graph', [])
         'font-size': 12
       })
       // .style('text-anchor', 'end')
-      .text('How successful I will be at this company');
+      .text(scope.coordinates.y);
 
     // x-axis top
     svg.append('g').call(xAxis.tickValues([])).attr({
@@ -159,7 +158,7 @@ angular.module('graph', [])
         'font-size': 12
       })
       .style("text-anchor", "end")
-      .text("How successful the company will be");
+      .text(scope.coordinates.y);
 
     // y-axis right
     svg.append('g').call(yAxis.tickValues([])).attr({
@@ -190,27 +189,58 @@ angular.module('graph', [])
   return {
     restrict: 'E',
     link: link,
-    scope: {selectedPoint: '=', submitted: '='}
+    scope: {selectedPoint: '=', submitted: '=', coordinates: '='}
   }
 })
 
 .factory('PopulateGraph', function() {
   return {
     dailyAvg: function(data) {
-      // need to translate data into correct pixels
-      var svg = d3.select('svg');
-      var others = svg.selectAll("circle.others")
-        .data(data);
 
-      others.enter()
-        .append("circle")
-        .attr({
-          class: 'others',
-          cx: function(d) { return d[0] },
-          cy: function(d) { return d[1] },
-          r: 5,
-          fill: 'black'
-        });
+      var animate = function(data) {
+        // need to translate data into correct pixels
+        var svg = d3.select('svg');
+
+        console.log(svg);
+
+        // data join
+        var others = svg.selectAll("circle.others")
+          .data(data.shift())
+        
+        // update
+        others.transition().duration(1000)
+          .attr({
+            cx: function(d) { return d[0] },
+            cy: function(d) { return d[1] }
+          });
+
+        // enter
+        others.enter()
+          .append("circle")
+          .attr({
+            class: 'others',
+            cx: function(d) { console.log(d); return d[0] },
+            cy: function(d) { return d[1] },
+            r: 0,
+            fill: 'black'
+          })
+            .transition()
+          .attr('r', 5);
+
+        // exit
+        others.exit()
+            .transition()
+          .attr({r: 0})
+          .remove();
+
+        setTimeout(function() {
+          if (data.length > 0) {
+            animate(data);
+          }
+        }, 1100);
+      };
+
+      animate(data);
     }
   }
 });
