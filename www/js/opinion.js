@@ -6,6 +6,8 @@ angular.module('app.opinion', [
   console.log('opinion');
   $scope.$emit('opinion');
 
+  $scope.coordinates = {x: 'How successful you will be at this company', y: 'How successful this company will be'}
+
   $scope.submit = function() {
     $scope.clickSubmitted = true;
     var username = $scope.username || 'AJ';
