@@ -6464,7 +6464,7 @@ a.button {
 
 svg {
   width: 100%;
-  height: 100%; }
+  height: 250px; }
 
 circle {
   fill: none;
@@ -6473,3 +6473,7 @@ circle {
 .arc {
   fill: #66cc33;
   stroke: none; }
+
+.x.axis path, .x.axis line, .y.axis path, .y.axis line {
+  fill: none;
+  stroke: black; }
