@@ -8,11 +8,11 @@ exports.verifyUser = function (code) {
   return new Promise (function (pass, fail) {
     var query = {code: code};
     DB.User.update(query, { $set: {verified: true}}, {}, function (err, count) {
-        if (err) return fail(err);
+        if (err) fail(err);
         if (count > 0) {
-          return pass();
+          pass();
         } else {
-          return fail('no matching record')
+          fail({error: 'no matching record'})
         }
     });
   });
@@ -21,9 +21,9 @@ exports.verifyUser = function (code) {
 exports.addUser = function (username, userdomain) {
   return new Promise (function (pass, fail) {
     DB.User.findOne({username: username, userdomain: userdomain}, function (err, result) {
-      if (err) return fail(err);
+      if (err) fail(err);
       if (result) {
-        return pass({status: 'existing', data: result});
+        pass({status: 'existing', data: result});
       } else {
         var userData = {
           username: username, 
@@ -31,8 +31,8 @@ exports.addUser = function (username, userdomain) {
           code: uuid.v4()
         };
         DB.User.create(userData, function (err) {
-          if (err) return fail(err);
-          return pass({status: 'new', data: userData});
+          if (err) fail(err);
+          pass({status: 'new', data: userData});
         });
       }
     });
@@ -42,11 +42,11 @@ exports.addUser = function (username, userdomain) {
 exports.domainData = function (userdomain) {
   return new Promise (function (pass, fail) {
     DB.User.find({userdomain: userdomain}, 'username scores', function (err, result) {
-      if (err) return fail(err);
+      if (err) fail(err);
       if (result.length !== 0) {
-        return pass(result);
+        pass(result);
       } else {
-        return fail({error: 'domain not found'});
+        fail({error: 'domain not found'});
       }
     });
   });
@@ -55,11 +55,11 @@ exports.domainData = function (userdomain) {
 exports.userData = function (username, userdomain) {
   return new Promise (function (pass, fail) {
     DB.User.findOne({username: username, userdomain: userdomain}, function (err, result) {
-      if (err) return fail(err);
+      if (err) fail(err);
       if (result) {
-        return pass(result);
+        pass(result);
       } else {
-        return fail({error: 'user not found'});
+        fail({error: 'user not found'});
       }
     });
   });
@@ -70,8 +70,8 @@ exports.addScore = function (user, params) {
     var score = DB.Score({x: params.x, y: params.y, version: '1.0'});
     user.scores.push(score);
     user.save(function (err) {
-      if (err) return fail({error: 'score not saved'});
-      return pass();
+      if (err) fail({error: 'score not saved'});
+      pass();
     });
   });
 };
@@ -79,12 +79,12 @@ exports.addScore = function (user, params) {
 exports.sendVerifyMail = function (context) {
   return new Promise (function (pass, fail) {
     templates(__dirname + '/email-templates/', function(err, template) {
-      if (err) return fail(err);
+      if (err) fail(err);
 
       context.path = config.path;
 
       template('verify', context, function(err, html, text) {
-        if (err) return fail();
+        if (err) fail();
         config.transport.sendMail({
           from: config.email.verify.from,
           to: config.email.test_user.user,
@@ -92,9 +92,9 @@ exports.sendVerifyMail = function (context) {
           html: html,
           text: text
         }, function(err, responseStatus) {
-          if (err) return fail(err);
-          config.transport.close();
-          return pass(responseStatus.message);
+          if (err) fail(err);
+          // config.transport.close();
+          pass();
         });
       });
     });

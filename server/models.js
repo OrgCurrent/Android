@@ -14,7 +14,7 @@ var userSchema = new Schema({
   username: String,
   userdomain: String,
   code: String,
-  verified: {type: Boolean, default: false},
+  verified: { type: Boolean, default: false },
   scores: [scoreSchema],
   created: { type: Date, default: Date.now }
 });
