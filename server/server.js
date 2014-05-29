@@ -31,8 +31,12 @@ app.post('/user/score/:username/:domain', function(req, res) {
 });
 
 app.get('/domain/scores/:domain', function(req, res) {
+  var points = [
+  [[100, 50], [300,150]],
+  [[100, 150], [100, 150]]
+  ]
   console.log(req.params.domain);
-  res.send({points: [[200, 200]]});
+  res.send({points: points});
 });
 
 
