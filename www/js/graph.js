@@ -90,7 +90,8 @@ angular.module('graph', [])
       .attr('height', screenHeight/2)
       .attr('width', screenWidth);
 
-    var margin = {top: 10, right: 10, bottom: 20, left: 25};
+    // var margin = {top: 10, right: 10, bottom: 20, left: 25};
+    var margin = scope.margin || {top: 10, right: 10, bottom: 20, left: 25};
     var width = svg[0][0].clientWidth - margin.left;
     var height = svg[0][0].clientHeight - margin.bottom;
 
@@ -195,13 +196,30 @@ angular.module('graph', [])
 
 .factory('PopulateGraph', function() {
   return {
-    dailyAvg: function(data) {
+    dailyAvg: function(data, margin) {
 
       var animate = function(data) {
-        // need to translate data into correct pixels
         var svg = d3.select('svg');
 
-        console.log(svg);
+        // translate data into correct pixels
+        var width = svg[0][0].clientWidth - margin.left;
+        var height = svg[0][0].clientHeight - margin.bottom;
+
+        var xMin = margin.left;
+        var xMax = width;
+        var yMin = height;
+        var yMax = margin.top;
+
+        // scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
+        var translateX = function(x) {
+          return (xMin + x/10 * (xMax - xMin));
+        }
+
+        // y inverted
+        var translateY = function(y) {
+          return (yMax + y/10 * (yMin - yMax));
+        }
+
 
         // data join
         var others = svg.selectAll("circle.others")
@@ -210,8 +228,8 @@ angular.module('graph', [])
         // update
         others.transition().duration(1000)
           .attr({
-            cx: function(d) { return d[0] },
-            cy: function(d) { return d[1] }
+            cx: function(d) { console.log(translateX(d[0])); return translateX(d[0]); },
+            cy: function(d) { return translateY(d[1]); }
           });
 
         // enter
@@ -219,8 +237,8 @@ angular.module('graph', [])
           .append("circle")
           .attr({
             class: 'others',
-            cx: function(d) { console.log(d); return d[0] },
-            cy: function(d) { return d[1] },
+            cx: function(d) { console.log(d); return translateX(d[0]); },
+            cy: function(d) { return translateY(d[1]); },
             r: 0,
             fill: 'black'
           })
@@ -234,6 +252,7 @@ angular.module('graph', [])
           .remove();
 
         setTimeout(function() {
+          console.log(data);
           if (data.length > 0) {
             animate(data);
           }
