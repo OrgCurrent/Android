@@ -1,12 +1,24 @@
 angular.module('app.opinion', [
-  'graph'
+  'graph',
+  'services'
   ])
-.controller('OpinionCtrl', function($scope, $ionicModal) {
+.controller('OpinionCtrl', function($scope, $ionicModal, HttpFactory, PopulateGraph) {
   console.log('opinion');
   $scope.$emit('opinion');
 
   $scope.submit = function() {
+    $scope.clickSubmitted = true;
+    var username = $scope.username || 'AJ';
+    var domain = $scope.domain || 'test.com';
     console.log($scope.clickData);
+    HttpFactory.sendScore(username, domain, $scope.clickData)
+      .success(function() {
+        HttpFactory.getScores(domain)
+          .success(function(data) {
+            PopulateGraph.dailyAvg(data.points);
+          })
+      })
+
   };
 
   // $scope.clickGraph = function(event) {
