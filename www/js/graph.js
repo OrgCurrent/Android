@@ -8,20 +8,25 @@ angular.module('graph', [])
     var thickness = 10;
 
     var click = function() {
+      var clickPos = d3.mouse(svg.node());
+      if (!(clickPos[0] > xMin && clickPos[0] < xMax && clickPos[1] < yMin && clickPos[1] > yMax)) {
+        console.log('outside Range');
+        return;
+      }
       d3.event.preventDefault();
-      svg.selectAll("g").remove();
+      svg.selectAll("g.click").remove();
 
       var arc = d3.svg.arc()
         .outerRadius(initR)
         .innerRadius(initR - thickness);
               
-      console.log(d3.mouse(svg.node()));
       scope.$apply(function() {
-        scope.selectedPoint = d3.mouse(svg.node());
+        var coords = clickPos;
+        scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
       });
               
       var g = svg.selectAll("g.click")
-        .data([d3.mouse(svg.node())]);
+        .data([clickPos]);
 
       g.enter()
         .append("g")
@@ -44,7 +49,6 @@ angular.module('graph', [])
         .each("end", function (d) {
           if (complete(g))
             ripples(d);
-            //g.remove();
           });
 
       g.exit().remove().each(function () {
@@ -77,9 +81,76 @@ angular.module('graph', [])
     var svg = d3.select(element[0])
       .append("svg");
 
+    var margin = {top: 10, right: 10, bottom: 30, left: 30};
+    var width = svg[0][0].clientWidth - margin.left;
+    var height = svg[0][0].clientHeight - margin.bottom;
+
+    var xMin = margin.left;
+    var xMax = width;
+    var yMin = height;
+    var yMax = margin.top;
+
+    console.log(width, height);
+
+    // var x = d3.time.scale().range([0, width]),
+    // y = d3.scale.linear().range([height, 0]),
+    // xAxis = d3.svg.axis().scale(x).tickSize(-height).tickSubdivide(true),
+    // yAxis = d3.svg.axis().scale(y).ticks(4).orient("right");
+
+
+    var xScale = d3.scale.linear()
+      .domain([0, 10])
+      //rangeX is left coord, rangeY is right coord
+      .range([xMin, xMax]);
+
+
+    var yScale = d3.scale.linear()
+      .domain([0, 10])
+      // rangeX is bottom coord, rangeY is top coord
+      .range([yMin, yMax]);
+
+    var xAxis = d3.svg.axis()
+      .scale(xScale)
+      .orient('bottom')
+      .tickValues([0,5,10]);
+
+    var yAxis = d3.svg.axis()
+      .scale(yScale)
+      .orient('left')
+      .tickValues([5,10]);
+
+
+
+    svg.append('g').call(xAxis).attr({
+      transform: 'translate(0,' + height + ')',
+      class: 'x axis'
+      })
+      .append('text')
+      .attr({
+        // transform: 'translate(0,' + height + ')',
+        x: margin.left,
+        dy: margin.bottom,
+        'font-size': 8
+      })
+      // .style('text-anchor', 'end')
+      .text('How successful I will be at this company');
+
+    svg.append('g').call(yAxis).attr({
+        transform: 'translate(' + margin.left + ', 0)',
+        class: 'y axis'
+      })
+      .append('text')
+      .attr({
+        transform: 'rotate(-90)',
+        dx: -2*margin.bottom,
+        dy: -margin.left + 10,
+        'font-size': 8
+      })
+      .style("text-anchor", "end")
+      .text("How successful the company will be");
+
     svg.on("mousedown", click)
       .on("mouseup", click);
-
   };
 
   return {
