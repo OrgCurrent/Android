@@ -38,7 +38,6 @@ exports.addUser = function (req, res) {
   });
 };
 
-
 exports.getDomainData = function (req, res) {
   promise.domainData(req.param("domain")).then(function (data) {
     res.send(200, data);
@@ -46,7 +45,6 @@ exports.getDomainData = function (req, res) {
     res.send(500, e);
   });
 };
-
 
 exports.addUserScore = function (req, res) {
   promise.userData(req.param("user"), req.param("domain")).then(function (user) {
