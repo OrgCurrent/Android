@@ -40,23 +40,18 @@ $dark-green: $dark;
   text-align: center;
   font-size: 75%;
 }
-
+/*
 .opinion-graph {
   height: 100%;
   width: 100%;
   border: 5px solid black;
-}
+}*/
 
 .x-y-coordinates {
   font-size: 75%;
 }
 
-svg {
-  width: 100%;
-  height: 250px;
-}
-
-circle {
+.ripples {
   fill: none;
   stroke: $balanced;
 }
@@ -69,4 +64,8 @@ circle {
 .x.axis path, .x.axis line, .y.axis path, .y.axis line{
   fill: none;
   stroke: black;
+}
+
+.others {
+  fill: $positive;
 }
