@@ -7,6 +7,7 @@ angular.module('app.opinion', [
   $scope.$emit('opinion');
 
   $scope.coordinates = {x: 'How successful you will be at this company', y: 'How successful this company will be'}
+  $scope.margin = {top: 10, right: 10, bottom: 20, left: 25};
 
   $scope.submit = function() {
     $scope.clickSubmitted = true;
@@ -17,7 +18,7 @@ angular.module('app.opinion', [
       .success(function() {
         HttpFactory.getScores(domain)
           .success(function(data) {
-            PopulateGraph.dailyAvg(data.points);
+            PopulateGraph.dailyAvg(data.points, $scope.margin);
           })
       })
 
