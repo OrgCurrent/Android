@@ -6,8 +6,9 @@ angular.module('app.opinion', [
   console.log('opinion');
   $scope.$emit('opinion');
 
-  $scope.coordinates = {x: 'How successful you will be at this company', y: 'How successful this company will be'}
+  $scope.coordinates = {x: 'How successful you will be at this company', y: 'How successful this company will be'};
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 25};
+  console.log($scope.margin);
 
   $scope.submit = function() {
     $scope.clickSubmitted = true;
