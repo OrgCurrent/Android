@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
 mongoose.connect('mongodb://localhost');
 
 var scoreSchema = new Schema({
-  scoreX: Number,
-  scoreY: Number,
+  x: Number,
+  y: Number,
   version: String,
   created: { type: Date, default: Date.now }
 });
@@ -16,7 +16,6 @@ var userSchema = new Schema({
   code: String,
   verified: {type: Boolean, default: false},
   scores: [scoreSchema],
-  updated: { type: Date, default: Date.now },
   created: { type: Date, default: Date.now }
 });
 

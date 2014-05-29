@@ -38,6 +38,26 @@ exports.addUser = function (req, res) {
   });
 };
 
+exports.addUserScore = function (req, res) {
+  promise.userData(req.param("user"), req.param("domain")).then(function (user) {
+    promise.addScore(user, req.params).then(function () {
+      res.send(200, {status: 'success'});
+    }, function (e) {
+      res.send(500, e);
+    });
+    }, function (e) {
+      res.send(500, e);
+  });
+};
+
+exports.getUserData = function (req, res) {
+  promise.userData(req.param("user"), req.param("domain")).then(function (data) {
+    res.send(200, data);
+  }, function (e) {
+    res.send(500, e);
+  });
+};
+
 exports.getVerificationStatus = function (req, res) {
   promise.userData(req.param("user"), req.param("domain")).then(function (result) {
       res.send(200, {status: result.verified});

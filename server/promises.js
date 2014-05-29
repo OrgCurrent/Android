@@ -52,6 +52,17 @@ exports.userData = function (username, userdomain) {
   });
 };
 
+exports.addScore = function (user, params) {
+  return new Promise (function (pass, fail) {
+    var score = DB.Score({x: params.x, y: params.y, version: '1.0'});
+    user.scores.push(score);
+    user.save(function (err) {
+      if (err) return fail({error: 'score not saved'});
+      return pass();
+    });
+  });
+};
+
 exports.sendVerifyMail = function (context) {
   return new Promise (function (pass, fail) {
     templates(__dirname + '/email-templates/', function(err, template) {
