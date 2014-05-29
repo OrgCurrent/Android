@@ -90,8 +90,7 @@ angular.module('graph', [])
       .attr('height', screenHeight/2)
       .attr('width', screenWidth);
 
-    // var margin = {top: 10, right: 10, bottom: 20, left: 25};
-    var margin = scope.margin || {top: 10, right: 10, bottom: 20, left: 25};
+    var margin = scope.margin;
     var width = svg[0][0].clientWidth - margin.left;
     var height = svg[0][0].clientHeight - margin.bottom;
 
@@ -131,7 +130,7 @@ angular.module('graph', [])
         'font-size': 12
       })
       // .style('text-anchor', 'end')
-      .text(scope.coordinates.y);
+      .text(scope.coordinates.x);
 
     // x-axis top
     svg.append('g').call(xAxis.tickValues([])).attr({
@@ -190,7 +189,7 @@ angular.module('graph', [])
   return {
     restrict: 'E',
     link: link,
-    scope: {selectedPoint: '=', submitted: '=', coordinates: '='}
+    scope: {selectedPoint: '=', submitted: '=', coordinates: '=', margin: '='}
   }
 })
 
@@ -228,7 +227,7 @@ angular.module('graph', [])
         // update
         others.transition().duration(1000)
           .attr({
-            cx: function(d) { console.log(translateX(d[0])); return translateX(d[0]); },
+            cx: function(d) { return translateX(d[0]); },
             cy: function(d) { return translateY(d[1]); }
           });
 
@@ -237,7 +236,7 @@ angular.module('graph', [])
           .append("circle")
           .attr({
             class: 'others',
-            cx: function(d) { console.log(d); return translateX(d[0]); },
+            cx: function(d) { return translateX(d[0]); },
             cy: function(d) { return translateY(d[1]); },
             r: 0,
             fill: 'black'
@@ -252,7 +251,6 @@ angular.module('graph', [])
           .remove();
 
         setTimeout(function() {
-          console.log(data);
           if (data.length > 0) {
             animate(data);
           }
