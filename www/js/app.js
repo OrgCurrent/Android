@@ -24,6 +24,7 @@ angular.module('app', [
   });
 })
 
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
@@ -73,4 +74,44 @@ angular.module('app', [
     // $scope.verify = '';
     // $scope.opinion = 'button-balanced';
   });
+})
+
+.controller('EmailController', function($scope, $http){
+  $scope.submitted = false;
+
+
+  $scope.sendEmail = function(){
+    if($scope.email_form.$valid){
+      
+      $scope.email = {
+        email : $scope.email
+      }
+      console.log('sent ', $scope.email); // 'keith@email.com'
+      $http({
+        method: 'POST',
+        url: 'http://localhost:4000/user/add/andy/gmail',
+        data: JSON.stringify($scope.email),
+        headers: {'Content-Type': 'application/json'}
+      })
+      .success(function(data, status, headers, config) { 
+          // called when response is ready
+          console.log('success!')
+          console.log('data: ', data 
+                    + '\nstatus: ', status
+                    + '\nheaders:', headers
+                    + '\nconfig:', config)
+      })
+      .error(function(data, status, headers, config) { // This is called when the response
+          // comes back with an error status
+          // called when response is ready
+          console.log('error!')
+          console.log('data: ', data 
+                    + '\nstatus: ', status
+                    + '\nheaders', headers
+                    + '\nconfig', config)
+      });
+    }else{
+      $scope.email_form.submitted = true;
+    }
+  }
 })

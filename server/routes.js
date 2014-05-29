@@ -1,3 +1,4 @@
+
 // var Promise = require("bluebird");
 var DB = require("./models");
 
@@ -5,108 +6,78 @@ var DB = require("./models");
 // var User   = BB.promisify(DB.User);
 // var Score  = BB.promisify(DB.Score);
 
+var promise = require("./promises");
 
-var resolved = function () {
-  console.log("saved!!");
-}
+var SEND_MAIL = false; // TURN ON/OFF EMAILS
 
-var rejected = function () {
-  console.log("not good!!");
-}
-
-var lookupDomain = function (domainName) {
-  return new Promise (function (resolved, rejected) {
-    domain = new DB.Domain({name: domainName});
-    domain.save(function (err) {
-      if (err) rejected();
-      resolved();
-    });
+exports.resendVerifyEmail = function (req, res) {
+  promise.userData(req.param("user"), req.param("domain")).then(function (result) {
+      promise.sendVerifyMail(result).then(function () {
+        res.send(200, {status: 'sent'});
+      }, function (e) {
+        res.send(500, e);
+      });
+    }, function (e) {
+      res.send(500, e);
   });
 };
 
-var createDomain = function (domainName) {
-  return new Promise (function (resolved, rejected) {
-    domain = new DB.Domain({name: domainName});
-    domain.save(function (err) {
-      if (err) rejected();
-      resolved();
-    });
+exports.verifyUserEmail = function (req, res) {
+  promise.verifyUser(req.param("code")).then(function (result) {
+      res.send(200, "Verified, go back to the app!");
+  }, function (e) {
+      res.send(500, "Error. Not able to verify email.");
   });
 };
 
+exports.addUser = function (req, res) {
+  promise.addUser(req.param("user"), req.param("domain")).then(function (result) {
+    if (result.status === 'new' && SEND_MAIL) {
+      promise.sendVerifyMail(result.data).then(function () {
+        res.send(200, {status: 'new'});
+      }, function (e) {
+        res.send(500, e);
+      });
+    } else {
+      res.send(200, {status: result.status});
+    }
+    }, function (e) {
+      res.send(500, e);
+  });
+};
 
+exports.getDomainData = function (req, res) {
+  promise.domainData(req.param("domain")).then(function (data) {
+    res.send(200, data);
+  }, function (e) {
+    res.send(500, e);
+  });
+};
 
-createDomain('steve.us').then(function () {
-  console.log("Made it!");
-}).catch(function (e) {
-  console.log(e);
-});
+exports.addUserScore = function (req, res) {
+  promise.userData(req.param("user"), req.param("domain")).then(function (user) {
+    promise.addScore(user, req.params).then(function () {
+      res.send(200, {status: 'success'});
+    }, function (e) {
+      res.send(500, e);
+    });
+    }, function (e) {
+      res.send(500, e);
+  });
+};
 
-// Q.fcall(promisedStep1)
-// .then(promisedStep2)
-// .then(promisedStep3)
-// .then(promisedStep4)
-// .then(function (value4) {
-//     // Do something with value4
-// })
-// .catch(function (error) {
-//     // Handle any error from all above steps
-// })
-// .done();
+exports.getUserData = function (req, res) {
+  promise.userData(req.param("user"), req.param("domain")).then(function (data) {
+    res.send(200, data);
+  }, function (e) {
+    res.send(500, e);
+  });
+};
 
-
-// exports.addUser = function (req, res) {
-
-//   var user = new Mongo.User({username: userName, code: 'xxxxxxxxx'});
-
-//   Mongo.Domain.find({ name: req.param("domain")}, function (err, result) {
-//     if (result.length === 0) {
-//       var domain = new Mongo.Domain({name: req.param("domain")})
-//       domain.save(function (err) {
-//         domain.users.push(user);
-//         domain.save(function (err) {
-
-//         })
-//       });
-
-
-
-//     }
-//     var user = new db.User({username: userName, email: userName + "@" + domainName, verified: true, code: 'sgsdggr4344r'})
-//     rec[0].users.push(user);
-//     rec[0].save(function (err) {
-//       console.log("User saved!!!");
-//       console.log("User count: ", rec[0].countUsers());
-//     })
-//   });
-
-// }
-
-
-// exports.getSeasonEpisodes = function (req, res) {
-//   options = getOptions(req.param("season"), 'GET_EPISODES');
-//   request.post(options, function (err, response, body) {
-//     if (err) throw err;
-//     if (body.data != undefined && response.statusCode === 200) {
-//       res.send(body.data);
-//     } else {
-//       throw new Error('GET_EPISODES: '+ response.body.message);
-//     }
-//   });
-// };
-
-
-
-
-// domain.save(function (err) {
-//   if (err) throw err;
-//   console.log("saved: ", domain)
-//   db.Domain.find({ name: domainName }, function (err, rec) {
-//     console.log("queried: ", typeof rec[0], rec[0])
-//     rec[0].users.push(user);
-//     rec[0].save(function (err) {
-//       console.log("User saved!!!");
-//       console.log("User count: ", rec[0].countUsers());
-//     })
-//   });
-// });
+exports.getVerificationStatus = function (req, res) {
+  promise.userData(req.param("user"), req.param("domain")).then(function (result) {
+      res.send(200, {status: result.verified});
+  }, function (e) {
+      res.send(500, e);
+  });
+};
