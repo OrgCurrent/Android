@@ -47,7 +47,7 @@ angular.module('app', [
       controller: 'OpinionCtrl'
     })
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/email');
 })
 
 .controller('HomeCtrl', function($scope) {
