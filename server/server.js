@@ -1,9 +1,6 @@
 var express = require('express');
 var path = require('path');
 var http = require('http');
-//var route = require('./routes.js');
-
-	// data = require('./routes.js');
 
 var deepCopy = function(nest) {
   var result = [];
@@ -56,43 +53,25 @@ app.configure(function () {
 });
 
 
-// app.get('/user/add/:username/:domain', data.addUser);
-// app.get('/user/verified/:username/:domain', data.getUserStatus);
-// app.get('/domain/data/:domain', data.getDomainData);
+app.post('/user/add/:username/:domain', function(req, res) {
+  console.log(req.params.username, req.params.domain);
+  res.send({success: true});
+});
 
-// andrew's server
+app.post('/user/score/:username/:domain', function(req, res) {
+  console.log(req.params.username, req.params.domain);
+  res.send({success: true});
+});
 
-// app.post('/user/add/:username/:domain', function(req, res) {
-//   console.log(req.params.username, req.params.domain);
-//   res.send({success: true});
-// });
-
-// app.post('/user/score/:username/:domain', function(req, res) {
-//   console.log(req.params.username, req.params.domain);
-//   res.send({success: true});
-// });
-
-// app.get('/domain/scores/:domain', function(req, res) {
-//   var points = pointsGenerator(10,10);
-//   console.log(req.params.domain);
-//   res.send({points: points});
-// });
-
-// Steve's server
+app.get('/domain/scores/:domain', function(req, res) {
+  var points = pointsGenerator(10,10);
+  console.log(req.params.domain);
+  res.send({points: points});
+});
 
 app.get('/', function(req, res) {
   res.render('index');
 });
-
-// app.post('/user/add/:user/:domain', route.addUser);
-// app.get('/user/data/:user/:domain', route.getUserData);
-
-// app.get('/user/verification/:code', route.verifyUserEmail);
-// app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
-// app.get('/user/verified/:user/:domain', route.getVerificationStatus);
-
-// app.post('/user/score/:user/:domain/:x/:y', route.addUserScore);
-// app.get('/domain/data/:domain', route.getDomainData);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log("Express server listening on port " + app.get('port'));
