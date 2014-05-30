@@ -56,6 +56,11 @@ $dark-green: $dark;
   stroke: $balanced;
 }
 
+.other-ripples {
+  fill: none;
+  stroke: $positive;
+}
+
 .arc {
   fill: $balanced;
   stroke: none;
@@ -72,4 +77,10 @@ $dark-green: $dark;
 
 .error {
   color: $assertive;
+}
+
+.trail {
+  fill: none;
+  stroke: $dark;
+  stroke-width: 2;
 }

@@ -6467,6 +6467,10 @@ a.button {
   fill: none;
   stroke: #66cc33; }
 
+.other-ripples {
+  fill: none;
+  stroke: #4a87ee; }
+
 .arc {
   fill: #66cc33;
   stroke: none; }
@@ -6480,3 +6484,8 @@ a.button {
 
 .error {
   color: #ef4e3a; }
+
+.trail {
+  fill: none;
+  stroke: #444;
+  stroke-width: 2; }
