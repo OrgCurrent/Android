@@ -1,13 +1,14 @@
 angular.module('app.opinion', [
   'graph',
+  'graphics',
   'services'
   ])
-.controller('OpinionCtrl', function($scope, $ionicModal, HttpFactory, CircleGraph, LineGraph) {
+.controller('OpinionCtrl', function($scope, $state, $stateParams, HttpFactory, CircleGraph, LineGraph) {
   console.log('opinion');
   $scope.$emit('opinion');
 
   $scope.coordinates = {x: 'How successful you will be at this company', y: 'How successful this company will be'};
-  $scope.margin = {top: 10, right: 10, bottom: 20, left: 25};
+  $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
   console.log($scope.margin);
 
   $scope.$on('status', function(event, data) {
@@ -29,11 +30,21 @@ angular.module('app.opinion', [
         HttpFactory.getScores(domain)
           .success(function(data) {
             // CircleGraph.dailyAvg(data.points, $scope.margin);
-            LineGraph.dailyAvg(data.points, $scope.margin);
+            LineGraph.dailyAvg(data, $scope.margin);
           });
       });
 
   };
+
+  $scope.$on('reload', function() {
+    console.log('trying to reload');
+    // $state.reload();
+    $state.transitionTo($state.current, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true
+    });
+  })
 
   // $scope.clickGraph = function(event) {
   //   console.log(event);
