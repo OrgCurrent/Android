@@ -5,6 +5,10 @@
 </p>
 
 <button class="button button-balanced button-block" ng-click="checkVerification()">{{ verStatus }}</button>
+<div ng-show="error" class="error">
+  We're sorry, your email has not been verified yet.
+</div>
+
 
 <button class="button button-dark button-block" ng-click="resendVerification()">{{ resentStatus }}</button>
 
