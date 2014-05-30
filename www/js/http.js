@@ -14,7 +14,7 @@ angular.module('services', [])
         url: 'user/add/' + username + '/' + domain,
         data: JSON.stringify({email: username + '@' + domain}),
         headers: {'Content-Type': 'application/json'}
-      })
+      });
     },
     sendScore: function(username, domain, score) {
       var data = {
@@ -26,13 +26,13 @@ angular.module('services', [])
         url: 'user/score/' + username + '/' + domain,
         data: JSON.stringify(data),
         headers: {'Content-Type': 'application/json'}
-      })
+      });
     },
     getScores: function(domain) {
       return $http({
         method: 'GET',
         url: 'domain/scores/' + domain,
-      })
+      });
     }
 
 

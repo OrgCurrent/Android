@@ -2,7 +2,7 @@ angular.module('app.opinion', [
   'graph',
   'services'
   ])
-.controller('OpinionCtrl', function($scope, $ionicModal, HttpFactory, CircleGraph) {
+.controller('OpinionCtrl', function($scope, $ionicModal, HttpFactory, CircleGraph, LineGraph) {
   console.log('opinion');
   $scope.$emit('opinion');
 
@@ -10,9 +10,17 @@ angular.module('app.opinion', [
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 25};
   console.log($scope.margin);
 
+  $scope.$on('status', function(event, data) {
+    console.log(event, data);
+    $scope.$apply(function() {
+      $scope.percentDone = data;
+    });
+  });
+  
+  $scope.percentDone = 0;
+
   $scope.submit = function() {
     $scope.clickSubmitted = true;
-    // $scope.percentDone = 50;
     var username = $scope.username || 'AJ';
     var domain = $scope.domain || 'test.com';
     console.log($scope.clickData);
@@ -20,7 +28,8 @@ angular.module('app.opinion', [
       .success(function() {
         HttpFactory.getScores(domain)
           .success(function(data) {
-            CircleGraph.dailyAvg(data.points, $scope.margin);
+            // CircleGraph.dailyAvg(data.points, $scope.margin);
+            LineGraph.dailyAvg(data.points, $scope.margin);
           });
       });
 
