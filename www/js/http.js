@@ -1,37 +1,58 @@
+// app.get('/user/add/:user/:domain', route.addUser);
+
+// app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
+// app.get('/user/verified/:user/:domain', route.getVerificationStatus);
+
+// app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
+// app.get('/domain/data/:domain', route.getDomainData);
+//http://graphs.delimited.io/domain/data/spacewalking.com
+
+// don't worry about 
+// app.get('/user/verification/:code', route.verifyUserEmail);
+// app.get('/user/data/:user/:domain', route.getUserData);
+
+//http://graphs.delimited.io/user/verified/andrew/spacewalking.com
+
 angular.module('services', [])
 
 .factory('HttpFactory', function($http) {
   return {
+    // app.get('/user/verified/:user/:domain', route.getVerificationStatus);
     verify: function(username, domain) {
-      $http({
-        url: 'user/verified/username/domain',
+      return $http({
+        url: 'http://graphs.delimited.io/user/verified/' + username + '/' + domain,
         method: 'GET',
       })
     },
+    // app.get('/user/add/:user/:domain', route.addUser);
     sendEmail: function(username, domain) {
       return $http({
-        method: 'POST',
-        url: 'user/add/' + username + '/' + domain,
-        data: JSON.stringify({email: username + '@' + domain}),
+        method: 'GET',
+        url: 'http://graphs.delimited.io/user/add/' + username + '/' + domain,
         headers: {'Content-Type': 'application/json'}
       });
     },
-    sendScore: function(username, domain, score) {
-      var data = {
-        email: username + '@' + domain,
-        score: score
-      };
+    // app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
+    resendEmail: function(username, domain) {
       return $http({
-        method: 'POST',
-        url: 'user/score/' + username + '/' + domain,
-        data: JSON.stringify(data),
+        method: 'GET',
+        url: 'http://graphs.delimited.io/user/resend/' + username + '/' + domain,
         headers: {'Content-Type': 'application/json'}
       });
     },
+    // app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
+    sendScore: function(username, domain, score) {
+      return $http({
+        method: 'GET',
+        url: 'http://graphs.delimited.io/user/score/' + username + '/' + domain + '/' + score.x + '/' + score.y,
+        headers: {'Content-Type': 'application/json'}
+      });
+    },
+    // app.get('/domain/data/:domain', route.getDomainData);
     getScores: function(domain) {
       return $http({
         method: 'GET',
-        url: 'domain/scores/' + domain,
+        url: 'http://graphs.delimited.io/user/verified/domain/scores/' + domain,
       });
     }
 

@@ -23,7 +23,7 @@ angular.module('graph', [])
       // send the click coordinates back up to controller scope
       scope.$apply(function() {
         var coords = clickPos;
-        scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
+        scope.selectedPoint = [100 * ((coords[0] - xMin) / (xMax - xMin)), 100 * ((yMin - coords[1]) / (yMin - yMax))];
       });
 
               
@@ -119,7 +119,7 @@ angular.module('graph', [])
       .orient('left')
 
     // Actual x-axis
-    svg.append('g').call(xAxis.tickValues([0,5,10])).attr({
+    svg.append('g').call(xAxis.tickValues([0,50,100])).attr({
       transform: 'translate(0,' + height + ')',
       class: 'x axis'
       })
@@ -146,7 +146,7 @@ angular.module('graph', [])
       });
     
     // Actual y-axis
-    svg.append('g').call(yAxis.tickValues([5,10])).attr({
+    svg.append('g').call(yAxis.tickValues([50,100])).attr({
         transform: 'translate(' + margin.left + ', 0)',
         class: 'y axis'
       })
@@ -193,9 +193,12 @@ angular.module('graph', [])
   }
 })
 
-.factory('CircleGraph', function() {
+.factory('CircleGraph', function($rootScope) {
   return {
     dailyAvg: function(data, margin) {
+      // console.log(this.day);
+      var totalDays = data.length;
+      var status = 0;
 
       var animate = function(data) {
         var svg = d3.select('svg');
@@ -211,12 +214,12 @@ angular.module('graph', [])
 
         // scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
         var translateX = function(x) {
-          return (xMin + x/10 * (xMax - xMin));
+          return (xMin + x/100 * (xMax - xMin));
         }
 
         // y inverted
         var translateY = function(y) {
-          return (yMax + y/10 * (yMin - yMax));
+          return (yMax + y/100 * (yMin - yMax));
         }
 
 
@@ -251,13 +254,89 @@ angular.module('graph', [])
           .remove();
 
         setTimeout(function() {
+          status += (100 * 1./totalDays);
+          $rootScope.$broadcast('status', status);
           if (data.length > 0) {
             animate(data);
           }
-        }, 1100);
+        }.bind(this), 1100);
       };
 
       animate(data);
     }
   }
-});
+})
+
+.factory('LineGraph', function($rootScope) {
+  return {
+    dailyAvg: function(data, margin) {
+      // console.log(this.day);
+      var totalDays = data.length;
+      var status = 0;
+
+      var animate = function(data) {
+        var svg = d3.select('svg');
+
+        // translate data into correct pixels
+        var width = svg[0][0].clientWidth - margin.left;
+        var height = svg[0][0].clientHeight - margin.bottom;
+
+        var xMin = margin.left;
+        var xMax = width;
+        var yMin = height;
+        var yMax = margin.top;
+
+        // scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
+        var translateX = function(x) {
+          return (xMin + x/100 * (xMax - xMin));
+        }
+
+        // y inverted
+        var translateY = function(y) {
+          return (yMax + y/100 * (yMin - yMax));
+        }
+
+
+        // data join
+        var others = svg.selectAll("circle.others")
+          .data(data.shift())
+        
+        // update
+        others.transition().duration(1000)
+          .attr({
+            cx: function(d) { return translateX(d[0]); },
+            cy: function(d) { return translateY(d[1]); }
+          });
+
+        // enter
+        others.enter()
+          .append("circle")
+          .attr({
+            class: 'others',
+            cx: function(d) { return translateX(d[0]); },
+            cy: function(d) { return translateY(d[1]); },
+            r: 0,
+            fill: 'black'
+          })
+            .transition()
+          .attr('r', 5);
+
+        // exit
+        others.exit()
+            .transition()
+          .attr({r: 0})
+          .remove();
+
+        setTimeout(function() {
+          status += (100 * 1./totalDays);
+          $rootScope.$broadcast('status', status);
+          if (data.length > 0) {
+            animate(data);
+          }
+        }.bind(this), 1100);
+      };
+
+      animate(data);
+    }
+  }
+});;

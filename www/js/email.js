@@ -8,16 +8,14 @@ angular.module('app.email', [
   $scope.submitted = false;
   $scope.email = {};
 
-$scope.email.userInput
-
   $scope.sendEmail = function() {
     if($scope.email_form.$valid) {
       
-      $scope.email.username = $scope.email.userInput.split('@')[0]
-      $scope.email.domain = $scope.email.userInput.split('@')[1]
+      var username = $scope.email.userInput.split('@')[0]
+      var domain = $scope.email.userInput.split('@')[1]
 
       console.log('sent ', $scope.email.userInput); // 'keith@email.com'
-      HttpFactory.sendEmail($scope.email.username, $scope.email.domain)
+      HttpFactory.sendEmail(username, domain)
        .success(function(data, status, headers, config) { 
           // called when response is ready
           console.log('success!');
@@ -25,7 +23,24 @@ $scope.email.userInput
                     + '\nstatus: ', status
                     + '\nheaders:', headers
                     + '\nconfig:', config);
-          $state.go('home.verify');
+          if (data.status === 'new') {
+            $state.go('home.verify');
+          } else if (data.status === 'existing') {
+            HttpFactory.verify(username, domain)
+              .success(function(data) { 
+                if (data.status === true) {
+                  $state.go('home.opinion');
+                } else {
+                  HttpFactory.resendEmail(username,domain)
+                    .success(function() {
+                      $state.go('home.verify');
+                    })
+                    .error(function(data) {
+                      console.log('error', data);
+                    })
+                }
+              })
+          }
       })
       .error(function(data, status, headers, config) { // This is called when the response
           // comes back with an error status
