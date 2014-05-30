@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var http = require('http');
-var route = require('./routes.js');
+//var route = require('./routes.js');
 
 	// data = require('./routes.js');
 
@@ -84,15 +84,15 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.post('/user/add/:user/:domain', route.addUser);
-app.get('/user/data/:user/:domain', route.getUserData);
+// app.post('/user/add/:user/:domain', route.addUser);
+// app.get('/user/data/:user/:domain', route.getUserData);
 
-app.get('/user/verification/:code', route.verifyUserEmail);
-app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
-app.get('/user/verified/:user/:domain', route.getVerificationStatus);
+// app.get('/user/verification/:code', route.verifyUserEmail);
+// app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
+// app.get('/user/verified/:user/:domain', route.getVerificationStatus);
 
-app.post('/user/score/:user/:domain/:x/:y', route.addUserScore);
-app.get('/domain/data/:domain', route.getDomainData);
+// app.post('/user/score/:user/:domain/:x/:y', route.addUserScore);
+// app.get('/domain/data/:domain', route.getDomainData);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log("Express server listening on port " + app.get('port'));

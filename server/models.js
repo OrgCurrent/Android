@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema   = mongoose.Schema;
 
-mongoose.connect('mongodb://localhost');
+mongoose.connect('http://graphs.delimited.io/domain/data/spacewalking.com');
 
 var scoreSchema = new Schema({
   x: Number,

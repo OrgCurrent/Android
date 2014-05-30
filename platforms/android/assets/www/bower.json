@@ -1,0 +1,19 @@
+{
+  "name": "www",
+  "version": "0.0.0",
+  "homepage": "https://github.com/OrgCurrent/Android",
+  "authors": [
+    "Andrew Jones <acjones617@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.4.8"
+  }
+}

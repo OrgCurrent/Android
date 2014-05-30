@@ -40,14 +40,14 @@ exports.verifyUserEmail = function (req, res) {
 
 exports.addUser = function (req, res) {
   promise.addUser(req.param("user"), req.param("domain")).then(function (result) {
-    if (result.status === 'new' && SEND_MAIL) {
+    if (result.status === 'existing' && SEND_MAIL) {
       promise.sendVerifyMail(result.data).then(function () {
         res.send(200, {status: 'new'});
       }, function (e) {
         res.send(500, e);
       });
     } else {
-      res.send(200, {status: result.status});
+      res.send(200, result);
     }
     }, function (e) {
       res.send(500, e);
