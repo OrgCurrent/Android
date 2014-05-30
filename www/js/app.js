@@ -25,7 +25,9 @@ angular.module('app', [
 })
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
   $stateProvider
     .state('home', {
       url: '/',
@@ -51,7 +53,7 @@ angular.module('app', [
   $urlRouterProvider.otherwise('/email');
 })
 
-.controller('HomeCtrl', function($scope) {
+.controller('HomeCtrl', function($scope, $state) {
   console.log('we be home');
 
   $scope.$on("email", function(event, user) {
@@ -70,8 +72,18 @@ angular.module('app', [
   
   $scope.$on("opinion", function(event, user) {
     $scope.verified = true;
-    // $scope.email = '';
-    // $scope.verify = '';
-    // $scope.opinion = 'button-balanced';
+    $scope.completed = false;
   });
+
+  $scope.$on("complete", function(event) {
+    $scope.$apply(function() {
+      $scope.completed = true;
+    });
+
+  $scope.refresh = function() {
+    $scope.$broadcast('reload');
+    // $state.reload();
+  }
+
+  })
 })

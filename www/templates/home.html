@@ -16,13 +16,14 @@
 
   <ion-content class="main-content has-header has-footer">
       <ion-nav-view animation="slide-left-right"> </ion-nav-view>
-      <!-- <ion-nav-view> </ion-nav-view> -->
-
   </ion-content>
 
 </ion-pane>
 
 <ion-footer-bar class="bar bar-footer bar-balanced">
+  <div class="button-bar" ng-show="completed" ng-click="refresh()">
+    <a class="button reset">Reset</a>
+  </div>
 </ion-footer-bar>
 
  <!-- 
