@@ -1,6 +1,7 @@
 var express = require('express'),
     path    = require('path'),
     http    = require('http'),
+    cors    = require('cors'),
     route   = require('./routes.js');
 
 var app = express();
@@ -8,6 +9,7 @@ var app = express();
 app.configure(function () {
   app.set('port', process.env.PORT || 4000);
   app.use(express.compress());
+  app.use(cors())
   app.use(express.logger('tiny')); // 'default', 'short', 'tiny', 'dev'
   app.use(express.bodyParser()),
   app.use(express.static(path.join(__dirname, '../client')));
