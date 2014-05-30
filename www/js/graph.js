@@ -24,6 +24,7 @@ angular.module('graph', [])
       scope.$apply(function() {
         var coords = clickPos;
         scope.selectedPoint = [100 * ((coords[0] - xMin) / (xMax - xMin)), 100 * ((yMin - coords[1]) / (yMin - yMax))];
+        console.log(scope.selectedPoint);
       });
 
               
@@ -100,13 +101,13 @@ angular.module('graph', [])
     var yMax = margin.top;
 
     var xScale = d3.scale.linear()
-      .domain([0, 10])
+      .domain([0, 100])
       //rangeX is left coord, rangeY is right coord
       .range([xMin, xMax]);
 
 
     var yScale = d3.scale.linear()
-      .domain([0, 10])
+      .domain([0, 100])
       // rangeX is bottom coord, rangeY is top coord
       .range([yMin, yMax]);
 
@@ -192,151 +193,3 @@ angular.module('graph', [])
     scope: {selectedPoint: '=', submitted: '=', coordinates: '=', margin: '='}
   }
 })
-
-.factory('CircleGraph', function($rootScope) {
-  return {
-    dailyAvg: function(data, margin) {
-      // console.log(this.day);
-      var totalDays = data.length;
-      var status = 0;
-
-      var animate = function(data) {
-        var svg = d3.select('svg');
-
-        // translate data into correct pixels
-        var width = svg[0][0].clientWidth - margin.left;
-        var height = svg[0][0].clientHeight - margin.bottom;
-
-        var xMin = margin.left;
-        var xMax = width;
-        var yMin = height;
-        var yMax = margin.top;
-
-        // scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
-        var translateX = function(x) {
-          return (xMin + x/100 * (xMax - xMin));
-        }
-
-        // y inverted
-        var translateY = function(y) {
-          return (yMax + y/100 * (yMin - yMax));
-        }
-
-
-        // data join
-        var others = svg.selectAll("circle.others")
-          .data(data.shift())
-        
-        // update
-        others.transition().duration(1000)
-          .attr({
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); }
-          });
-
-        // enter
-        others.enter()
-          .append("circle")
-          .attr({
-            class: 'others',
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); },
-            r: 0,
-            fill: 'black'
-          })
-            .transition()
-          .attr('r', 5);
-
-        // exit
-        others.exit()
-            .transition()
-          .attr({r: 0})
-          .remove();
-
-        setTimeout(function() {
-          status += (100 * 1./totalDays);
-          $rootScope.$broadcast('status', status);
-          if (data.length > 0) {
-            animate(data);
-          }
-        }.bind(this), 1100);
-      };
-
-      animate(data);
-    }
-  }
-})
-
-.factory('LineGraph', function($rootScope) {
-  return {
-    dailyAvg: function(data, margin) {
-      // console.log(this.day);
-      var totalDays = data.length;
-      var status = 0;
-
-      var animate = function(data) {
-        var svg = d3.select('svg');
-
-        // translate data into correct pixels
-        var width = svg[0][0].clientWidth - margin.left;
-        var height = svg[0][0].clientHeight - margin.bottom;
-
-        var xMin = margin.left;
-        var xMax = width;
-        var yMin = height;
-        var yMax = margin.top;
-
-        // scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
-        var translateX = function(x) {
-          return (xMin + x/100 * (xMax - xMin));
-        }
-
-        // y inverted
-        var translateY = function(y) {
-          return (yMax + y/100 * (yMin - yMax));
-        }
-
-
-        // data join
-        var others = svg.selectAll("circle.others")
-          .data(data.shift())
-        
-        // update
-        others.transition().duration(1000)
-          .attr({
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); }
-          });
-
-        // enter
-        others.enter()
-          .append("circle")
-          .attr({
-            class: 'others',
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); },
-            r: 0,
-            fill: 'black'
-          })
-            .transition()
-          .attr('r', 5);
-
-        // exit
-        others.exit()
-            .transition()
-          .attr({r: 0})
-          .remove();
-
-        setTimeout(function() {
-          status += (100 * 1./totalDays);
-          $rootScope.$broadcast('status', status);
-          if (data.length > 0) {
-            animate(data);
-          }
-        }.bind(this), 1100);
-      };
-
-      animate(data);
-    }
-  }
-});;
