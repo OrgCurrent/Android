@@ -1,8 +1,8 @@
-var Promise   = require("bluebird"),
-    uuid      = require("node-uuid"),
-    templates = require("email-templates"),
-    DB        = require("./models"),
-    config    = require("./server_config/config");
+var Promise = require("bluebird");
+var uuid = require("node-uuid");
+var templates = require("email-templates");
+var DB = require("./models");
+var config    = require("./server_config/config");
 
 exports.verifyUser = function (code) {
   return new Promise (function (pass, fail) {
