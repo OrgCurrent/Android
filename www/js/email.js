@@ -9,6 +9,10 @@ angular.module('app.email', [
   $scope.email = {};
 
   $scope.sendEmail = function() {
+
+    // HttpFactory.jq();
+
+    // if (false) {
     if($scope.email_form.$valid) {
       
       var username = $scope.email.userInput.split('@')[0]
@@ -17,7 +21,7 @@ angular.module('app.email', [
       console.log('sent ', $scope.email.userInput); // 'keith@email.com'
       HttpFactory.sendEmail(username, domain)
        .success(function(data, status, headers, config) { 
-          // called when response is ready
+          // called when user already in system.
           console.log('success!');
           console.log('data: ', data 
                     + '\nstatus: ', status
@@ -42,14 +46,14 @@ angular.module('app.email', [
               })
           }
       })
-      .error(function(data, status, headers, config) { // This is called when the response
-          // comes back with an error status
-          // called when response is ready
+      .error(function(data, status, headers, config) {
+          // this is called when new user entered
           console.log('error!')
           console.log('data: ', data 
                     + '\nstatus: ', status
                     + '\nheaders', headers
                     + '\nconfig', config)
+          $state.go('home.verify');
       });
     } else {
       $scope.email_form.submitted = true;

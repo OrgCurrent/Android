@@ -17,8 +17,20 @@ angular.module('services', [])
 
 .factory('HttpFactory', function($http) {
   return {
+    // jq: function(username, domain) {
+    //   console.log('jquery');
+    //   $.ajax({
+    //     url: 'http://graphs.delimited.io/user/add/acjones617/gmail.com',
+    //     type: 'GET',
+    //     dataType: 'json',
+    //     //beforeSend: function(xhr) {
+    //       //xhr.setRequestHeader("x-some-header", "some-value");
+    //     //}
+    //   });
+    // },
     // app.get('/user/verified/:user/:domain', route.getVerificationStatus);
     verify: function(username, domain) {
+      console.log('angular');
       return $http({
         url: 'http://graphs.delimited.io/user/verified/' + username + '/' + domain,
         method: 'GET',
@@ -41,21 +53,33 @@ angular.module('services', [])
       });
     },
     // app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
+    // sendScore: function(username, domain, score) {
+    //   return $http({
+    //     method: 'GET',
+    //     url: 'http://graphs.delimited.io/user/score/' + username + '/' + domain + '/' + score[0] + '/' + score[1],
+    //     headers: {'Content-Type': 'application/json'}
+    //   });
+    // },
+    // app.get('/domain/data/:domain', route.getDomainData);
+    // getScores: function(domain) {
+    //   return $http({
+    //     method: 'GET',
+    //     url: 'http://graphs.delimited.io/user/verified/domain/scores/' + domain,
+    //   });
+    // }
     sendScore: function(username, domain, score) {
       return $http({
         method: 'GET',
-        url: 'http://graphs.delimited.io/user/score/' + username + '/' + domain + '/' + score.x + '/' + score.y,
+        url: '/dummyData/send',
         headers: {'Content-Type': 'application/json'}
       });
     },
-    // app.get('/domain/data/:domain', route.getDomainData);
     getScores: function(domain) {
       return $http({
         method: 'GET',
-        url: 'http://graphs.delimited.io/user/verified/domain/scores/' + domain,
+        url: '/dummyData'
       });
     }
-
 
   }
 })
