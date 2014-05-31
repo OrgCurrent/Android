@@ -23,7 +23,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 $font-stack: Helvetica, sans-serif;
 $font-color: $dark;
-$dark-green: $dark;
+$light-primary: lighten( $balanced, 20% );
+$dark-primary: darken( $balanced, 20% );
 
 .main-content {
   background-color: $stable;
@@ -33,7 +34,7 @@ $dark-green: $dark;
 }
 
 .active-tab {
-  background-color: $dark-green;
+  background-color: $dark-primary;
 }
 
 .app-flow {
@@ -83,4 +84,8 @@ $dark-green: $dark;
   fill: none;
   stroke: $dark;
   stroke-width: 2;
+}
+
+progress {
+  margin: 0;
 }

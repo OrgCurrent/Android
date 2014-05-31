@@ -6448,7 +6448,7 @@ a.button {
   color: #444; }
 
 .active-tab {
-  background-color: #444; }
+  background-color: #3f7a1f; }
 
 .app-flow {
   text-align: center;
@@ -6489,3 +6489,6 @@ a.button {
   fill: none;
   stroke: #444;
   stroke-width: 2; }
+
+progress {
+  margin: 0; }
