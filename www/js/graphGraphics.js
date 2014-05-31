@@ -1,6 +1,7 @@
 angular.module('graphics', [])
 
-.factory('CircleGraph', function($rootScope) {
+.factory('CircleGraph', ['$rootScope', 
+  function($rootScope) {
   return {
     dailyAvg: function(data, margin) {
 
@@ -96,9 +97,10 @@ angular.module('graphics', [])
       animate(data);
     }
   }
-})
+}])
 
-.factory('LineGraph', function($rootScope) {
+.factory('LineGraph', ['$rootScope', 
+  function($rootScope) {
   return {
     dailyAvg: function(data, margin) {
       var recentScores = [];
@@ -310,4 +312,4 @@ angular.module('graphics', [])
       animate(avgScores);
     }
   }
-});
+}]);

@@ -2,7 +2,8 @@ angular.module('app.verify', [
   'services'
   ])
 
-.controller('VerifyCtrl', function($scope, $rootScope, $state, HttpFactory) {
+.controller('VerifyCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
+  function($scope, $rootScope, $state, HttpFactory) {
   console.log('verify');
   $scope.$emit('verify');
   $scope.verStatus = 'Check Verification Status';
@@ -44,4 +45,4 @@ angular.module('app.verify', [
       })
   };
 
-})
+}]);

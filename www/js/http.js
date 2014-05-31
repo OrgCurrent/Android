@@ -15,7 +15,7 @@
 
 angular.module('services', [])
 
-.factory('HttpFactory', function($http) {
+.factory('HttpFactory', ['$http', function($http) {
   return {
     // jq: function(username, domain) {
     //   console.log('jquery');
@@ -94,4 +94,4 @@ angular.module('services', [])
     }
 
   }
-})
+}]);

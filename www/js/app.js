@@ -12,7 +12,8 @@ angular.module('app', [
   'services'
   ])
 
-.run(function($ionicPlatform) {
+.run(['$ionicPlatform', 
+  function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,10 +24,11 @@ angular.module('app', [
       StatusBar.styleDefault();
     }
   });
-})
+}])
 
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 
+  function($stateProvider, $urlRouterProvider, $httpProvider) {
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   $stateProvider
@@ -57,10 +59,10 @@ angular.module('app', [
     })
 
   $urlRouterProvider.otherwise('/loading');
-})
+}])
 
-.controller('HomeCtrl', function($scope, $rootScope, $state, HttpFactory) {
-  console.log('we be home');
+.controller('HomeCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
+  function($scope, $rootScope, $state, HttpFactory) {
 
   HttpFactory.getUser()
     .success(function(data) {
@@ -119,4 +121,4 @@ angular.module('app', [
   }
 
   })
-})
+}]);

@@ -2,7 +2,8 @@ angular.module('app.email', [
   'services'
   ])
 
-.controller('EmailCtrl', function($scope, $rootScope, $http, HttpFactory, $state){
+.controller('EmailCtrl', ['$scope', '$rootScope', '$http', 'HttpFactory', '$state',
+  function($scope, $rootScope, $http, HttpFactory, $state){
   console.log('email');
   $scope.$emit('email');
   $scope.submitted = false;
@@ -83,4 +84,4 @@ angular.module('app.email', [
       $scope.email_form.submitted = true;
     }
   }
-})
+}]);

@@ -3,7 +3,8 @@ angular.module('app.opinion', [
   'graphics',
   'services'
   ])
-.controller('OpinionCtrl', function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, CircleGraph, LineGraph) {
+.controller('OpinionCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'CircleGraph', 'LineGraph',
+ function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, CircleGraph, LineGraph) {
   $scope.$emit('opinion');
   $scope.coworkers = [{email: ''}];
 
@@ -84,4 +85,4 @@ angular.module('app.opinion', [
     $scope.coworkers = [{email: ''}];
   }
     
-});
+}]);
