@@ -8,7 +8,8 @@ angular.module('app', [
   'ui.router',
   'app.email',
   'app.verify',
-  'app.opinion'
+  'app.opinion',
+  'services'
   ])
 
 .run(function($ionicPlatform) {
@@ -34,6 +35,11 @@ angular.module('app', [
       templateUrl: 'templates/home.html',
       controller: 'HomeCtrl'
     })
+    .state('home.loading', {
+      url: 'loading',
+      templateUrl: 'templates/loading.html',
+      controller: 'EmailCtrl'
+    })
     .state('home.email', {
       url: 'email',
       templateUrl: 'templates/email.html',
@@ -50,11 +56,38 @@ angular.module('app', [
       controller: 'OpinionCtrl'
     })
 
-  $urlRouterProvider.otherwise('/email');
+  $urlRouterProvider.otherwise('/loading');
 })
 
-.controller('HomeCtrl', function($scope, $state) {
+.controller('HomeCtrl', function($scope, $rootScope, $state, HttpFactory) {
   console.log('we be home');
+
+  HttpFactory.getUser()
+    .success(function(data) {
+      HttpFactory.verify(data.username, data.domain)
+        .success(function(verifyData) {
+          // set up username/domain data. In future, this will pull from local storage
+          $rootScope.username = data.username;
+          $rootScope.domain = data.domain;
+          console.log(data);
+          // user not verified
+          if (verifyData.status === false) {
+            $state.go('home.verify');
+          }
+          // user is verified
+          else if (verifyData.status === true) {
+            $state.go('home.opinion');
+          }
+        })
+        .error(function() {
+          // user not found
+          $state.go('home.email');
+        });
+    })
+    .error(function() {
+      // no user data in system yet
+      $state.go('home.email');
+    });
 
   $scope.$on("email", function(event, user) {
     $scope.verified = false;
