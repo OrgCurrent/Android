@@ -13,8 +13,12 @@
          That is not a valid email. Please input a valid email.
       </small>
       <small class="error"
-        ng-show="email_form.email.$error.unique">
-         That email is taken, please try another.
+        ng-show="notUnique">
+         That email is already in use.
+      </small>
+      <small class="error"
+        ng-show="serverError">
+         Sorry, there was an error on our end. Please try again.
       </small>
     </div>
     <div class="list list-inset">
