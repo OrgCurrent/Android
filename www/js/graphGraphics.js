@@ -135,7 +135,7 @@ angular.module('graphics', [])
       }
       // avgScores now contains avg score of most 3 recent scores.
       // TEMP FOR TESTING
-      // avgScores = [[50,50],[20,30],[70,90],[40,5]];
+      // avgScores = [[50,50],[20,30],[70,90],[40,5]]; 
       // TEMP FOR TESTING
 
       var dataPoints = avgScores.length;
@@ -223,10 +223,7 @@ angular.module('graphics', [])
           .tween('ripple', function(d, i) {
             console.log('tween', d, i, this);
             return function() {
-              // console.log('tween', this.attr('cx'), this.attr('cy'), ripples);
-              console.log(this, this.cx, this.cy)
               ripples([this.cx.animVal.value, this.cy.animVal.value]);
-              // ripples(100, 100);
             }.bind(this)
           })
           .attr({
@@ -239,7 +236,7 @@ angular.module('graphics', [])
           .append("circle")
           .attr({
             class: 'others',
-            cx: function(d) {console.log(d); return translateX(d[0]); },
+            cx: function(d) { return translateX(d[0]); },
             cy: function(d) { return translateY(d[1]); },
             r: 0,
             fill: 'black'
