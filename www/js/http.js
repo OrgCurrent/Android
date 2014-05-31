@@ -30,7 +30,6 @@ angular.module('services', [])
     // },
     // app.get('/user/verified/:user/:domain', route.getVerificationStatus);
     verify: function(username, domain) {
-      console.log('angular');
       return $http({
         url: 'http://graphs.delimited.io/user/verified/' + username + '/' + domain,
         method: 'GET',
@@ -52,32 +51,45 @@ angular.module('services', [])
         headers: {'Content-Type': 'application/json'}
       });
     },
-    // app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
-    // sendScore: function(username, domain, score) {
-    //   return $http({
-    //     method: 'GET',
-    //     url: 'http://graphs.delimited.io/user/score/' + username + '/' + domain + '/' + score[0] + '/' + score[1],
-    //     headers: {'Content-Type': 'application/json'}
-    //   });
-    // },
-    // app.get('/domain/data/:domain', route.getDomainData);
-    // getScores: function(domain) {
-    //   return $http({
-    //     method: 'GET',
-    //     url: 'http://graphs.delimited.io/user/verified/domain/scores/' + domain,
-    //   });
-    // }
+    //app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
     sendScore: function(username, domain, score) {
       return $http({
         method: 'GET',
-        url: '/dummyData/send',
+        url: 'http://graphs.delimited.io/user/score/' + username + '/' + domain + '/' + score[0] + '/' + score[1],
         headers: {'Content-Type': 'application/json'}
       });
     },
+    //app.get('/domain/data/:domain', route.getDomainData);
     getScores: function(domain) {
       return $http({
         method: 'GET',
-        url: '/dummyData'
+        url: 'http://graphs.delimited.io/domain/data/' + domain,
+      });
+    },
+    // sendScore: function(username, domain, score) {
+    //   return $http({
+    //     method: 'GET',
+    //     url: '/dummyData/send',
+    //     headers: {'Content-Type': 'application/json'}
+    //   });
+    // },
+    // getScores: function(domain) {
+    //   return $http({
+    //     method: 'GET',
+    //     url: '/dummyData'
+    //   });
+    // }
+    getUser: function() {
+      return $http({
+        method: 'GET',
+        url: '/userInfo'
+      });
+    },
+    postUser: function(username, domain) {
+      return $http({
+        data: JSON.stringify({username: username, domain: domain}),
+        method: 'POST',
+        url: '/userInfo'
       });
     }
 
