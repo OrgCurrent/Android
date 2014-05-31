@@ -2,7 +2,6 @@ angular.module('graph', [])
 
 .directive('happyGraph', function() {
   var link = function(scope, element, attr) {
-    console.log('hello world');
     var initR = 10;
     var r = 400;
     var thickness = 10;
@@ -126,9 +125,10 @@ angular.module('graph', [])
       })
       .append('text')
       .attr({
-        x: margin.left + 40,
-        dy: -margin.bottom + 10,
-        'font-size': 12
+        'text-anchor': 'start',
+        x: margin.left + 20,
+        y: -(margin.bottom - 10),
+        'font-size': 10
       })
       // .style('text-anchor', 'end')
       .text(scope.coordinates.x);
@@ -154,11 +154,11 @@ angular.module('graph', [])
       .append('text')
       .attr({
         transform: 'rotate(-90)',
-        dx: -2*margin.bottom,
-        dy: margin.left - 10,
-        'font-size': 12
+        'text-anchor': 'start',
+        x: -(height - margin.bottom),
+        y: margin.left - 15,
+        'font-size': 10
       })
-      .style("text-anchor", "end")
       .text(scope.coordinates.y);
 
     // y-axis right
@@ -179,7 +179,6 @@ angular.module('graph', [])
 
     // watch for submitted - when submitted, turn off listeners for mouseup, mousedown
     scope.$watch('submitted', function(newValue, oldValue) {
-      console.log('submitted changed', newValue, oldValue);
       if (newValue) {
         svg.on("mousedown", null)
           .on("mouseup", null);
