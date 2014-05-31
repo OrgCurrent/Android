@@ -2,21 +2,23 @@ angular.module('app.verify', [
   'services'
   ])
 
-.controller('VerifyCtrl', function($scope, $state, HttpFactory) {
+.controller('VerifyCtrl', function($scope, $rootScope, $state, HttpFactory) {
   console.log('verify');
   $scope.$emit('verify');
   $scope.verStatus = 'Check Verification Status';
   $scope.resentStatus = 'Resend Verification Email'
+  // temporary for testing - will put actual local memory calls here in future.
+  var username = $rootScope.username;
+  var domain = $rootScope.domain;
   
   $scope.checkVerification = function() {
     $scope.verStatus = 'Checking...';
-    var username = 'test'
-    var domain = 'test.com'
     HttpFactory.verify(username, domain)
-      .success(function(result) {
-        if (result.state === true) {
+      .success(function(verifyData) {
+        if (verifyData.status === true) {
+          console.log('verified true');
           $state.go('home.opinion');
-        } else {
+        } else if (verifyData.status === false) {
           $scope.error = true;
           $scope.verStatus = 'Check Verification Status';
         }
@@ -32,6 +34,14 @@ angular.module('app.verify', [
 
   $scope.resendVerification = function() {
     $scope.resentStatus = 'Resent...';
+    HttpFactory.resendEmail(username, domain)
+      .success(function() {
+        $scope.resentStatus = 'Resend Verification Email';
+      })
+      .error(function() {
+        $scope.error = true;
+        $scope.resentStatus = 'Resend Verification Email';
+      })
   };
 
 })
