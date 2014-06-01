@@ -64,32 +64,28 @@ angular.module('app', [
 .controller('HomeCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
   function($scope, $rootScope, $state, HttpFactory) {
 
-  HttpFactory.getUser()
-    .success(function(data) {
-      HttpFactory.verify(data.username, data.domain)
-        .success(function(verifyData) {
-          // set up username/domain data. In future, this will pull from local storage
-          $rootScope.username = data.username;
-          $rootScope.domain = data.domain;
-          console.log(data);
-          // user not verified
-          if (verifyData.status === false) {
-            $state.go('home.verify');
-          }
-          // user is verified
-          else if (verifyData.status === true) {
-            $state.go('home.opinion');
-          }
-        })
-        .error(function() {
-          // user not found
-          $state.go('home.email');
-        });
-    })
-    .error(function() {
-      // no user data in system yet
-      $state.go('home.email');
-    });
+  var local = window.localStorage;
+
+  if (local.getItem('username')) {
+    HttpFactory.verify(local.getItem('username'), local.getItem('domain'))
+      .success(function(verifyData) {
+        // user not verified
+        if (verifyData.status === false) {
+          $state.go('home.verify');
+        }
+        // user is verified
+        else if (verifyData.status === true) {
+          $state.go('home.opinion');
+        }
+      })
+      .error(function() {
+        // user not found
+        $state.go('home.email');
+      });
+  } else {
+    // no user on this app yet
+    $state.go('home.email');
+  }
 
   $scope.$on("email", function(event, user) {
     $scope.verified = false;
