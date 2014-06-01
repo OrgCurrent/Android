@@ -1,0 +1,216 @@
+2014-06-01 09:52:08.484 HelloCordova[15369:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-01 09:52:08.529 HelloCordova[15369:70b] Unlimited access to network resources
+2014-06-01 09:52:08.754 HelloCordova[15369:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-01 09:52:08.755 HelloCordova[15369:70b] [CDVTimer][statusbar] 0.829995ms
+2014-06-01 09:52:08.756 HelloCordova[15369:70b] [CDVTimer][TotalPluginStartup] 1.354039ms
+2014-06-01 09:52:08.973 HelloCordova[15369:70b] Resetting plugins due to page load.
+2014-06-01 09:52:09.344 HelloCordova[15369:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7306F29B-A5CC-476F-9713-DCFD4F8297A2/HelloCordova.app/www/index.html#/loading
+2014-06-01 09:52:09.403 HelloCordova[15369:70b] email
+2014-06-01 09:52:09.403 HelloCordova[15369:70b] email
+2014-06-01 09:52:40.668 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:52:42.467 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:52:43.415 HelloCordova[15369:70b] success!
+2014-06-01 09:52:43.415 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:52:43.415 HelloCordova[15369:70b] success!
+2014-06-01 09:52:43.416 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:52:45.690 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:52:45.767 HelloCordova[15369:70b] success!
+2014-06-01 09:52:45.768 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:52:45.768 HelloCordova[15369:70b] existing
+2014-06-01 09:52:47.038 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:52:47.112 HelloCordova[15369:70b] success!
+2014-06-01 09:52:47.112 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:52:47.113 HelloCordova[15369:70b] existing
+2014-06-01 09:52:49.994 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:52:50.078 HelloCordova[15369:70b] success!
+2014-06-01 09:52:50.078 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:52:50.079 HelloCordova[15369:70b] existing
+2014-06-01 09:53:10.454 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:53:10.531 HelloCordova[15369:70b] success!
+2014-06-01 09:53:10.531 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:53:10.532 HelloCordova[15369:70b] existing
+2014-06-01 09:53:11.134 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:53:11.216 HelloCordova[15369:70b] success!
+2014-06-01 09:53:11.216 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:53:11.216 HelloCordova[15369:70b] existing
+2014-06-01 09:53:11.788 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:53:11.863 HelloCordova[15369:70b] success!
+2014-06-01 09:53:11.863 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:53:11.863 HelloCordova[15369:70b] existing
+2014-06-01 09:53:13.301 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:53:13.384 HelloCordova[15369:70b] success!
+2014-06-01 09:53:13.384 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:53:13.384 HelloCordova[15369:70b] existing
+2014-06-01 09:53:29.972 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 09:53:30.051 HelloCordova[15369:70b] success!
+2014-06-01 09:53:30.051 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 09:53:30.052 HelloCordova[15369:70b] existing
+2014-06-01 10:04:30.470 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 10:04:30.630 HelloCordova[15369:70b] success!
+2014-06-01 10:04:30.631 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 10:04:30.631 HelloCordova[15369:70b] existing
+2014-06-01 10:04:31.096 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 10:04:31.177 HelloCordova[15369:70b] success!
+2014-06-01 10:04:31.178 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 10:04:31.178 HelloCordova[15369:70b] existing
+2014-06-01 10:04:31.522 HelloCordova[15369:70b] sent  andrew@starwalker.com
+2014-06-01 10:04:31.599 HelloCordova[15369:70b] success!
+2014-06-01 10:04:31.599 HelloCordova[15369:70b] data:  [object Object]
+status:  200
+headers: function (name) {
+    if (!headersObj) headersObj =  parseHeaders(headers);
+
+    if (name) {
+      return headersObj[lowercase(name)] || null;
+    }
+
+    return headersObj;
+  }
+config: [object Object]
+2014-06-01 10:04:31.599 HelloCordova[15369:70b] existing
+2014-06-01 11:28:18.565 HelloCordova[16990:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-01 11:28:18.575 HelloCordova[16990:70b] Unlimited access to network resources
+2014-06-01 11:28:18.603 HelloCordova[16990:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-01 11:28:18.604 HelloCordova[16990:70b] [CDVTimer][statusbar] 0.593960ms
+2014-06-01 11:28:18.605 HelloCordova[16990:70b] [CDVTimer][TotalPluginStartup] 1.160026ms
+2014-06-01 11:28:18.675 HelloCordova[16990:70b] Resetting plugins due to page load.
+2014-06-01 11:28:18.949 HelloCordova[16990:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7306F29B-A5CC-476F-9713-DCFD4F8297A2/HelloCordova.app/www/index.html#/email
+2014-06-01 11:34:54.125 HelloCordova[17457:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-01 11:34:54.134 HelloCordova[17457:70b] Unlimited access to network resources
+2014-06-01 11:34:54.153 HelloCordova[17457:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-01 11:34:54.154 HelloCordova[17457:70b] [CDVTimer][statusbar] 0.594020ms
+2014-06-01 11:34:54.154 HelloCordova[17457:70b] [CDVTimer][TotalPluginStartup] 1.130998ms
+2014-06-01 11:34:54.220 HelloCordova[17457:70b] Resetting plugins due to page load.
+2014-06-01 11:34:54.480 HelloCordova[17457:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7306F29B-A5CC-476F-9713-DCFD4F8297A2/HelloCordova.app/www/index.html#/email

@@ -1,2 +1,2 @@
-/Users/user/Desktop/happyMeter/platforms/android/ant-build/AndroidManifest.xml : \
-/Users/user/Desktop/happyMeter/platforms/android/AndroidManifest.xml \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-build/AndroidManifest.xml : \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/AndroidManifest.xml \

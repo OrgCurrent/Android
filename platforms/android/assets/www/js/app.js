@@ -8,10 +8,12 @@ angular.module('app', [
   'ui.router',
   'app.email',
   'app.verify',
-  'app.opinion'
+  'app.opinion',
+  'services'
   ])
 
-.run(function($ionicPlatform) {
+.run(['$ionicPlatform', 
+  function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,15 +24,23 @@ angular.module('app', [
       StatusBar.styleDefault();
     }
   });
-})
+}])
 
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 
+  function($stateProvider, $urlRouterProvider, $httpProvider) {
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
   $stateProvider
     .state('home', {
       url: '/',
       templateUrl: 'templates/home.html',
       controller: 'HomeCtrl'
+    })
+    .state('home.loading', {
+      url: 'loading',
+      templateUrl: 'templates/loading.html',
+      controller: 'EmailCtrl'
     })
     .state('home.email', {
       url: 'email',
@@ -48,11 +58,33 @@ angular.module('app', [
       controller: 'OpinionCtrl'
     })
 
-  $urlRouterProvider.otherwise('/email');
-})
+  $urlRouterProvider.otherwise('/loading');
+}])
 
-.controller('HomeCtrl', function($scope) {
-  console.log('we be home');
+.controller('HomeCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
+  function($scope, $rootScope, $state, HttpFactory) {
+
+  var session = window.sessionStorage;
+  if (session.getItem('username')) {
+    HttpFactory.verify(session.getItem('username'), session.getItem('domain'))
+      .success(function(verifyData) {
+        // user not verified
+        if (verifyData.status === false) {
+          $state.go('home.verify');
+        }
+        // user is verified
+        else if (verifyData.status === true) {
+          $state.go('home.opinion');
+        }
+      })
+      .error(function() {
+        // user not found
+        $state.go('home.email');
+      });
+  } else {
+    // no user on this app yet
+    $state.go('home.email');
+  }
 
   $scope.$on("email", function(event, user) {
     $scope.verified = false;
@@ -70,8 +102,18 @@ angular.module('app', [
   
   $scope.$on("opinion", function(event, user) {
     $scope.verified = true;
-    // $scope.email = '';
-    // $scope.verify = '';
-    // $scope.opinion = 'button-balanced';
+    $scope.completed = false;
   });
-})
+
+  $scope.$on("complete", function(event) {
+    $scope.$apply(function() {
+      $scope.completed = true;
+    });
+
+  $scope.refresh = function() {
+    $scope.$broadcast('reload');
+    // $state.reload();
+  }
+
+  })
+}]);
