@@ -4,31 +4,32 @@ angular.module('graph', [])
   var link = function(scope, element, attr) {
     var initR = 10;
     var r = 400;
-    var thickness = 10;
+    var thickness = 5;
+
 
     var click = function() {
-      var clickPos = d3.mouse(svg.node());
-      if (!(clickPos[0] > xMin && clickPos[0] < xMax && clickPos[1] < yMin && clickPos[1] > yMax)) {
-        console.log('outside Range');
-        return;
+
+      var clickPos = d3.touches(svg.node());
+
+      if (clickPos[0]) {
+        if (!(clickPos[0][0] > xMin && clickPos[0][0] < xMax && clickPos[0][1] < yMin && clickPos[0][1] > yMax)) {
+          console.log('outside Range');
+          return;
+        }
       }
       d3.event.preventDefault();
-      svg.selectAll("g.click").remove();
+      
 
       var arc = d3.svg.arc()
         .outerRadius(initR)
         .innerRadius(initR - thickness);
-              
-      // send the click coordinates back up to controller scope
-      scope.$apply(function() {
-        var coords = clickPos;
-        scope.selectedPoint = [100 * ((coords[0] - xMin) / (xMax - xMin)), 100 * ((yMin - coords[1]) / (yMin - yMax))];
-        console.log(scope.selectedPoint);
-      });
 
-              
-      var g = svg.selectAll("g.click")
-        .data([clickPos]);
+      // svg.selectAll("g.click").remove();
+
+      var g = svg.selectAll('g.click')
+        .data(clickPos, function(d) {
+          return d.identifier;
+        });
 
       g.enter()
         .append("g")
@@ -49,12 +50,26 @@ angular.module('graph', [])
           };
         })
         .each("end", function (d) {
-          if (complete(g))
+          if (complete(g)) {
+            var coords = clickPos[0];
+            scope.$apply(function() {
+              scope.selectedPoint = [100 * ((coords[0] - xMin) / (xMax - xMin)), 100 * ((yMin - coords[1]) / (yMin - yMax))];
+            });
+            svg.selectAll('circle.click').remove();
+            svg.append('circle')
+              .attr({
+                class: 'click',
+                cx: coords[0],
+                cy: coords[1],
+                r: initR - (thickness / 2),
+                'stroke-width': thickness
+              });
             ripples(d);
-          });
+          }
+        });
 
       g.exit().remove().each(function () {
-          this.__stopped__ = true;
+        this.__stopped__ = true;
       });
     };
 
@@ -174,14 +189,14 @@ angular.module('graph', [])
         'stroke-dasharray': '5,10,5'
       })
 
-    svg.on("mousedown", click)
-      .on("mouseup", click);
+    svg.on("touchstart", click)
+      .on("touchend", click);
 
-    // watch for submitted - when submitted, turn off listeners for mouseup, mousedown
+    // watch for submitted - when submitted, turn off listeners for touchend, touchstart
     scope.$watch('submitted', function(newValue, oldValue) {
       if (newValue) {
-        svg.on("mousedown", null)
-          .on("mouseup", null);
+        svg.on("touchstart", null)
+          .on("touchend", null);
       }
     });
   };

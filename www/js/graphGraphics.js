@@ -137,7 +137,7 @@ angular.module('graphics', [])
       }
       // avgScores now contains avg score of most 3 recent scores.
       // TEMP FOR TESTING
-      // avgScores = [[50,50],[20,30],[70,90],[40,5]]; 
+      avgScores = [[50,50],[20,30],[70,90],[40,5]]; 
       // TEMP FOR TESTING
 
       var dataPoints = avgScores.length;

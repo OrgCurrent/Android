@@ -11,23 +11,25 @@ angular.module('app.opinion', [
   $scope.coordinates = {x: '>> How successful you will be at this company >>', y: '>> How successful this company will be >>'};
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
 
-  $scope.$on('status', function(event, data) {
-    console.log(event, data);
-    $scope.$apply(function() {
-      $scope.percentDone = data;
-    });
-  });
+  // $scope.$on('status', function(event, data) {
+  //   console.log(event, data);
+  //   $scope.$apply(function() {
+  //     $scope.percentDone = data;
+  //   });
+  // });
   
+  var local = window.localStorage;
+  $scope.username = local.getItem('username');
+  $scope.domain = local.getItem('domain');
+
   $scope.percentDone = 0;
 
   $scope.submit = function() {
     $scope.clickSubmitted = true;
-    var username = $rootScope.username
-    var domain = $rootScope.domain
     console.log($scope.clickData);
-    HttpFactory.sendScore(username, domain, $scope.clickData)
+    HttpFactory.sendScore($scope.username, $scope.domain, $scope.clickData)
       .success(function() {
-        HttpFactory.getScores(domain)
+        HttpFactory.getScores($scope.domain)
           .success(function(data) {
             // CircleGraph.dailyAvg(data.points, $scope.margin);
             LineGraph.dailyAvg(data, $scope.margin);
