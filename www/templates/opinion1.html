@@ -1,9 +1,0 @@
-<h2>Your opinion matters!</h2>
-<p>Touch and hold on the graphic below to submit your opinion</p>
-
-<happy-graph selected-point="clickData" submitted="clickSubmitted" coordinates="coordinates" margin="margin"></happy-graph>
-
-<span class="x-y-coordinates">x: {{ coordinates.x }}</span><br>
-<span class="x-y-coordinates">y: {{ coordinates.y }}</span>
-<button class="button button-dark button-block x-y-coordinates" ng-click="submit()" ng-show="clickData && !clickSubmitted" >Submit your answer, See what others think</button>
-<progress max="100" value="{{ percentDone }}" ng-show="clickSubmitted"></progress>
