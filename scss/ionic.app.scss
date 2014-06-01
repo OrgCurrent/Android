@@ -67,6 +67,11 @@ $dark-primary: darken( $balanced, 20% );
   stroke: none;
 }
 
+circle.click {
+  fill: $dark;
+  stroke: $balanced;
+}
+
 .x.axis path, .x.axis line, .y.axis path, .y.axis line{
   fill: none;
   stroke: black;
@@ -87,5 +92,5 @@ $dark-primary: darken( $balanced, 20% );
 }
 
 progress {
-  margin: 0;
+  margin: 5px 0;
 }
