@@ -50,8 +50,12 @@ angular.module('app.email', [
                   $state.go('home.verify');
                 } else if (verifyData.status === true) {
                   // show error message - verified email already exists - MIGHT WANT TO UPDATE LOGIC IN FUTURE
-                  console.log('user exists');
-                  $scope.notUnique = true;
+                  // console.log('user exists');
+                  // $scope.notUnique = true;
+                  // for now, during testing, just send to verify.js page
+                  local.setItem('username', username);
+                  local.setItem('domain', domain);
+                  $state.go('home.verify');
                 }
               })
               .error(function(data) {
