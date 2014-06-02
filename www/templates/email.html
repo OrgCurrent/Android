@@ -7,6 +7,11 @@
 </div>
 <div ng-controller="EmailCtrl"> 
   <form name="email_form" novalidate ng-submit="sendEmail()" >
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="email" name="email" ng-model='email.userInput' placeholder="Please enter your work email">
+      </label>
+    </div>
     <div class='error' ng-show="email_form">
       <small class="error"
         ng-show="email_form.email.$dirty && email_form.email.$error.email && email_form.submitted">
@@ -20,11 +25,6 @@
         ng-show="serverError">
          Sorry, there was an error on our end. Please try again.
       </small>
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input">
-        <input type="email" name="email" ng-model='email.userInput' placeholder="Please enter your work email">
-      </label>
     </div>
     <button type="submit" class="button button-block button-balanced" 
             ng-disabled="email_form.$invalid">

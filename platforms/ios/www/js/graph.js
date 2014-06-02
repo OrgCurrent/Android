@@ -39,7 +39,7 @@ angular.module('graph', [])
         })
         .append("path")
         .attr("class", "arc")
-          .transition().duration(2000).ease('linear')
+          .transition().duration(1000).ease('linear')
         .attrTween("d", function (d) {
           var interpolate = d3.interpolate(
               {startAngle: 0, endAngle: 0},
