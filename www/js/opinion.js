@@ -3,8 +3,8 @@ angular.module('app.opinion', [
   'graphics',
   'services'
   ])
-.controller('OpinionCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'CircleGraph', 'LineGraph',
- function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, CircleGraph, LineGraph) {
+.controller('OpinionCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'CircleGraph', 'LineGraph', 'PointGraph',
+ function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, CircleGraph, LineGraph, PointGraph) {
   $scope.$emit('opinion');
   $scope.coworkers = [{email: ''}];
 
@@ -32,14 +32,15 @@ angular.module('app.opinion', [
         HttpFactory.getScores($scope.domain)
           .success(function(data) {
             // CircleGraph.dailyAvg(data.points, $scope.margin);
-            LineGraph.dailyAvg(data, $scope.margin);
+            // LineGraph.dailyAvg(data, $scope.margin);
+            console.log(LineGraph, PointGraph);
+            PointGraph.animate(data, $scope.margin);
           });
       });
 
   };
 
   $scope.$on('reload', function() {
-    console.log('trying to reload');
     // $state.reload();
     $state.transitionTo($state.current, $stateParams, {
       reload: true,
