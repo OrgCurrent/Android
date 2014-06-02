@@ -1,14 +1,24 @@
+<ion-content class="main-content has-header">
 <div class="graph">
   <h3>Your opinion matters!</h2>
   <p>Touch and hold on the graphic below to submit your opinion</p>
 
-  <happy-graph selected-point="clickData" submitted="clickSubmitted" coordinates="coordinates" margin="margin"></happy-graph>
- <!-- Takes up too much space -->
-  <!-- <span class="x-y-coordinates">x: {{ coordinates.x }}</span><br>
-  <span class="x-y-coordinates">y: {{ coordinates.y }}</span> -->
+  <happy-graph selected-point="click.clickData" submitted="clickSubmitted" coordinates="coordinates" margin="margin"></happy-graph>
+
+  <div class="user-choice"></div> Your sentiment
+  <div class="coworker-choice"></div> Your co-workers' most recent sentiment
+</div>
   <div class="button-bar graph-button">
     <button class="button button-balanced light-primary" ng-click="invite()">Invite your coworkers!</button>
-    <button class="button button-dark" ng-click="submit()" ng-show="clickData && !clickSubmitted">Submit</button>
+    <button class="button button-dark" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
+
   </div>
-</div>
 <!-- <small ng-show="noData">No data for your domain yet! Invite your coworkers above</small> -->
+
+</ion-content>
+
+<ion-footer-bar class="bar bar-footer bar-balanced" ng-show="completed">
+  <div class="button-bar" ng-click="refresh()">
+    <a class="button reset">Reset</a>
+  </div>
+</ion-footer-bar>

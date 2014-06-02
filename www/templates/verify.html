@@ -1,22 +1,18 @@
-<h2>Check your email!</h2>
-<p> An email has been sent to the email address you indicated<p>
-<p><b> Please click on the "Verify" link in the email </b></p>
-<!-- <p> This page will automatically advance to the next step once the verification link in the email has been clicked </p> -->
-</p>
+<ion-content class="main-content has-header has-footer">
+  <h2>Check your email!</h2>
+  <p> An email has been sent to the email address you indicated<p>
+    <p><b> Please click on the "Verify" link in the email </b></p>
+  </p>
 
-<button class="button button-balanced button-block" ng-click="checkVerification()">{{ verStatus }}</button>
-<div ng-show="error" class="error">
-  We're sorry, your email has not been verified yet.
-</div>
+  <button class="button button-balanced button-block" ng-click="checkVerification()">{{ verStatus }}</button>
+  <div ng-show="error" class="error">
+    We're sorry, your email has not been verified yet.
+  </div>
 
 
-<button class="button button-dark button-block" ng-click="resendVerification()">{{ resentStatus }}</button>
+  <button class="button button-dark button-block" ng-click="resendVerification()">{{ resentStatus }}</button>
 
-<!-- 
-OPTIONS:
-<div class="row">
-  <div class="col"><button class="button button-block button-dark app-flow">1: Verify</button></div>
-  <div class="col"><button class="button button-block button-balanced app-flow">2: Your Opinions</button></div>
-  <div class="col"><button class="button button-block button-balanced app-flow">3: Co-workers</button></div>
-</div>
- -->
+</ion-content>
+
+<ion-footer-bar class="bar bar-footer bar-balanced">
+</ion-footer-bar>
