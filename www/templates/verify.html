@@ -8,7 +8,7 @@
   <small ng-show="error" class="error">
     We're sorry, your email has not been verified yet.
   </small>
-  <button class="button button-dark button-block" ng-click="resendVerification()">{{ resentStatus }}</button>
+  <button class="button button-dark button-block" ng-click="resendVerification()" ng-disabled="resending">{{ resentStatus }}</button>
 
 </ion-content>
 

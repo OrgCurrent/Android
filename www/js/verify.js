@@ -6,12 +6,26 @@ angular.module('app.verify', [
   function($scope, $rootScope, $state, HttpFactory) {
 
   var local = window.localStorage;
+  var verificationPings = 12;
 
   $scope.$emit('verify');
   $scope.verStatus = 'Check Verification Status';
   $scope.resentStatus = 'Resend Verification Email'
   var username = local.getItem('username');
   var domain = local.getItem('domain');
+
+  var checkVerificationLoop = function(totalPings) {
+    setTimeout(function() {
+      HttpFactory.verify(username, domain)
+        .success(function(verifyData) {
+          if (verifyData.status === true) {
+            $state.go('home.opinion');
+          } else if (totalPings++ < verificationPings) {
+            checkVerificationLoop(totalPings);
+          }
+        })
+    }, 5000)
+  }
   
   $scope.checkVerification = function() {
     $scope.verStatus = 'Checking...';
@@ -28,21 +42,25 @@ angular.module('app.verify', [
         $scope.error = true;
         $scope.verStatus = 'Check Verification Status';
       });
-    // setTimeout(function() {
-    //   $state.go('home.opinion');
-    // }, 1000);
   };
 
   $scope.resendVerification = function() {
     $scope.resentStatus = 'Resending...';
+    $scope.resending = true;
     HttpFactory.resendEmail(username, domain)
       .success(function() {
         $scope.resentStatus = 'Resend Verification Email';
+        $scope.resending = false;
+        checkVerificationLoop(0);
       })
       .error(function() {
         $scope.error = true;
+        $scope.resending = false;
         $scope.resentStatus = 'Resend Verification Email';
       })
   };
+
+  // when you first arrive at verification page, kick off check verification loop
+  checkVerificationLoop(0);
 
 }]);
