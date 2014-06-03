@@ -33,6 +33,14 @@ $dark-primary: darken( $balanced, 20% );
   color: $font-color;
 }
 
+.light-primary {
+  background-color: lighten( $balanced, 20% );
+}
+
+.dark {
+  
+}
+
 .active-tab {
   background-color: $dark-primary;
 }
@@ -96,7 +104,7 @@ progress {
 }
 
 .graph-button {
-  margin: 10px 0 100px;
+  margin: 10px 0;
 }
 
 .footer-color {

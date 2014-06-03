@@ -6447,6 +6447,10 @@ a.button {
   font-style: Helvetica, sans-serif;
   color: #444; }
 
+.light-primary {
+  background-color: #a5e085; }
+
+
 .active-tab {
   background-color: #3f7a1f; }
 
@@ -6498,7 +6502,7 @@ progress {
   margin: 5px 0; }
 
 .graph-button {
-  margin: 10px 0 100px; }
+  margin: 10px 0; }
 
 .footer-color {
   color: white;
