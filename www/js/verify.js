@@ -5,7 +5,6 @@ angular.module('app.verify', [
 .controller('VerifyCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
   function($scope, $rootScope, $state, HttpFactory) {
 
-  // temporary for testing - will use persistent storage here in future.
   var local = window.localStorage;
 
   console.log('verify');
