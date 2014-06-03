@@ -37,7 +37,7 @@ angular.module('app.verify', [
   };
 
   $scope.resendVerification = function() {
-    $scope.resentStatus = 'Resent...';
+    $scope.resentStatus = 'Resending...';
     HttpFactory.resendEmail(username, domain)
       .success(function() {
         $scope.resentStatus = 'Resend Verification Email';
