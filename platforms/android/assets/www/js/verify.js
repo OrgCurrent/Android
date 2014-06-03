@@ -6,14 +6,14 @@ angular.module('app.verify', [
   function($scope, $rootScope, $state, HttpFactory) {
 
   // temporary for testing - will use persistent storage here in future.
-  var session = window.sessionStorage;
+  var local = window.localStorage;
 
   console.log('verify');
   $scope.$emit('verify');
   $scope.verStatus = 'Check Verification Status';
   $scope.resentStatus = 'Resend Verification Email'
-  var username = session.getItem('username');
-  var domain = session.getItem('domain');
+  var username = local.getItem('username');
+  var domain = local.getItem('domain');
   
   $scope.checkVerification = function() {
     $scope.verStatus = 'Checking...';
@@ -37,7 +37,7 @@ angular.module('app.verify', [
   };
 
   $scope.resendVerification = function() {
-    $scope.resentStatus = 'Resent...';
+    $scope.resentStatus = 'Resending...';
     HttpFactory.resendEmail(username, domain)
       .success(function() {
         $scope.resentStatus = 'Resend Verification Email';

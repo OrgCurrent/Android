@@ -8,7 +8,7 @@ angular.module('app.email', [
   $scope.submitted = false;
   $scope.email = {};
 
-  var session = window.sessionStorage;
+  var local = window.localStorage;
 
   var serverError = function(data) {
     console.log('error!', data);
@@ -35,8 +35,8 @@ angular.module('app.email', [
                     + '\nheaders:', headers
                     + '\nconfig:', config);
           if (data.status === 'new') {
-            session.setItem('username', username);
-            session.setItem('domain', domain);
+            local.setItem('username', username);
+            local.setItem('domain', domain);
             $state.go('home.verify');
           } else if (data.status === 'existing') {
             // if existing, check if verified yet
@@ -45,13 +45,17 @@ angular.module('app.email', [
             HttpFactory.verify(username, domain)
               .success(function(verifyData) {
                 if (verifyData.status === false) {
-                  session.setItem('username', username);
-                  session.setItem('domain', domain);
+                  local.setItem('username', username);
+                  local.setItem('domain', domain);
                   $state.go('home.verify');
                 } else if (verifyData.status === true) {
                   // show error message - verified email already exists - MIGHT WANT TO UPDATE LOGIC IN FUTURE
-                  console.log('user exists');
-                  $scope.notUnique = true;
+                  // console.log('user exists');
+                  // $scope.notUnique = true;
+                  // for now, during testing, just send to verify.js page
+                  local.setItem('username', username);
+                  local.setItem('domain', domain);
+                  $state.go('home.verify');
                 }
               })
               .error(function(data) {

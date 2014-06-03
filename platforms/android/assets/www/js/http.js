@@ -17,18 +17,6 @@ angular.module('services', [])
 
 .factory('HttpFactory', ['$http', function($http) {
   return {
-    // jq: function(username, domain) {
-    //   console.log('jquery');
-    //   $.ajax({
-    //     url: 'http://graphs.delimited.io/user/add/acjones617/gmail.com',
-    //     type: 'GET',
-    //     dataType: 'json',
-    //     //beforeSend: function(xhr) {
-    //       //xhr.setRequestHeader("x-some-header", "some-value");
-    //     //}
-    //   });
-    // },
-    // app.get('/user/verified/:user/:domain', route.getVerificationStatus);
     verify: function(username, domain) {
       return $http({
         url: 'http://graphs.delimited.io/user/verified/' + username + '/' + domain,
@@ -79,19 +67,19 @@ angular.module('services', [])
     //     url: '/dummyData'
     //   });
     // }
-    getUser: function() {
-      return $http({
-        method: 'GET',
-        url: '/userInfo'
-      });
-    },
-    postUser: function(username, domain) {
-      return $http({
-        data: JSON.stringify({username: username, domain: domain}),
-        method: 'POST',
-        url: '/userInfo'
-      });
-    }
+    // getUser: function() {
+    //   return $http({
+    //     method: 'GET',
+    //     url: '/userInfo'
+    //   });
+    // },
+    // postUser: function(username, domain) {
+    //   return $http({
+    //     data: JSON.stringify({username: username, domain: domain}),
+    //     method: 'POST',
+    //     url: '/userInfo'
+    //   });
+    // }
 
   }
 }]);

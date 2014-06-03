@@ -1,5 +1,58 @@
 angular.module('graph', [])
 
+.directive('circleKey', function() {
+  var link = function(scope, element, attr) {
+    var outerRadius = 2;
+    var innerRadius = 4;
+
+    var svg = d3.select(element[0])
+      .append('svg')
+      .attr({
+        'height': 10,
+        'width': 10
+      })
+      .append('circle')
+      .attr({
+        'cx': 5,
+        'cy': 5,
+        'r': innerRadius,
+        'class': 'click'
+      })
+      .style('stroke-width', outerRadius);
+  };
+
+  return {
+    restrict: 'E',
+    link: link,
+  }
+})
+
+.directive('circleKeyOther', function() {
+  var link = function(scope, element, attr) {
+    var radius = 5;
+
+    var svg = d3.select(element[0])
+      .append('svg')
+      .attr({
+        'height': 10,
+        'width': 10
+      })
+      .append('circle')
+      .attr({
+        'cx': 5,
+        'cy': 5,
+        'r': radius,
+        'class': 'others'
+      })
+  };
+
+  return {
+    restrict: 'E',
+    link: link,
+  }
+})
+
+
 .directive('happyGraph', function() {
   var link = function(scope, element, attr) {
     var initR = 10;

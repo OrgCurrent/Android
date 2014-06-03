@@ -56,6 +56,7 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/email.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/graph.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/graphGraphics.js \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/home.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/http.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/opinion.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js/verify.js \
@@ -165,6 +166,5 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/templates/loading.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/templates/modal.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/templates/opinion.html \
-/Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/templates/opinion1.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/templates/verify.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-build/AndroidManifest.xml \

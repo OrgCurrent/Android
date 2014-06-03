@@ -1,148 +1,13 @@
 angular.module('graphics', [])
 
-.factory('CircleGraph', ['$rootScope', 
+.factory('PointGraph', ['$rootScope', 
   function($rootScope) {
   return {
-    dailyAvg: function(data, margin) {
 
-      var animate = function(data) {
-        status += (100 * 1./totalDays);
-        progressBar(status);
-        
-        var svg = d3.select('svg');
-
-        // translate data into correct pixels
-        var width = svg[0][0].clientWidth - margin.left;
-        var height = svg[0][0].clientHeight - margin.bottom;
-
-        var xMin = margin.left;
-        var xMax = width;
-        var yMin = height;
-        var yMax = margin.top;
-
-        // scope.selectedPoint = [10 * ((coords[0] - xMin) / (xMax - xMin)), 10 * ((yMin - coords[1]) / (yMin - yMax))];
-        var translateX = function(x) {
-          return (xMin + x/100 * (xMax - xMin));
-        }
-
-        // y inverted
-        var translateY = function(y) {
-          return (yMax + y/100 * (yMin - yMax));
-        }
-
-        // data join
-        var others = svg.selectAll("circle.others")
-          .data(data.shift())
-        
-        // update
-        others.transition().duration(100)
-          .attr({
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); }
-          });
-
-        // enter
-        others.enter()
-          .append("circle")
-          .attr({
-            class: 'others',
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); },
-            r: 0,
-            fill: 'black'
-          })
-            .transition().duration(100)
-          .attr('r', 5);
-
-        // exit
-        others.exit()
-            .transition()
-          .attr({r: 0})
-          .remove();
-
-        setTimeout(function() {
-          if (data.length > 0) {
-            animate(data);
-          }
-        }.bind(this), 110);
-      };
-
-      var totalDays = data.length;
+    animate: function(data, margin) {
+      // recentScores is an array of the most recent score for each user.
+      var recentScores = this.getRecentScores(data);
       var status = 0;
-
-      var progressBar = function(status) {
-        // PROGRESS BAR
-        // data join
-        if (status === 100) {
-          $rootScope.$broadcast('complete');
-        }
-        var progress = d3.select('.graph').selectAll('progress')
-          .data([status]);
-
-        // update 
-        progress.transition().ease('linear').duration(100)
-          .attr({
-            value: function(d) { return d; }
-          });
-
-        // enter
-        progress.enter()
-          .append('progress')
-          .attr({
-            max: 100,
-            value: function(d) { return d; }
-          })
-      }
-      progressBar(status);
-      animate(data);
-    }
-  }
-}])
-
-.factory('LineGraph', ['$rootScope', 
-  function($rootScope) {
-  return {
-    dailyAvg: function(data, margin) {
-      var recentScores = [];
-      for (var i = 0; i < data.length; i++) {
-        var numScores = data[i].scores.length;
-        var userScores = [];
-        for (var j = 3; j > 0; j--) {
-          if (j > numScores) {
-            userScores.push([]);
-          } else {
-            userScores.push([data[i].scores[numScores - j].x,data[i].scores[numScores - j].y]);
-          }
-        }
-        recentScores.push(userScores);
-      }
-      // recentScores now contains x arrays (one per user) of most 3 recent scores.
-
-      var avgScores = [[50,50]];
-      for (var i = 0; i < 3; i++) {
-        var totalX = 0;
-        var totalY = 0;
-        var num = 0;
-        for (var j = 0; j < recentScores.length; j++) {
-          // console.log(recentScores[j][0])
-          if (recentScores[j][i][0] !== undefined) {
-            totalX += recentScores[j][i][0];
-            totalY += recentScores[j][i][1];
-            num += 1;
-          }
-        }
-        if (num > 0) {
-          avgScores.push([totalX/num, totalY/num]);
-        }
-      }
-      // avgScores now contains avg score of most 3 recent scores.
-      // TEMP FOR TESTING
-      avgScores = [[50,50],[20,30],[70,90],[40,5]]; 
-      // TEMP FOR TESTING
-
-      var dataPoints = avgScores.length;
-      var status = 0;
-      var lastRound = false;
 
       var svg = d3.select('svg');
       var width = svg[0][0].clientWidth - margin.left;
@@ -163,138 +28,107 @@ angular.module('graphics', [])
         return (yMin - y/100 * (yMin - yMax));
       }
 
-      var animate = function(data) {
-        status += (100 * 1./dataPoints);
-        progressBar(status);
+      // place co-worker data points.
+      var placePoints = function(data) {
+        var radius = 5;
+        var delay = 50;
+        var duration = 200;
 
-        if (!lastRound) {
-          var thisRoundData = [data.shift()];
-        } else {
-          var thisRoundData = '';
-        }
-
-        path(thisRoundData);
-        movingAvg(thisRoundData);
-
-
-        if (!lastRound) {
-          setTimeout(function() {
-            // status += (100 * 1./totalDays);
-            // $rootScope.$broadcast('status', status);
-            if (data.length > 0) {
-              animate(data);
-            } else {
-              lastRound = true;
-              animate();
-            }
-          }, 1100);
-        }
-      };
-
-      var initR = 10;
-      var r = 100;
-      var thickness = 3;
-
-      var ripples = function(position) {
-        // for (var i = 1; i < 5; ++i) {
-        var circle = svg.append("circle")
-          .attr("cx", position[0])
-          .attr("cy", position[1])
-          .attr("r", initR - (thickness / 2))
-          .attr('class', 'other-ripples')
-          .style("stroke-width", thickness)
-        .transition()
-          // .delay(Math.pow(i, 2.5) * 50)
-          .duration(1000).ease('quad-in')
-          .attr("r", r)
-          .style("stroke-opacity", 0)
-          .each("end", function () {
-              d3.select(this).remove();
-          });
-        
-      };
-
-      var movingAvg = function(data) {
-        // circle
         // data join
-        var others = svg.selectAll("circle.others")
+        var others = svg.selectAll('circle.others')
           .data(data)
-        
-        // update
-        others.transition().duration(1000)
-          .tween('ripple', function(d, i) {
-            console.log('tween', d, i, this);
-            return function() {
-              ripples([this.cx.animVal.value, this.cy.animVal.value]);
-            }.bind(this)
-          })
-          .attr({
-            cx: function(d) { return translateX(d[0]); },
-            cy: function(d) { return translateY(d[1]); }
-          });
 
         // enter
         others.enter()
-          .append("circle")
+          .append('circle')
           .attr({
             class: 'others',
             cx: function(d) { return translateX(d[0]); },
             cy: function(d) { return translateY(d[1]); },
-            r: 0,
-            fill: 'black'
+            r: 0
           })
-            .transition()
-          .attr('r', 5);
-
-        // exit
-        others.exit()
-            .transition().duration(1000)
-          .attr({r: 15})
-            .transition().duration(1000)
-          .attr({r: 5})
-            .transition().duration(1000)
-          .attr({r: 15})
-            .transition().duration(1000)
-          .attr({r: 5})
-            .transition().duration(1000)
-          .attr({r: 10})
-      }
-
-
-      var path = function(data) {
-        // path
-        // data join
-        var trail = svg.selectAll(".trail")
-          .data(data)
-        
-        // update
-        trail
-          .attr({
-            d: function(d) {return trail.attr('d') + ' L ' + translateX(d[0]) + ' ' + translateY(d[1]); },
+        .transition().delay(function(d, i) { return delay * i }).duration(duration)
+          .attr('r', radius)
+          .each('end', function() {
+            // update progress bar 
+            progressBarUpdate();
+            // have ripple around data point
+            ripple([this.cx.animVal.value, this.cy.animVal.value]);
           });
-
-        // enter
-        trail.enter()
-          .append('path')
-          .attr({
-            class: 'trail',
-            'stroke-dasharray': '2,4,2',
-            d: function(d) {return 'M ' + translateX(d[0]) + ' ' + translateY(d[1]); },
-          })
       }
 
+      // ripple shown whenever co-workers data point dropped
+      var ripple = function(position) {
+        // constants for the ripple
+        var initR = 10;
+        var finalR = 50;
+        var thickness = 3;
+        var duration = 1000;
 
-      var progressBar = function(status) {
+        var circle = svg.append('circle')
+          .attr({
+            'cx': position[0],
+            'cy': position[1],
+            'r': (initR - (thickness / 2)),
+            'class': 'other-ripples',
+          })
+          .style('stroke-width', thickness)
+        .transition().duration(duration).ease('quad-in')
+          .attr("r", finalR)
+          .style("stroke-opacity", 0)
+          .each('end', function () {
+            d3.select(this).remove();
+          });
+      };
+
+      // for best fit line
+      var line = d3.svg.line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; });
+
+      // Derive a linear regression
+      var regression = ss.linear_regression().data(recentScores.map(function(d) {
+        return [translateX(d[0]), translateY(d[1])];
+      })).line();
+
+      // Create a line based on the beginning and endpoint of the range
+      var lineData =  recentScores.map(function(d) {
+        return {
+          x: translateX(d[0]),
+          y: regression(translateX(d[0]))
+        };
+      });
+
+      var createBestFit = function() {
+        svg.append('path')
+            .datum(lineData)
+            .attr({
+              'stroke-dasharray': '2,4,2',
+              'd': line,
+              'fill': 'none',
+              'stroke': 'black',
+              'stroke-width': 3
+            })
+      };
+
+      var progressBarUpdate = function() {
+        status += (100./recentScores.length);
+        
         // PROGRESS BAR
-        // data join
-        if (status === 100) {
+        if (status > 95) {
+          // when progress bar near complete,
+          // broadcast complete so reset button can be added
           $rootScope.$broadcast('complete');
+          // show best fit line in 1 second
+          setTimeout(createBestFit, 1000);
         }
+
+        // data join
         var progress = d3.select('.graph').selectAll('progress')
           .data([status]);
 
         // update 
-        progress.transition().ease('linear').duration(1000)
+        progress.transition().ease('linear').duration(30)
           .attr({
             value: function(d) { return d; }
           });
@@ -305,11 +139,27 @@ angular.module('graphics', [])
           .attr({
             max: 100,
             value: function(d) { return d; }
-          })
+          });
       };
 
-      progressBar(status);
-      animate(avgScores);
+      // Once you submit, begin place points process.
+      // ******************* //
+      placePoints(recentScores);
+      // ******************* //
+    },
+
+    getRecentScores: function(data) {
+      var recentScores = [];
+
+      for (var i = 0; i < data.length; i++) {
+        var numScores = data[i].scores.length;
+        if (numScores && data[i].username !== window.localStorage.username) {
+          recentScores.push([data[i].scores[numScores - 1].x, data[i].scores[numScores - 1].y]);
+        }
+      }
+
+      return recentScores;
     }
   }
+
 }]);

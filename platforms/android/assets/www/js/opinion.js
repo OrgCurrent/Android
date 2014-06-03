@@ -3,50 +3,57 @@ angular.module('app.opinion', [
   'graphics',
   'services'
   ])
-.controller('OpinionCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'CircleGraph', 'LineGraph',
- function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, CircleGraph, LineGraph) {
+.controller('OpinionCtrl', ['$scope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'PointGraph',
+ function($scope, $state, $stateParams, $ionicModal, HttpFactory, PointGraph) {
+  // notify home controller that we are on opinion page
   $scope.$emit('opinion');
   $scope.coworkers = [{email: ''}];
+  $scope.click = {};
 
+  $scope.noData = false;
+  $scope.littleData = false;
+
+  // set coordinates and margin for graph
   $scope.coordinates = {x: '>> How successful you will be at this company >>', y: '>> How successful this company will be >>'};
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
 
-  // $scope.$on('status', function(event, data) {
-  //   console.log(event, data);
-  //   $scope.$apply(function() {
-  //     $scope.percentDone = data;
-  //   });
-  // });
-  
-  var session = window.sessionStorage;
-  $scope.username = session.getItem('username');
-  $scope.domain = session.getItem('domain');
-
-  $scope.percentDone = 0;
+  // tap into local storage for email and domain data  
+  var local = window.localStorage;
+  $scope.username = local.getItem('username');
+  $scope.domain = local.getItem('domain');
 
   $scope.submit = function() {
     $scope.clickSubmitted = true;
-    console.log($scope.clickData);
-    HttpFactory.sendScore($scope.username, $scope.domain, $scope.clickData)
+    HttpFactory.sendScore($scope.username, $scope.domain, $scope.click.clickData)
       .success(function() {
         HttpFactory.getScores($scope.domain)
           .success(function(data) {
-            // CircleGraph.dailyAvg(data.points, $scope.margin);
-            LineGraph.dailyAvg(data, $scope.margin);
+            if (data.length === 1) {
+              $scope.noData = true;
+            } else if (data.length < 10) {
+              $scope.littleData = true;
+            }
+            PointGraph.animate(data, $scope.margin);
           });
       });
-
   };
 
-  $scope.$on('reload', function() {
-    console.log('trying to reload');
-    // $state.reload();
+  $scope.$on("complete", function(event) {
+    $scope.$apply(function() {
+      $scope.completed = true;
+    });
+  });
+  
+  $scope.refresh = function() {
+    // when home broadcasts "reload" we want to reload the page to let
+    // our users revote.
     $state.transitionTo($state.current, $stateParams, {
       reload: true,
       inherit: false,
       notify: true
     });
-  });
+  };
+
 
   // MODAL TO INVITE coworkers
   $scope.coworkers = [{email: ''}];
@@ -86,5 +93,4 @@ angular.module('app.opinion', [
     }
     $scope.coworkers = [{email: ''}];
   }
-    
 }]);

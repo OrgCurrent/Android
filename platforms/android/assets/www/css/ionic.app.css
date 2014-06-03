@@ -6475,6 +6475,10 @@ a.button {
   fill: #66cc33;
   stroke: none; }
 
+circle.click {
+  fill: #444;
+  stroke: #66cc33; }
+
 .x.axis path, .x.axis line, .y.axis path, .y.axis line {
   fill: none;
   stroke: black; }
@@ -6491,4 +6495,11 @@ a.button {
   stroke-width: 2; }
 
 progress {
-  margin: 0; }
+  margin: 5px 0; }
+
+.graph-button {
+  margin: 10px 0 100px; }
+
+.footer-color {
+  color: white;
+  background-color: #15290a; }
