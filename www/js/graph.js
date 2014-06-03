@@ -4,31 +4,6 @@ angular.module('graph', [])
   var link = function(scope, element, attr) {
     var outerRadius = 2;
     var innerRadius = 4;
-
-    var svg = d3.select(element[0])
-      .append('svg')
-      .attr({
-        'height': 10,
-        'width': 10
-      })
-      .append('circle')
-      .attr({
-        'cx': 5,
-        'cy': 5,
-        'r': innerRadius,
-        'class': 'click'
-      })
-      .style('stroke-width', outerRadius);
-  };
-
-  return {
-    restrict: 'E',
-    link: link,
-  }
-})
-
-.directive('circleKeyOther', function() {
-  var link = function(scope, element, attr) {
     var radius = 5;
 
     var svg = d3.select(element[0])
@@ -38,20 +13,25 @@ angular.module('graph', [])
         'width': 10
       })
       .append('circle')
-      .attr({
-        'cx': 5,
-        'cy': 5,
-        'r': radius,
-        'class': 'others'
-      })
+      .attr('cx', 5)
+      .attr('cy', 5);
+
+    if (scope.user === 'true') {
+      svg.attr('r', innerRadius)
+        .attr('class', 'click')
+        .style('stroke-width', outerRadius);
+    } else {
+      svg.attr('r', radius)
+        .attr('class', 'others');
+    }
   };
 
   return {
     restrict: 'E',
     link: link,
+    scope: {user: '@'}
   }
 })
-
 
 .directive('happyGraph', function() {
   var link = function(scope, element, attr) {
