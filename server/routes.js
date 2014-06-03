@@ -1,6 +1,6 @@
 var promise = require("./promises");
 
-var SEND_MAIL = false; // TURN ON/OFF EMAILS
+var SEND_MAIL = true; // TURN ON/OFF EMAILS
 
 exports.resendVerifyEmail = function (req, res) {
   promise.userData(req.param("user"), req.param("domain")).then(function (result) {
