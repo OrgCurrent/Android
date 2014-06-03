@@ -103,7 +103,6 @@ angular.module('graphics', [])
         svg.append('path')
             .datum(lineData)
             .attr({
-              'stroke-dasharray': '2,4,2',
               'd': line,
               'fill': 'none',
               'stroke': 'black',
