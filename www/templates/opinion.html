@@ -4,9 +4,9 @@
   <p>Touch and hold on the graphic below to submit your opinion</p>
 
   <happy-graph selected-point="click.clickData" submitted="clickSubmitted" coordinates="coordinates" margin="margin"></happy-graph>
-  <circle-key></circle-key> Your sentiment
+  <circle-key user="true"></circle-key> Your sentiment
   <br>
-  <circle-key-other></circle-key-other> Your co-workers' most recent sentiment
+  <circle-key user="false"></circle-key> Your co-workers' most recent sentiment
   <small class="error" ng-show="noData">No data for your domain yet! Invite your coworkers below</small>
   <small class="error" ng-show="littleData">There isn't very much data for your domain yet! Invite your coworkers below</small>
 </div>
