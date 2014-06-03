@@ -13,14 +13,24 @@ angular.module('app.opinion', [
   $scope.noData = false;
   $scope.littleData = false;
 
+  $scope.recentScore = false;
+
   // set coordinates and margin for graph
-  $scope.coordinates = {x: '>> How successful you will be at this company >>', y: '>> How successful this company will be >>'};
+  $scope.coordinates = {
+    x: '>> How successful you will be at this company >>', 
+    y: '>> How successful this company will be >>'
+  };
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
 
   // tap into local storage for email and domain data  
   var local = window.localStorage;
   $scope.username = local.getItem('username');
   $scope.domain = local.getItem('domain');
+
+  // on load, check to see if this user has submitted a score in the past
+  // 24 hours. If they have, show them the see co-workers data button right away
+  // need another server endpoint for this
+
 
   $scope.submit = function() {
     $scope.clickSubmitted = true;
@@ -30,8 +40,10 @@ angular.module('app.opinion', [
           .success(function(data) {
             if (data.length === 1) {
               $scope.noData = true;
+              $scope.completed = true;
             } else if (data.length < 50) {
               $scope.littleData = true;
+              $scope.completed = true;
             } else {
               PointGraph.animate(data, $scope.margin);
             }
@@ -56,7 +68,7 @@ angular.module('app.opinion', [
   };
 
 
-  // MODAL TO INVITE coworkers
+  // MODAL TO INVITE COWORKERS //
   $scope.coworkers = [{email: ''}];
   $scope.addEmail = function() {
     $scope.coworkers.push({email: ''});
@@ -94,4 +106,5 @@ angular.module('app.opinion', [
     }
     $scope.coworkers = [{email: ''}];
   }
+  // MODAL TO INVITE COWORKERS //
 }]);
