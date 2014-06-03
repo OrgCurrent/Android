@@ -28,26 +28,47 @@ angular.module('app.opinion', [
   $scope.domain = local.getItem('domain');
 
   // on load, check to see if this user has submitted a score in the past
-  // 24 hours. If they have, show them the see co-workers data button right away
-  // need another server endpoint for this
+  // 24 hours or on that day. If they have, show them the see co-workers 
+  // data button right away need another server endpoint for this
+  HttpFactory.getIndividualScore($scope.username, $scope.domain)
+  .success(function(data) {
+    mostRecentSubmit = new Date(data.scores[data.scores.length - 1].created);
+    today = new Date();
+    if (mostRecentSubmit.getYear() === today.getYear()
+      && mostRecentSubmit.getMonth() === today.getMonth()
+      && mostRecentSubmit.getDate() === today.getDate()) {
+      $scope.recentScore = true;
+    } else {
+      $scope.recentScore = false;
+    }
+  })
+  .error(function(err) {
+    console.log(err);
+  });
 
+  $scope.seeData = function() {
+    $scope.clickSubmitted = true;
+    $scope.recentScore = false;
+    HttpFactory.getScores($scope.domain)
+    .success(function(data) {
+      if (data.length === 1) {
+        $scope.noData = true;
+        $scope.completed = true;
+      } else if (data.length < 50) {
+        $scope.littleData = true;
+        $scope.completed = true;
+      } else {
+        PointGraph.animate(data, $scope.margin);
+      }
+    });
+  };
 
   $scope.submit = function() {
     $scope.clickSubmitted = true;
+    $scope.recentScore = false;
     HttpFactory.sendScore($scope.username, $scope.domain, $scope.click.clickData)
       .success(function() {
-        HttpFactory.getScores($scope.domain)
-          .success(function(data) {
-            if (data.length === 1) {
-              $scope.noData = true;
-              $scope.completed = true;
-            } else if (data.length < 50) {
-              $scope.littleData = true;
-              $scope.completed = true;
-            } else {
-              PointGraph.animate(data, $scope.margin);
-            }
-          });
+        $scope.seeData();
       });
   };
 
@@ -79,24 +100,25 @@ angular.module('app.opinion', [
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal;
-  });
-  $scope.invite = function() {
-    $scope.modal.show();
-  };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-  };
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-  // Execute action on hide modal
-  $scope.$on('modal.hide', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
+    
+    $scope.invite = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hide', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
   });
 
   $scope.sendInvites = function() {

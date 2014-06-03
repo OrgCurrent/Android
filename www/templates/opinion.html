@@ -13,16 +13,10 @@
     <small class="error" ng-show="littleData">There isn't very much data for your domain yet! Invite your coworkers below</small>
   </div>
     <div class="row graph-button responsive-sm">
-      <button class="button button-dark col" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
-      <button class="button button-dark col" ng-click="submit()" ng-show="recentScore">See coworkers data</button>
+      <button class="button button-small col button-assertive" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
+      <button class="button button-small button-dark col" ng-click="seeData()" ng-show="recentScore">See coworkers data</button>
       <button class="button button-balanced col" ng-click="invite()">Invite coworkers!</button>
-<!--       <div class="col light-primary" ng-click="invite()">Invite your coworkers!</div>
-      <div class="col dark" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit!</div> -->
     </div>
-    <!-- <div class="button-bar graph-button">
-      <button class="button button-balanced light-primary" ng-click="invite()">Invite your coworkers!</button>
-      <button class="button button-dark" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
-    </div> -->
 
 </ion-content>
 
