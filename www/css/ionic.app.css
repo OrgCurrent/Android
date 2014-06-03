@@ -6498,4 +6498,8 @@ progress {
   margin: 5px 0; }
 
 .graph-button {
-  margin: 10px 0; }
+  margin: 10px 0 100px; }
+
+.footer-color {
+  color: white;
+  background-color: #15290a; }
