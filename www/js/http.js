@@ -41,6 +41,5 @@ angular.module('services', [])
         url: serverDomain + 'domain/data/' + domain,
       });
     },
-
   }
 }]);

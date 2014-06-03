@@ -41,28 +41,30 @@ angular.module('graph', [])
 
 
     var click = function() {
-
+      d3.event.preventDefault();
+      
+      // location of click
       var clickPos = d3.touches(svg.node());
 
+      // no clickPos when click called on touchOff
       if (clickPos[0]) {
+        // check to make sure click position is inside graph
         if (!(clickPos[0][0] > xMin && clickPos[0][0] < xMax && clickPos[0][1] < yMin && clickPos[0][1] > yMax)) {
           console.log('outside Range');
           return;
         }
       }
-      d3.event.preventDefault();
-      
-
-      var arc = d3.svg.arc()
-        .outerRadius(initR)
-        .innerRadius(initR - thickness);
-
-      // svg.selectAll("g.click").remove();
 
       var g = svg.selectAll('g.click')
         .data(clickPos, function(d) {
           return d.identifier;
         });
+
+      // used to create closing arc when press and hold.
+      var arc = d3.svg.arc()
+        .outerRadius(initR)
+        .innerRadius(initR - thickness);
+
 
       g.enter()
         .append("g")
@@ -101,11 +103,14 @@ angular.module('graph', [])
           }
         });
 
+      // on touchEnd, set stopped to true
+
       g.exit().remove().each(function () {
         this.__stopped__ = true;
       });
     };
 
+    // if stopped = true before arc completes, not taken as a "valid" data point
     var complete = function(g) {
       return g.node().__stopped__ !== true;
     };
@@ -130,6 +135,7 @@ angular.module('graph', [])
     };
 
 
+    // BUILD X-Y GRAPH
     var screenWidth = screen.width;
     var screenHeight = screen.height;
 

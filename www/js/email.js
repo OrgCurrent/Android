@@ -8,11 +8,14 @@ angular.module('app.email', [
   $scope.submitted = false;
   $scope.email = {};
 
-  var local = window.localStorage;
-
   var serverError = function(data) {
     console.log('error!', data);
     $scope.serverError = true;
+  }
+
+  var setStorage = function(username, domain) {
+    window.localStorage.setItem('username', username);
+    window.localStorage.setItem('domain', domain);
   }
 
   $scope.sendEmail = function() {
@@ -24,37 +27,26 @@ angular.module('app.email', [
       var username = $scope.email.userInput.split('@')[0]
       var domain = $scope.email.userInput.split('@')[1]
 
-      console.log('sent ', $scope.email.userInput);
       HttpFactory.sendEmail(username, domain)
        .success(function(data, status, headers, config) { 
-          // if user already in system, this will show status === 'existing'
+          // if user already in system, data.status === 'existing'
           // otherwise, status === 'new'
-          console.log('success!');
-          console.log('data: ', data 
-                    + '\nstatus: ', status
-                    + '\nheaders:', headers
-                    + '\nconfig:', config);
           if (data.status === 'new') {
-            local.setItem('username', username);
-            local.setItem('domain', domain);
+            setStorage(username, domain);
             $state.go('home.verify');
           } else if (data.status === 'existing') {
             // if existing, check if verified yet
-            console.log('existing');
-
             HttpFactory.verify(username, domain)
               .success(function(verifyData) {
                 if (verifyData.status === false) {
-                  local.setItem('username', username);
-                  local.setItem('domain', domain);
+                  setStorage(username, domain);
                   $state.go('home.verify');
                 } else if (verifyData.status === true) {
+                  // if user has already been verified before... resend verification
+                  // update email to be non-verified
                   // show error message - verified email already exists - MIGHT WANT TO UPDATE LOGIC IN FUTURE
-                  // console.log('user exists');
-                  // $scope.notUnique = true;
                   // for now, during testing, just send to verify.js page
-                  local.setItem('username', username);
-                  local.setItem('domain', domain);
+                  setStorage(username, domain);
                   $state.go('home.verify');
                 }
               })
