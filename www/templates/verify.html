@@ -5,14 +5,12 @@
   </p>
 
   <button class="button button-balanced button-block" ng-click="checkVerification()">{{ verStatus }}</button>
-  <div ng-show="error" class="error">
+  <small ng-show="error" class="error">
     We're sorry, your email has not been verified yet.
-  </div>
-
-
+  </small>
   <button class="button button-dark button-block" ng-click="resendVerification()">{{ resentStatus }}</button>
 
 </ion-content>
 
-<ion-footer-bar class="bar bar-footer bar-balanced">
+<ion-footer-bar class="bar bar-footer verify-color">
 </ion-footer-bar>

@@ -4,21 +4,20 @@
   <p>Touch and hold on the graphic below to submit your opinion</p>
 
   <happy-graph selected-point="click.clickData" submitted="clickSubmitted" coordinates="coordinates" margin="margin"></happy-graph>
-
-  <div class="user-choice"></div> Your sentiment
-  <div class="coworker-choice"></div> Your co-workers' most recent sentiment
+  <circle-key></circle-key> Your sentiment
+  <br>
+  <circle-key-other></circle-key-other> Your co-workers' most recent sentiment
+  <small class="error" ng-show="noData">No data for your domain yet! Invite your coworkers above</small>
+  <small class="error" ng-show="littleData">There isn't very much data for your domain yet! Invite your coworkers above</small>
 </div>
   <div class="button-bar graph-button">
     <button class="button button-balanced light-primary" ng-click="invite()">Invite your coworkers!</button>
     <button class="button button-dark" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
 
   </div>
-<!-- <small ng-show="noData">No data for your domain yet! Invite your coworkers above</small> -->
 
 </ion-content>
 
-<ion-footer-bar class="bar bar-footer bar-balanced" ng-show="completed">
-  <div class="button-bar" ng-click="refresh()">
-    <a class="button reset">Reset</a>
-  </div>
+<ion-footer-bar class="bar bar-footer footer-color" ng-show="completed" ng-click="refresh()">
+  <h2 class="title footer-color">Reset</h2>
 </ion-footer-bar>
