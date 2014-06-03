@@ -5,10 +5,8 @@ angular.module('app.verify', [
 .controller('VerifyCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
   function($scope, $rootScope, $state, HttpFactory) {
 
-  // temporary for testing - will use persistent storage here in future.
   var local = window.localStorage;
 
-  console.log('verify');
   $scope.$emit('verify');
   $scope.verStatus = 'Check Verification Status';
   $scope.resentStatus = 'Resend Verification Email'
@@ -20,7 +18,6 @@ angular.module('app.verify', [
     HttpFactory.verify(username, domain)
       .success(function(verifyData) {
         if (verifyData.status === true) {
-          console.log('verified true');
           $state.go('home.opinion');
         } else if (verifyData.status === false) {
           $scope.error = true;

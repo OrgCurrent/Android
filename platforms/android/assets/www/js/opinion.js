@@ -30,10 +30,11 @@ angular.module('app.opinion', [
           .success(function(data) {
             if (data.length === 1) {
               $scope.noData = true;
-            } else if (data.length < 10) {
+            } else if (data.length < 50) {
               $scope.littleData = true;
+            } else {
+              PointGraph.animate(data, $scope.margin);
             }
-            PointGraph.animate(data, $scope.margin);
           });
       });
   };

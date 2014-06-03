@@ -4,31 +4,6 @@ angular.module('graph', [])
   var link = function(scope, element, attr) {
     var outerRadius = 2;
     var innerRadius = 4;
-
-    var svg = d3.select(element[0])
-      .append('svg')
-      .attr({
-        'height': 10,
-        'width': 10
-      })
-      .append('circle')
-      .attr({
-        'cx': 5,
-        'cy': 5,
-        'r': innerRadius,
-        'class': 'click'
-      })
-      .style('stroke-width', outerRadius);
-  };
-
-  return {
-    restrict: 'E',
-    link: link,
-  }
-})
-
-.directive('circleKeyOther', function() {
-  var link = function(scope, element, attr) {
     var radius = 5;
 
     var svg = d3.select(element[0])
@@ -38,20 +13,25 @@ angular.module('graph', [])
         'width': 10
       })
       .append('circle')
-      .attr({
-        'cx': 5,
-        'cy': 5,
-        'r': radius,
-        'class': 'others'
-      })
+      .attr('cx', 5)
+      .attr('cy', 5);
+
+    if (scope.user === 'true') {
+      svg.attr('r', innerRadius)
+        .attr('class', 'click')
+        .style('stroke-width', outerRadius);
+    } else {
+      svg.attr('r', radius)
+        .attr('class', 'others');
+    }
   };
 
   return {
     restrict: 'E',
     link: link,
+    scope: {user: '@'}
   }
 })
-
 
 .directive('happyGraph', function() {
   var link = function(scope, element, attr) {
@@ -61,28 +41,30 @@ angular.module('graph', [])
 
 
     var click = function() {
-
+      d3.event.preventDefault();
+      
+      // location of click
       var clickPos = d3.touches(svg.node());
 
+      // no clickPos when click called on touchOff
       if (clickPos[0]) {
+        // check to make sure click position is inside graph
         if (!(clickPos[0][0] > xMin && clickPos[0][0] < xMax && clickPos[0][1] < yMin && clickPos[0][1] > yMax)) {
           console.log('outside Range');
           return;
         }
       }
-      d3.event.preventDefault();
-      
-
-      var arc = d3.svg.arc()
-        .outerRadius(initR)
-        .innerRadius(initR - thickness);
-
-      // svg.selectAll("g.click").remove();
 
       var g = svg.selectAll('g.click')
         .data(clickPos, function(d) {
           return d.identifier;
         });
+
+      // used to create closing arc when press and hold.
+      var arc = d3.svg.arc()
+        .outerRadius(initR)
+        .innerRadius(initR - thickness);
+
 
       g.enter()
         .append("g")
@@ -121,11 +103,14 @@ angular.module('graph', [])
           }
         });
 
+      // on touchEnd, set stopped to true
+
       g.exit().remove().each(function () {
         this.__stopped__ = true;
       });
     };
 
+    // if stopped = true before arc completes, not taken as a "valid" data point
     var complete = function(g) {
       return g.node().__stopped__ !== true;
     };
@@ -150,6 +135,7 @@ angular.module('graph', [])
     };
 
 
+    // BUILD X-Y GRAPH
     var screenWidth = screen.width;
     var screenHeight = screen.height;
 
