@@ -13,7 +13,7 @@ app.configure(function () {
   app.use(cors());
   app.use(express.logger('tiny')); // 'default', 'short', 'tiny', 'dev'
   app.use(express.bodyParser()),
-  app.use(express.static(path.join(__dirname, '../client')));
+  app.use(express.static(path.join(__dirname, '../www')));
 });
 
 app.get('/user/add/:user/:domain', route.addUser);
