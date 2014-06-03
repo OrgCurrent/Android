@@ -35,8 +35,9 @@ angular.module('graph', [])
 
 .directive('happyGraph', function() {
   var link = function(scope, element, attr) {
-    var initR = 10;
-    var r = 400;
+    var initR = 40;
+    var finalR = 10;
+    var rippleR = 400;
     var thickness = 5;
 
 
@@ -91,6 +92,8 @@ angular.module('graph', [])
               scope.selectedPoint = [100 * ((coords[0] - xMin) / (xMax - xMin)), 100 * ((yMin - coords[1]) / (yMin - yMax))];
             });
             svg.selectAll('circle.click').remove();
+            // append circle with radius that decreases to
+            // finalR radius over course of 2 seconds
             svg.append('circle')
               .attr({
                 class: 'click',
@@ -98,7 +101,9 @@ angular.module('graph', [])
                 cy: coords[1],
                 r: initR - (thickness / 2),
                 'stroke-width': thickness
-              });
+              })
+            .transition().duration(2000)
+              .attr('r', finalR);
             ripples(d);
           }
         });
@@ -126,7 +131,7 @@ angular.module('graph', [])
         .transition()
           .delay(Math.pow(i, 2.5) * 50)
           .duration(2000).ease('quad-in')
-          .attr("r", r)
+          .attr("r", rippleR)
           .style("stroke-opacity", 0)
           .each("end", function () {
               d3.select(this).remove();
