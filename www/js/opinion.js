@@ -10,6 +10,9 @@ angular.module('app.opinion', [
   $scope.coworkers = [{email: ''}];
   $scope.click = {};
 
+  $scope.noData = false;
+  $scope.littleData = false;
+
   // set coordinates and margin for graph
   $scope.coordinates = {x: '>> How successful you will be at this company >>', y: '>> How successful this company will be >>'};
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
@@ -25,6 +28,11 @@ angular.module('app.opinion', [
       .success(function() {
         HttpFactory.getScores($scope.domain)
           .success(function(data) {
+            if (data.length === 1) {
+              $scope.noData = true;
+            } else if (data.length < 10) {
+              $scope.littleData = true;
+            }
             PointGraph.animate(data, $scope.margin);
           });
       });
@@ -34,16 +42,17 @@ angular.module('app.opinion', [
     $scope.$apply(function() {
       $scope.completed = true;
     });
-    $scope.refresh = function() {
-      // when home broadcasts "reload" we want to reload the page to let
-      // our users revote.
-      $state.transitionTo($state.current, $stateParams, {
-        reload: true,
-        inherit: false,
-        notify: true
-      });
-    };
   });
+  
+  $scope.refresh = function() {
+    // when home broadcasts "reload" we want to reload the page to let
+    // our users revote.
+    $state.transitionTo($state.current, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true
+    });
+  };
 
 
   // MODAL TO INVITE coworkers
