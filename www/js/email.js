@@ -28,7 +28,7 @@ angular.module('app.email', [
       var domain = $scope.email.userInput.split('@')[1]
 
       HttpFactory.sendEmail(username, domain)
-       .success(function(data, status, headers, config) { 
+        .success(function(data, status, headers, config) { 
           // if user already in system, data.status === 'existing'
           // otherwise, status === 'new'
           if (data.status === 'new') {
@@ -63,4 +63,4 @@ angular.module('app.email', [
       $scope.email_form.submitted = true;
     }
   }
-}]);
+}])

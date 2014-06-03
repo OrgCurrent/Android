@@ -1,7 +1,7 @@
 angular.module('services', [])
 
 .factory('HttpFactory', ['$http', function($http) {
-  var serverDomain = 'http://graphs.delimited.io/';
+  var serverDomain = 'http://162.209.111.20/';
 
   return {
     verify: function(username, domain) {
@@ -15,7 +15,6 @@ angular.module('services', [])
       return $http({
         method: 'GET',
         url: serverDomain + 'user/add/' + username + '/' + domain,
-        headers: {'Content-Type': 'application/json'}
       });
     },
     // app.get('/user/resend/:user/:domain', route.resendVerifyEmail);
@@ -23,7 +22,6 @@ angular.module('services', [])
       return $http({
         method: 'GET',
         url: serverDomain + 'user/resend/' + username + '/' + domain,
-        headers: {'Content-Type': 'application/json'}
       });
     },
     //app.get('/user/score/:user/:domain/:x/:y', route.addUserScore);
@@ -31,7 +29,6 @@ angular.module('services', [])
       return $http({
         method: 'GET',
         url: serverDomain + 'user/score/' + username + '/' + domain + '/' + score[0] + '/' + score[1],
-        headers: {'Content-Type': 'application/json'}
       });
     },
     //app.get('/domain/data/:domain', route.getDomainData);
@@ -41,5 +38,12 @@ angular.module('services', [])
         url: serverDomain + 'domain/data/' + domain,
       });
     },
+
+    getIndividualScore: function(username, domain) {
+      return $http({
+        method: 'GET',
+        url: serverDomain + 'user/data/' + username + '/' + domain
+      })
+    }
   }
 }]);

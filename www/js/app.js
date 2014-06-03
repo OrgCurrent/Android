@@ -4,8 +4,7 @@ angular.module('app', [
   'app.home',
   'app.email',
   'app.verify',
-  'app.opinion',
-  'services'
+  'app.opinion'
   ])
 
 .run(['$ionicPlatform', 
