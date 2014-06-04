@@ -1,5 +1,4 @@
-angular.module('app.home.settings', 
-  [])
+angular.module('app.home.settings', [])
 
 .directive('settings', function() {
   return {
@@ -8,7 +7,6 @@ angular.module('app.home.settings',
     scope: true,
     controller: ['$scope', '$rootScope', '$state', '$ionicSideMenuDelegate',
       function($scope, $rootScope, $state, $ionicSideMenuDelegate) {
-        console.log('settings');
         var local = window.localStorage;
 
         $scope.changeEmail = function() {
