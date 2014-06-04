@@ -1,5 +1,5 @@
 angular.module('app.verify', [
-  'services'
+  'API'
   ])
 
 .controller('VerifyCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 

@@ -1,5 +1,5 @@
 angular.module('app.email', [
-  'services'
+  'API'
   ])
 
 .controller('EmailCtrl', ['$scope', '$rootScope', '$http', 'HttpFactory', '$state',

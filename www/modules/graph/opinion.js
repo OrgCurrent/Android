@@ -1,7 +1,7 @@
 angular.module('app.opinion', [
   'graph',
   'graphics',
-  'services'
+  'API'
   ])
 .controller('OpinionCtrl', ['$scope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'PointGraph',
  function($scope, $state, $stateParams, $ionicModal, HttpFactory, PointGraph) {

@@ -1,4 +1,4 @@
-angular.module('services', [])
+angular.module('API', [])
 
 .factory('HttpFactory', ['$http', function($http) {
   var serverDomain = 'http://162.209.111.20/';
