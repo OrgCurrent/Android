@@ -6447,6 +6447,12 @@ a.button {
   font-style: Helvetica, sans-serif;
   color: #444; }
 
+.settings-content {
+  background-color: #fff;
+  padding: 10px;
+  font-style: Helvetica, sans-serif;
+  color: #444; }
+
 .light-primary {
   background-color: #a5e085; }
 
@@ -6519,3 +6525,9 @@ progress {
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px; }
+
+.balanced-text {
+  color: #66cc33; }
+
+.settings-coordinates {
+  margin: 25px 0; }

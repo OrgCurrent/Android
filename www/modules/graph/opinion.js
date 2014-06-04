@@ -3,8 +3,8 @@ angular.module('app.opinion', [
   'graphics',
   'API'
   ])
-.controller('OpinionCtrl', ['$scope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'PointGraph',
- function($scope, $state, $stateParams, $ionicModal, HttpFactory, PointGraph) {
+.controller('OpinionCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicModal', 'HttpFactory', 'PointGraph',
+ function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, PointGraph) {
   // notify home controller that we are on opinion page
   $scope.$emit('opinion');
   $scope.coworkers = [{email: ''}];
@@ -16,9 +16,9 @@ angular.module('app.opinion', [
   $scope.recentScore = false;
 
   // set coordinates and margin for graph
-  $scope.coordinates = {
-    x: '>> How successful you will be at this company >>', 
-    y: '>> How successful this company will be >>'
+  $rootScope.coordinates = {
+    x: 'How successful you will be at this company', 
+    y: 'How successful this company will be'
   };
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
 
