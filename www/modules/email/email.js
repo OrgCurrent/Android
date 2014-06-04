@@ -7,6 +7,7 @@ angular.module('app.email', [
   $scope.$emit('email');
   $scope.submitted = false;
   $scope.email = {};
+  $scope.verifyButton = 'Send Verification Email';
 
   var serverError = function(data) {
     console.log('error!', data);
@@ -21,6 +22,7 @@ angular.module('app.email', [
   $scope.sendEmail = function() {
     $scope.serverError = false;
     $scope.notUnique = false;
+    $scope.verifyButton = 'Sending...'
 
     if($scope.email_form.$valid) {
       
@@ -54,6 +56,7 @@ angular.module('app.email', [
               })
               .error(function(data) {
                 serverError(data);
+                $scope.verifyButton = 'Send Verification Email';
               });
           }
       })
