@@ -39,6 +39,7 @@ angular.module('graph', [])
     var finalR = 10;
     var rippleR = 400;
     var thickness = 5;
+    var fontSize = 11;
 
 
     var click = function() {
@@ -180,14 +181,14 @@ angular.module('graph', [])
     // Actual x-axis
     svg.append('g').call(xAxis.tickValues([0,50,100])).attr({
       transform: 'translate(0,' + height + ')',
-      class: 'x axis'
+      class: 'x axis main-axis'
       })
       .append('text')
       .attr({
         'text-anchor': 'start',
         x: margin.left + 20,
         y: -(margin.bottom - 10),
-        'font-size': 10
+        'font-size': fontSize
       })
       // .style('text-anchor', 'end')
       .text(scope.coordinates.x);
@@ -195,7 +196,7 @@ angular.module('graph', [])
     // x-axis top
     svg.append('g').call(xAxis.tickValues([])).attr({
       transform: 'translate(0,' + margin.top + ')',
-      class: 'x axis'
+      class: 'x axis main-axis'
       });
 
     // x-axis middle
@@ -208,7 +209,7 @@ angular.module('graph', [])
     // Actual y-axis
     svg.append('g').call(yAxis.tickValues([50,100])).attr({
         transform: 'translate(' + margin.left + ', 0)',
-        class: 'y axis'
+        class: 'y axis main-axis'
       })
       .append('text')
       .attr({
@@ -216,14 +217,14 @@ angular.module('graph', [])
         'text-anchor': 'start',
         x: -(height - margin.bottom),
         y: margin.left - 15,
-        'font-size': 10
+        'font-size': fontSize
       })
       .text(scope.coordinates.y);
 
     // y-axis right
     svg.append('g').call(yAxis.tickValues([])).attr({
         transform: 'translate(' + width + ', 0)',
-        class: 'y axis'
+        class: 'y axis main-axis'
       })
 
     // y-axis middle
