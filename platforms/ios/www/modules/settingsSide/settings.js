@@ -16,5 +16,6 @@ angular.module('app.home.settings', [])
           $state.go('home.email');
         }
     }]
-  }  
+  }
+  
 })
