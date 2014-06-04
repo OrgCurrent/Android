@@ -1,10 +1,20 @@
 angular.module('app.home', [
   'services',
+  'app.home.settings'
   ])
-.controller('HomeCtrl', ['$scope', '$rootScope', '$state', 'HttpFactory', 
-  function($scope, $rootScope, $state, HttpFactory) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$state', '$ionicModal', '$ionicSideMenuDelegate', 'HttpFactory', 
+  function($scope, $rootScope, $state, $ionicModal, $ionicSideMenuDelegate, HttpFactory) {
 
   var local = window.localStorage;
+
+  var resetStorage = function() {
+    $scope.username = local.getItem('username');
+    $scope.domain = local.getItem('domain');
+  };
+
+  resetStorage();
+
+  $scope.$on('resetStorage', resetStorage);
 
   if (local.getItem('username')) {
     HttpFactory.verify(local.getItem('username'), local.getItem('domain'))
@@ -45,5 +55,56 @@ angular.module('app.home', [
     $scope.verified = true;
     $scope.completed = false;
   });
+
+  // SETTINGS TO RESET EMAIL //
+  $scope.toggleSettings = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+
+
+  // MODAL TO INVITE COWORKERS //
+  $scope.coworkers = [{email: ''}];
+  $scope.addEmail = function() {
+    $scope.coworkers.push({email: ''});
+  }
+
+  $scope.$on('invite', function() {
+    $scope.invite();
+  })
+
+  $ionicModal.fromTemplateUrl('../templates/modal.html', {
+    scope: $scope,
+    animation: 'slide-left-right'
+  }).then(function(modal) {
+    $scope.modal = modal;
+    
+    $scope.invite = function() {
+      $scope.modal.show();
+    };
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hide', function() {
+      // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function() {
+      // Execute action
+    });
+  });
+
+  $scope.sendInvites = function() {
+    console.log('Format email, send to provided emails');
+    for (var i = 0; i < $scope.coworkers.length; i++) {
+      console.log($scope.coworkers[i].email);
+    }
+    $scope.coworkers = [{email: ''}];
+  }
+  // MODAL TO INVITE COWORKERS //
 
 }]);
