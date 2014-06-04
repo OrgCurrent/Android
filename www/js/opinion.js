@@ -88,45 +88,51 @@ angular.module('app.opinion', [
     });
   };
 
+  // trigger modal from home screen
 
-  // MODAL TO INVITE COWORKERS //
-  $scope.coworkers = [{email: ''}];
-  $scope.addEmail = function() {
-    $scope.coworkers.push({email: ''});
+  $scope.invite = function() {
+    $scope.$emit('invite');
   }
 
-  $ionicModal.fromTemplateUrl('../templates/modal.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
+
+  // MODAL TO INVITE COWORKERS // NOW IN HEADER
+  // $scope.coworkers = [{email: ''}];
+  // $scope.addEmail = function() {
+  //   $scope.coworkers.push({email: ''});
+  // }
+
+  // $ionicModal.fromTemplateUrl('../templates/modal.html', {
+  //   scope: $scope,
+  //   animation: 'slide-in-up'
+  // }).then(function(modal) {
+  //   $scope.modal = modal;
     
-    $scope.invite = function() {
-      $scope.modal.show();
-    };
-    $scope.closeModal = function() {
-      $scope.modal.hide();
-    };
-    //Cleanup the modal when we're done with it!
-    $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-    });
-    // Execute action on hide modal
-    $scope.$on('modal.hide', function() {
-      // Execute action
-    });
-    // Execute action on remove modal
-    $scope.$on('modal.removed', function() {
-      // Execute action
-    });
-  });
+  //   $scope.invite = function() {
+  //     $scope.modal.show();
+  //   };
+  //   $scope.closeModal = function() {
+  //     $scope.modal.hide();
+  //   };
+  //   //Cleanup the modal when we're done with it!
+  //   $scope.$on('$destroy', function() {
+  //     $scope.modal.remove();
+  //   });
+  //   // Execute action on hide modal
+  //   $scope.$on('modal.hide', function() {
+  //     // Execute action
+  //   });
+  //   // Execute action on remove modal
+  //   $scope.$on('modal.removed', function() {
+  //     // Execute action
+  //   });
+  // });
 
-  $scope.sendInvites = function() {
-    console.log('Format email, send to provided emails');
-    for (var i = 0; i < $scope.coworkers.length; i++) {
-      console.log($scope.coworkers[i].email);
-    }
-    $scope.coworkers = [{email: ''}];
-  }
-  // MODAL TO INVITE COWORKERS //
+  // $scope.sendInvites = function() {
+  //   console.log('Format email, send to provided emails');
+  //   for (var i = 0; i < $scope.coworkers.length; i++) {
+  //     console.log($scope.coworkers[i].email);
+  //   }
+  //   $scope.coworkers = [{email: ''}];
+  // }
+  // // MODAL TO INVITE COWORKERS //
 }]);
