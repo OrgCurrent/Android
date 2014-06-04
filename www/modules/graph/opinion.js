@@ -9,6 +9,17 @@ angular.module('app.opinion', [
   $scope.$emit('opinion');
   $scope.coworkers = [{email: ''}];
   $scope.click = {};
+  var landingDescription = 'Touch and hold on the graph below to submit your opinion';
+  var noDataDescription = "There isn't any data for your domain yet! Invite your coworkers by clicking below";
+  var littleDataDescription = "There isn't very much data for your domain yet! Invite your coworkers by clicking below";
+  var dataDescription = "Each blue dot represents your coworkers' most recent sentiment about their success and your company's success. Check back recently for updated scores."
+
+  var landingTitle = 'Your opinion matters!'
+  var littleDataTitle = 'Invite coworkers!'
+  var dataTitle = "Your coworker's sentiment"
+
+  $scope.pageDescription = landingDescription
+  $scope.titleDescription = landingTitle;
 
   $scope.noData = false;
   $scope.littleData = false;
@@ -17,8 +28,8 @@ angular.module('app.opinion', [
 
   // set coordinates and margin for graph
   $rootScope.coordinates = {
-    x: 'How successful you will be at this company', 
-    y: 'How successful this company will be'
+    x: 'How successful this company will be',
+    y: 'How successful you will be at this company'
   };
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
 
@@ -27,39 +38,25 @@ angular.module('app.opinion', [
   $scope.username = local.getItem('username');
   $scope.domain = local.getItem('domain');
 
-  // on load, check to see if this user has submitted a score in the past
-  // 24 hours or on that day. If they have, show them the see co-workers 
-  // data button right away need another server endpoint for this
-  HttpFactory.getIndividualScore($scope.username, $scope.domain)
-  .success(function(data) {
-    if (data.scores.length > 0) {
-      mostRecentSubmit = new Date(data.scores[data.scores.length - 1].created);
-      today = new Date();
-      if (mostRecentSubmit.getYear() === today.getYear()
-        && mostRecentSubmit.getMonth() === today.getMonth()
-        && mostRecentSubmit.getDate() === today.getDate()) {
-        $scope.recentScore = true;
-        return;
-      } 
-    }
-    $scope.recentScore = false;
-  })
-  .error(function(err) {
-    console.log(err);
-  });
-
   $scope.seeData = function() {
     $scope.clickSubmitted = true;
     $scope.recentScore = false;
     HttpFactory.getScores($scope.domain)
     .success(function(data) {
+      $scope.$emit('coworkers');
       if (data.length === 1) {
+        $scope.pageDescription = noDataDescription
+        $scope.titleDescription = littleDataTitle;
         $scope.noData = true;
         $scope.completed = true;
       } else if (data.length < 50) {
+        $scope.pageDescription = littleDataDescription;
+        $scope.titleDescription = littleDataTitle;
         $scope.littleData = true;
         $scope.completed = true;
       } else {
+        $scope.pageDescription = dataDescription;
+        $scope.titleDescription = dataTitle;
         PointGraph.animate(data, $scope.margin);
       }
     });
@@ -93,48 +90,29 @@ angular.module('app.opinion', [
   // trigger modal from home screen
 
   $scope.invite = function() {
-    $scope.$emit('invite');
+    $scope.$emit('swipeInvite');
   }
 
+  // on load, check to see if this user has submitted a score in the past
+  // 24 hours or on that day. If they have, show them the see co-workers 
+  // data button right away need another server endpoint for this
+  HttpFactory.getIndividualScore($scope.username, $scope.domain)
+  .success(function(data) {
+    if (data.scores.length > 0) {
+      mostRecentSubmit = new Date(data.scores[data.scores.length - 1].created);
+      today = new Date();
+      if (mostRecentSubmit.getYear() === today.getYear()
+        && mostRecentSubmit.getMonth() === today.getMonth()
+        && mostRecentSubmit.getDate() === today.getDate()) {
+        $scope.seeData();
+        return;
+      } 
+    }
+    $scope.recentScore = false;
+    $scope.$emit('personal');
+  })
+  .error(function(err) {
+    console.log(err);
+  });
 
-  // MODAL TO INVITE COWORKERS // NOW IN HEADER
-  // $scope.coworkers = [{email: ''}];
-  // $scope.addEmail = function() {
-  //   $scope.coworkers.push({email: ''});
-  // }
-
-  // $ionicModal.fromTemplateUrl('../templates/modal.html', {
-  //   scope: $scope,
-  //   animation: 'slide-in-up'
-  // }).then(function(modal) {
-  //   $scope.modal = modal;
-    
-  //   $scope.invite = function() {
-  //     $scope.modal.show();
-  //   };
-  //   $scope.closeModal = function() {
-  //     $scope.modal.hide();
-  //   };
-  //   //Cleanup the modal when we're done with it!
-  //   $scope.$on('$destroy', function() {
-  //     $scope.modal.remove();
-  //   });
-  //   // Execute action on hide modal
-  //   $scope.$on('modal.hide', function() {
-  //     // Execute action
-  //   });
-  //   // Execute action on remove modal
-  //   $scope.$on('modal.removed', function() {
-  //     // Execute action
-  //   });
-  // });
-
-  // $scope.sendInvites = function() {
-  //   console.log('Format email, send to provided emails');
-  //   for (var i = 0; i < $scope.coworkers.length; i++) {
-  //     console.log($scope.coworkers[i].email);
-  //   }
-  //   $scope.coworkers = [{email: ''}];
-  // }
-  // // MODAL TO INVITE COWORKERS //
 }]);
