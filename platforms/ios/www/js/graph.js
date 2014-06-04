@@ -189,7 +189,7 @@ angular.module('graph', [])
     // Actual x-axis
     svg.append('g').call(xAxis.tickValues([0,50,100])).attr({
       transform: 'translate(0,' + height + ')',
-      class: 'x axis'
+      class: 'x axis main-axis'
       })
       .append('text')
       .attr({
@@ -204,7 +204,7 @@ angular.module('graph', [])
     // x-axis top
     svg.append('g').call(xAxis.tickValues([])).attr({
       transform: 'translate(0,' + margin.top + ')',
-      class: 'x axis'
+      class: 'x axis main-axis'
       });
 
     // x-axis middle
@@ -217,7 +217,7 @@ angular.module('graph', [])
     // Actual y-axis
     svg.append('g').call(yAxis.tickValues([50,100])).attr({
         transform: 'translate(' + margin.left + ', 0)',
-        class: 'y axis'
+        class: 'y axis main-axis'
       })
       .append('text')
       .attr({
@@ -232,7 +232,7 @@ angular.module('graph', [])
     // y-axis right
     svg.append('g').call(yAxis.tickValues([])).attr({
         transform: 'translate(' + width + ', 0)',
-        class: 'y axis'
+        class: 'y axis main-axis'
       })
 
     // y-axis middle

@@ -32,15 +32,17 @@ angular.module('app.opinion', [
   // data button right away need another server endpoint for this
   HttpFactory.getIndividualScore($scope.username, $scope.domain)
   .success(function(data) {
-    mostRecentSubmit = new Date(data.scores[data.scores.length - 1].created);
-    today = new Date();
-    if (mostRecentSubmit.getYear() === today.getYear()
-      && mostRecentSubmit.getMonth() === today.getMonth()
-      && mostRecentSubmit.getDate() === today.getDate()) {
-      $scope.recentScore = true;
-    } else {
-      $scope.recentScore = false;
+    if (data.scores.length > 0) {
+      mostRecentSubmit = new Date(data.scores[data.scores.length - 1].created);
+      today = new Date();
+      if (mostRecentSubmit.getYear() === today.getYear()
+        && mostRecentSubmit.getMonth() === today.getMonth()
+        && mostRecentSubmit.getDate() === today.getDate()) {
+        $scope.recentScore = true;
+        return;
+      } 
     }
+    $scope.recentScore = false;
   })
   .error(function(err) {
     console.log(err);

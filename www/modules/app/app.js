@@ -28,27 +28,27 @@ angular.module('app', [
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: 'templates/home.html',
+      templateUrl: 'modules/root/home.html',
       controller: 'HomeCtrl',
     })
     .state('home.loading', {
       url: 'loading',
-      templateUrl: 'templates/loading.html',
+      templateUrl: 'modules/root/loading.html',
       controller: 'EmailCtrl'
     })
     .state('home.email', {
       url: 'email',
-      templateUrl: 'templates/email.html',
+      templateUrl: 'modules/email/email.html',
       controller: 'EmailCtrl'
     })
     .state('home.verify', {
       url: 'verify',
-      templateUrl: 'templates/verify.html',
+      templateUrl: 'modules/verify/verify.html',
       controller: 'VerifyCtrl'
     })
     .state('home.opinion', {
       url: 'opinion',
-      templateUrl: 'templates/opinion.html',
+      templateUrl: 'modules/graph/opinion.html',
       controller: 'OpinionCtrl'
     })
 

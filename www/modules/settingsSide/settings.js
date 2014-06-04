@@ -4,7 +4,7 @@ angular.module('app.home.settings',
 .directive('settings', function() {
   return {
     restrict: 'EA',
-    templateUrl: 'templates/settings.html',
+    templateUrl: 'modules/settingsSide/settings.html',
     scope: true,
     controller: ['$scope', '$rootScope', '$state', '$ionicSideMenuDelegate',
       function($scope, $rootScope, $state, $ionicSideMenuDelegate) {

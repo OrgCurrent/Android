@@ -72,7 +72,7 @@ angular.module('app.home', [
     $scope.invite();
   })
 
-  $ionicModal.fromTemplateUrl('../templates/modal.html', {
+  $ionicModal.fromTemplateUrl('../modules/invite/invite.html', {
     scope: $scope,
     animation: 'slide-left-right'
   }).then(function(modal) {
