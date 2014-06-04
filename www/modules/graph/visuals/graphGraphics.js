@@ -5,8 +5,11 @@ angular.module('graphics', [])
   return {
 
     animate: function(data, margin) {
+      var scores = this.getRecentScores(data);
       // recentScores is an array of the most recent score for each user.
-      var recentScores = this.getRecentScores(data);
+      var recentScores = scores.recentScores;
+      // myScore is an array of my most recent score.
+      var myScore = scores.myScore;
       var status = 0;
 
       var svg = d3.select('svg');
@@ -26,6 +29,22 @@ angular.module('graphics', [])
       // y inverted
       var translateY = function(y) {
         return (yMin - y/100 * (yMin - yMax));
+      }
+
+      // place my most recent point
+      var placeMyPoint = function(data) {
+        var initR = 40;
+        var finalR = 10;
+        var thickness = 5;
+
+        svg.append('circle')
+          .attr({
+            class: 'click',
+            cx: translateX(data[0]),
+            cy: translateY(data[1]),
+            r: finalR,
+            'stroke-width': thickness
+          })
       }
 
       // place co-worker data points.
@@ -143,21 +162,27 @@ angular.module('graphics', [])
 
       // Once you submit, begin place points process.
       // ******************* //
+      // place my point
+      placeMyPoint(myScore);
+      // place everyone else's
       placePoints(recentScores);
       // ******************* //
     },
 
     getRecentScores: function(data) {
       var recentScores = [];
+      var myScore = [];
 
       for (var i = 0; i < data.length; i++) {
         var numScores = data[i].scores.length;
         if (numScores && data[i].username !== window.localStorage.username) {
           recentScores.push([data[i].scores[numScores - 1].x, data[i].scores[numScores - 1].y]);
+        } else if (data[i].username === window.localStorage.username) {
+          myScore = [data[i].scores[numScores - 1].x, data[i].scores[numScores - 1].y];
         }
       }
 
-      return recentScores;
+      return {recentScores: recentScores, myScore: myScore};
     }
   }
 
