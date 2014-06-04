@@ -23,7 +23,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 $font-stack: Helvetica, sans-serif;
 $font-color: $dark;
-$light-primary: lighten( $balanced, 20% );
+$light-primary: lighten( $balanced, 40% );
 $dark-primary: darken( $balanced, 20% );
 
 .main-content {
@@ -116,7 +116,7 @@ progress {
 
 .footer-color {
   color: white;
-  background-color: darken( $balanced, 40% )
+  background-color: darken( $balanced, 30% )
 }
 
 .loading {
@@ -138,3 +138,133 @@ progress {
 .settings-coordinates {
   margin: 25px 0;
 }
+
+
+/* WIZARD STEPS */
+
+.wizard-steps {
+  margin: 5px 0 0 0;
+  padding: 0;
+  position: relative;
+  clear:both;
+  /*font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-weight: bold;
+}
+.wizard-steps div {
+  position:relative;
+}
+/* = STEP NUMBERS
+----------------------------*/
+.wizard-steps span {
+    display: block;
+    float: left;
+    font-size: 10px;
+    text-align:center;
+    width:15px;
+    margin: 2px 5px 0px 0px;
+    line-height:15px;
+    color: $dark;
+    background: $stable;
+    border: 2px solid $balanced;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+}
+/* = DEFAULT STEPS
+----------------------------*/
+.wizard-steps a {
+    position:relative;
+    display:block;
+    width:100%;
+    height:24px;
+    margin-right: 18px;
+    padding:0px 10px 0px 3px;
+    float: left;
+    font-size:11px;
+    line-height:24px;
+    color: $dark;
+    background: $light-primary;
+    text-decoration:none;
+    text-shadow:1px 1px 1px rgba(255,255,255, 0.8);
+}
+.wizard-steps a:before {
+    width:0px;
+    height:0px;
+    border-top: 12px solid $light-primary;
+    border-bottom: 12px solid $light-primary;
+    border-left:12px solid transparent;
+    position: absolute;
+    content: "";
+    top: 0px;
+    left: -12px;
+}
+.wizard-steps a:after {
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left:12px solid $light-primary;
+    position: absolute;
+    content: "";
+    top: 0px;
+    right: -12px;
+}
+ 
+/* = COMPLETED STEPS
+----------------------------*/
+ 
+.wizard-steps .completed-step a {
+    color: $light;
+    background: $balanced;
+}
+.wizard-steps .completed-step a:before {
+    border-top: 12px solid $balanced;
+    border-bottom: 12px solid $balanced;
+}
+.wizard-steps .completed-step a:after {
+    border-left: 12px solid $balanced;
+}
+.wizard-steps .completed-step span {
+    border: 2px solid $dark-primary;
+    color: $dark;
+    text-shadow:none;
+}
+/* = ACTIVE STEPS
+----------------------------*/
+.wizard-steps .active-step a {
+    color: $light;
+    background: $dark-primary;
+    text-shadow:1px 1px 1px rgba(0,0,0, 0.8);
+}
+.wizard-steps .active-step a:before {
+    border-top: 12px solid $dark-primary;
+    border-bottom: 12px solid $dark-primary;
+}
+.wizard-steps .active-step a:after {
+    border-left: 12px solid $dark-primary;
+}
+.wizard-steps .active-step span {
+    color: $dark;
+    -webkit-box-shadow:0px 0px 1px rgba(0,0,0, 0.8);
+    -moz-box-shadow:0px 0px 1px rgba(0,0,0, 0.8);
+    box-shadow:0px 0px 1px rgba(0,0,0, 0.8);
+    text-shadow:none;
+    border: 2px solid darken( $dark-primary, 20% );
+}
+/* = HOVER STATES
+----------------------------*/
+/*.wizard-steps .completed-step:hover a, .wizard-steps .active-step:hover a {
+    color:#fff;
+    background: #8F061E;
+    text-shadow:1px 1px 1px rgba(0,0,0, 0.8);
+}
+.wizard-steps .completed-step:hover span, .wizard-steps .active-step:hover span {
+    color:#8F061E;
+}
+.wizard-steps .completed-step:hover a:before, .wizard-steps .active-step:hover a:before {
+    border-top: 12px solid #8F061E;
+    border-bottom: 12px solid #8F061E;
+}
+.wizard-steps .completed-step:hover a:after, .wizard-steps .active-step:hover a:after {
+    border-left: 12px solid #8F061E;
+}*/
