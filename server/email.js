@@ -11,7 +11,7 @@ exports.sendVerifyMail = function (context) {
 
       template('verify', context, function(err, html, text) {
         if (err) onRejected();
-        config.transport.sendMail({
+        config.verifyTransport.sendMail({
           from: config.email.verify.from,
           to: config.email.test_user.user,
           subject: 'Please Verify Your Email Address',
@@ -33,8 +33,8 @@ exports.sendInviteMails = function (context) {
 
       template('invite', context, function(err, html, text) {
         if (err) onRejected();
-        config.transport.sendMail({
-          from: config.email.verify.from,
+        config.welcomeTransport.sendMail({
+          from: config.email.welcome.from,
           to: config.email.test_user.user,
           subject: 'You Been Invited',
           html: html,
