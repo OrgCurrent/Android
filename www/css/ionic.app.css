@@ -6509,3 +6509,13 @@ progress {
 .footer-color {
   color: white;
   background-color: #15290a; }
+
+.loading {
+  background-color: #66cc33;
+  width: 100%;
+  height: 100%; }
+
+.loading-icon {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px; }
