@@ -28,25 +28,27 @@ angular.module('app.email', [
       var domain = $scope.email.userInput.split('@')[1]
 
       HttpFactory.sendEmail(username, domain)
-        .success(function(data, status, headers, config) { 
+        .success(function(data) { 
+          // set local storage and emit so that home changes
+          // its scope username domain vars
+          setStorage(username, domain);
+          $scope.$emit('resetStorage');
+
           // if user already in system, data.status === 'existing'
           // otherwise, status === 'new'
           if (data.status === 'new') {
-            setStorage(username, domain);
             $state.go('home.verify');
           } else if (data.status === 'existing') {
             // if existing, check if verified yet
             HttpFactory.verify(username, domain)
               .success(function(verifyData) {
                 if (verifyData.status === false) {
-                  setStorage(username, domain);
                   $state.go('home.verify');
                 } else if (verifyData.status === true) {
                   // if user has already been verified before... resend verification
                   // update email to be non-verified
                   // show error message - verified email already exists - MIGHT WANT TO UPDATE LOGIC IN FUTURE
                   // for now, during testing, just send to verify.js page
-                  setStorage(username, domain);
                   $state.go('home.verify');
                 }
               })
@@ -55,7 +57,7 @@ angular.module('app.email', [
               });
           }
       })
-      .error(function(data, status, headers, config) {
+      .error(function(data) {
           // server error
           serverError(data);
       });

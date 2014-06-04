@@ -29,7 +29,7 @@ angular.module('app', [
     .state('home', {
       url: '/',
       templateUrl: 'templates/home.html',
-      controller: 'HomeCtrl'
+      controller: 'HomeCtrl',
     })
     .state('home.loading', {
       url: 'loading',
