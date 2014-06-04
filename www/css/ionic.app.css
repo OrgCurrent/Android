@@ -6450,7 +6450,6 @@ a.button {
 .light-primary {
   background-color: #a5e085; }
 
-
 .active-tab {
   background-color: #3f7a1f; }
 
@@ -6486,6 +6485,9 @@ circle.click {
 .x.axis path, .x.axis line, .y.axis path, .y.axis line {
   fill: none;
   stroke: black; }
+
+.main-axis {
+  stroke-width: 5; }
 
 .others {
   fill: #4a87ee; }
