@@ -36,11 +36,9 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/css \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/img \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/index.html \
-/Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/lib \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/plugins \
-/Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/templates \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/bower_components/d3 \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/bower_components/simple-statistics \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/bower_components/d3/bower.json \
@@ -229,6 +227,7 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/graph/visuals/graphGraphics.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/invite/invite.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/invite/invite.js \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/headers.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/home.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/home.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/loading.html \

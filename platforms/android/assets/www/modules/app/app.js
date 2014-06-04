@@ -52,5 +52,5 @@ angular.module('app', [
       controller: 'OpinionCtrl'
     })
 
-  $urlRouterProvider.otherwise('/loading');
+  $urlRouterProvider.otherwise('/');
 }]);

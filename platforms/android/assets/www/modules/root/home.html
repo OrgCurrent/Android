@@ -1,41 +1,15 @@
 <ion-side-menus>
   <!-- Center content -->
-  <ion-side-menu-content ng-controller="HomeCtrl">
-
-    <ion-header-bar class="bar-header bar-balanced">
-      <button class="button button-clear icon ion-gear-a" ng-show="showSettings" ng-click="toggleSettings()"></button>
-      <h1 class="title">Happy Meter</h1>
-      <button class="button button-clear icon ion-android-add-contact" ng-click="invite()"></button>
-    </ion-header-bar>
-
-
-    <ion-header-bar class="bar-stable bar-subheader" ng-hide="verified">
-      <!-- <div class="row">
-        <div class="col {{ email }}" ui-sref="home.email">email</div>
-        <div class="col {{ verify }}">verify</div>
-        <div class="col">opinions</div>
-      </div> -->
-
-      <div class="button-bar">
-        <a class="button {{ email }}" ui-sref="home.email">email</a>
-        <a class="button {{ verify }}">verify</a>
-        <a class="button">opinions</a>
-      </div>
-    </ion-header-bar>
-
-    <ion-pane>
-
-      <ion-nav-view> </ion-nav-view>
-
-    </ion-pane>
-      
-  <!-- END OF CENTER CONTENT -->
+  <ion-side-menu-content>
+    <!-- home page headers and slide logic directive -->
+    <div home-page swipe-invite="invite"></div>
   </ion-side-menu-content>
 
   <!-- Left menu -->
-  <ion-side-menu side="left">
-    <div settings></div>
-  </ion-side-menu>
+    <ion-side-menu side="left">
+      <!-- settings directive -->
+      <div settings></div>
+    </ion-side-menu>
   <!-- END OF LEFT MENU -->
 
 </ion-side-menus>

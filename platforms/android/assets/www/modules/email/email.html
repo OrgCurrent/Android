@@ -10,20 +10,19 @@
   <form name="email_form" novalidate ng-submit="sendEmail()" >
     <div class="list list-inset">
       <label class="item item-input">
-        <input type="email" name="email" ng-model='email.userInput' placeholder="Please enter your work email">
+        <input type="email" name="email" ng-model='email.userInput' placeholder="Please enter your work email" ng-pattern="/@(?!(?:yahoo|gmail|msn|hotmail|live)\.com|$)/i">
       </label>
     </div>
     <div ng-show="email_form">
-      <small class="error" ng-show="email_form.email.$dirty && email_form.email.$error.email && email_form.submitted">
-         That is not a valid email. Please input a valid email.
+      <small class="error" ng-show="email_form.email.$dirty && email_form.email.$error.pattern && email_form.submitted">
+         Please input a valid work email.
       </small>
       <small class="error"
         ng-show="serverError">
          Sorry, there was an error on our end. Please try again.
       </small>
     </div>
-    <button type="submit" class="button button-block button-balanced" 
-            ng-disabled="email_form.$invalid">
+      <button type="submit" class="button button-block button-balanced" >
       Verify
     </button>
   </form>

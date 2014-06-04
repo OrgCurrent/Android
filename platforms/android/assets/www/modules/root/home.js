@@ -64,7 +64,6 @@ angular.module('app.home', [
     $ionicSideMenuDelegate.toggleLeft();
   };
 
-
   // MODAL TO INVITE COWORKERS //
   $scope.coworkers = [{email: ''}];
   $scope.addEmail = function() {
@@ -75,11 +74,12 @@ angular.module('app.home', [
     $scope.coworkers.splice($index, 1);
   }
 
-  $scope.$on('invite', function() {
+  // when you swipe left, invites are opened up
+  $scope.$on('swipeInvite', function() {
     $scope.invite();
   })
 
-  $ionicModal.fromTemplateUrl('../modules/invite/invite.html', {
+  $ionicModal.fromTemplateUrl('modules/invite/invite.html', {
     scope: $scope,
     animation: 'slide-left-right'
   }).then(function(modal) {
@@ -114,4 +114,23 @@ angular.module('app.home', [
   }
   // MODAL TO INVITE COWORKERS //
 
+}])
+
+.directive('homePage', ['$ionicGesture', '$rootScope',
+  function($ionicGesture, $rootScope) {
+
+  var link = function(scope, element, attr) {
+    $ionicGesture.on('swipeleft', callback, element);
+  }
+
+  var callback = function() {
+    $rootScope.$broadcast('swipeInvite');
+  }
+
+  return {
+    restrict: 'EA',
+    templateUrl: 'modules/root/headers.html',
+    link: link
+  }
+   
 }]);
