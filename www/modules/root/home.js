@@ -39,7 +39,7 @@ angular.module('app.home', [
 
   $scope.$on("email", function(event, user) {
     $scope.verified = false;
-    $scope.email = 'button-balanced';
+    $scope.email = 'active-step';
     $scope.verify = '';
     $scope.opinion = '';
     $scope.showSettings = false;
@@ -47,8 +47,8 @@ angular.module('app.home', [
 
   $scope.$on("verify", function(event, user) {
     $scope.verified = false;
-    $scope.email = '';
-    $scope.verify = 'button-balanced';
+    $scope.email = 'completed-step';
+    $scope.verify = 'active-step';
     $scope.opinion = '';
     $scope.showSettings = true;
   });
@@ -57,6 +57,22 @@ angular.module('app.home', [
     $scope.verified = true;
     $scope.completed = false;
     $scope.showSettings = true;
+  });
+
+  $scope.$on('coworkers', function(event) {
+    console.log('coworkers!')
+    // $scope.$apply(function() {
+      $scope.personal = 'completed-step';
+      $scope.coworkers = 'active-step';
+    // })
+  });
+
+  $scope.$on('personal', function(event) {
+    console.log('personal!')
+    // $scope.$apply(function() {
+      $scope.personal = 'active-step';
+      $scope.coworkers = '';
+    // })
   });
 
   // SETTINGS TO RESET EMAIL //

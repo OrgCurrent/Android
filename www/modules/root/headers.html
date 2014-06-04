@@ -4,13 +4,20 @@
   <button class="button button-clear icon ion-android-add-contact" ng-click="invite()"></button>
 </ion-header-bar>
 
-<ion-header-bar class="bar-stable bar-subheader" ng-hide="verified">
-  <div class="button-bar">
-    <a class="button {{ email }}" ui-sref="home.email">email</a>
-    <a class="button {{ verify }}">verify</a>
-    <a class="button">opinions</a>
+<ion-header-bar class="bar-stable bar-subheader">
+  <div ng-class="{row: !verified}"class="wizard-steps" ng-hide="verified">
+    <div class="{{ email }} col col-offset-10"><a><span>1</span>email</a></div>
+    <div class="{{ verify }} col"><a><span>2</span>verify</a></div>
+    <div class="col"><a><span>3</span>opinion</a></div>
+    <div class="col-offset-10"></div>
+  </div>
+  <div class="row wizard-steps" ng-show="verified">
+    <div class="{{ personal }} col col-offset-10"><a><span>1</span>your sentiment</a></div>
+    <div class="{{ coworkers }} col"><a><span>2</span>coworkers</a></div>
+    <div class="col-offset-10"></div>
   </div>
 </ion-header-bar>
+
 
 <ion-pane>
   <ion-nav-view> </ion-nav-view>
