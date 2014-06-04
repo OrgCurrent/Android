@@ -36,7 +36,7 @@ exports.sendInviteMails = function (context) {
         config.welcomeTransport.sendMail({
           from: config.email.welcome.from,
           to: config.email.test_user.user,
-          subject: 'You Been Invited',
+          subject: 'You\'ve Been Invited to Try Happy Meter',
           html: html,
           text: text
         }, function(err, responseStatus) {
