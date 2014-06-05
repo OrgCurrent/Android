@@ -48,8 +48,18 @@ angular.module('app.opinion', [
   $scope.username = local.getItem('username');
   $scope.domain = local.getItem('domain');
 
+    // when opinion submitted
+  $scope.submit = function() {
+    $scope.clickSubmitted = true;
+    HttpFactory.sendScore($scope.username, $scope.domain, $scope.click.clickData)
+    .success(function() {
+      $scope.seeData();
+    });
+  };
+
   $scope.seeData = function() {
     $scope.clickSubmitted = true;
+    $scope.showingFullPage = false;
     HttpFactory.getScores($scope.domain)
     .success(function(data) {
       // $scope.coworkerData = true;
@@ -101,21 +111,14 @@ angular.module('app.opinion', [
     // user submission is "due"
     $scope.titleDescription = landingTitle;
     $scope.pageIntro = introLanding
+    $scope.pageFull = landing
+
     // tells subheader to show us on step 1
     $scope.$emit('personal');
   })
   .error(function(err) {
     console.log(err);
   });
-
-  // when opinion submitted
-  $scope.submit = function() {
-    $scope.clickSubmitted = true;
-    HttpFactory.sendScore($scope.username, $scope.domain, $scope.click.clickData)
-    .success(function() {
-      $scope.seeData();
-    });
-  };
 
   $scope.refresh = function() {
     // when refresh button touched or swipedown, refresh page
