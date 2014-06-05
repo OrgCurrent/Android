@@ -4,7 +4,7 @@ angular.module('graphics', [])
   function($rootScope) {
   return {
 
-    animate: function(data, margin) {
+    animate: function(data, margin, domain) {
       var scores = this.getRecentScores(data);
       // recentScores is an array of the most recent score for each user.
       var recentScores = scores.recentScores;
