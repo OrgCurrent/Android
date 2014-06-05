@@ -137,11 +137,16 @@ angular.module('app.home', [
   function($ionicGesture, $rootScope) {
 
   var link = function(scope, element, attr) {
-    $ionicGesture.on('swipeleft', callback, element);
+    $ionicGesture.on('swipeleft', callbackLeft, element);
+    $ionicGesture.on('swipedown', callbackDown, element);
   }
 
-  var callback = function() {
+  var callbackLeft = function() {
     $rootScope.$broadcast('swipeInvite');
+  }
+
+  var callbackDown = function() {
+    $rootScope.$broadcast('swipeDown');
   }
 
   return {
