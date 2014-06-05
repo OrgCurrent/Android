@@ -29,22 +29,29 @@ angular.module('app.email', [
       var domain = $scope.email.userInput.split('@')[1]
 
       HttpFactory.sendEmail(username, domain)
-        .success(function(data) { 
-          // set local storage and emit so that home changes
-          // its scope username domain vars
-          setStorage(username, domain);
-          $scope.$emit('resetStorage');
+      .success(function(data) { 
+        // set local storage and emit so that home changes
+        // its scope username domain vars
+        setStorage(username, domain);
+        $scope.$emit('resetStorage');
 
-          // if user already in system, data.status === 'existing'
-          // otherwise, status === 'new'
-          // the logic will not vary - resending email will set verify status to
-          // false, they will need to reverify, send both cases straight to home.verify
-          $state.go('home.verify');
-        })
-        .error(function(data) {
-          serverError(data);
-          $scope.verifyButton = 'Send Verification Email';
-        });
+        // if user already in system, data.status === 'existing'
+        if (data.status === 'existing') {
+          // resending email will set verify status to false
+          HttpFactory.resendEmail(username, domain)
+          .success(function() {
+            $state.go('home.verify');
+          })
+        } else {
+        // otherwise, status === 'new'
+        // false, they will need to reverify, send both cases straight to home.verify
+        $state.go('home.verify');
+        }
+      })
+      .error(function(data) {
+        serverError(data);
+        $scope.verifyButton = 'Send Verification Email';
+      });
     } else {
       $scope.email_form.submitted = true;
     }

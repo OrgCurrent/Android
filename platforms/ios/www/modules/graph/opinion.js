@@ -95,10 +95,15 @@ angular.module('app.opinion', [
       $scope.completed = true;
     });
   });
+
+  $scope.$on("swipeDown", function() {
+    $scope.refresh();
+  });
   
   $scope.refresh = function() {
     // when home broadcasts "reload" we want to reload the page to let
     // our users revote.
+    console.log('refresh');
     $state.transitionTo($state.current, $stateParams, {
       reload: true,
       inherit: false,

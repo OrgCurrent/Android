@@ -146,7 +146,7 @@ progress {
 /* WIZARD STEPS */
 
 .wizard-steps {
-  margin: 3px 0;
+  margin: 3px 0 0 0;
   padding: 0;
   position: relative;
   clear:both;
@@ -231,6 +231,7 @@ progress {
     border: 2px solid $dark-primary;
     color: $dark;
     text-shadow:none;
+    text-shadow:1px 1px 1px rgba(0,0,0, 0.8);
 }
 /* = ACTIVE STEPS
 ----------------------------*/

@@ -260,3 +260,26 @@ Terminating in response to SpringBoard's termination.
 2014-06-04 17:45:40.939 HelloCordova[47508:70b] outside Range
 2014-06-04 17:45:49.019 HelloCordova[47508:70b] outside Range
 2014-06-04 17:45:50.211 HelloCordova[47508:70b] outside Range
+Terminating in response to SpringBoard's termination.
+2014-06-04 20:09:36.898 HelloCordova[49019:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-04 20:09:36.913 HelloCordova[49019:70b] Unlimited access to network resources
+2014-06-04 20:09:36.967 HelloCordova[49019:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-04 20:09:36.982 HelloCordova[49019:70b] [CDVTimer][statusbar] 14.976025ms
+2014-06-04 20:09:36.990 HelloCordova[49019:70b] [CDVTimer][TotalPluginStartup] 23.657978ms
+2014-06-04 20:09:37.144 HelloCordova[49019:70b] Resetting plugins due to page load.
+2014-06-04 20:09:37.635 HelloCordova[49019:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7306F29B-A5CC-476F-9713-DCFD4F8297A2/HelloCordova.app/www/index.html#/
+2014-06-04 20:09:43.109 HelloCordova[49019:70b] what up, callbackdown
+2014-06-04 20:09:43.109 HelloCordova[49019:70b] refresh
+2014-06-04 20:09:46.317 HelloCordova[49019:70b] what up, callbackdown
+2014-06-04 20:09:46.318 HelloCordova[49019:70b] refresh
+2014-06-04 20:13:34.894 HelloCordova[50201:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-04 20:13:34.906 HelloCordova[50201:70b] Unlimited access to network resources
+2014-06-04 20:13:34.931 HelloCordova[50201:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-04 20:13:34.932 HelloCordova[50201:70b] [CDVTimer][statusbar] 0.957966ms
+2014-06-04 20:13:34.933 HelloCordova[50201:70b] [CDVTimer][TotalPluginStartup] 1.766026ms
+2014-06-04 20:13:35.048 HelloCordova[50201:70b] Resetting plugins due to page load.
+2014-06-04 20:13:35.492 HelloCordova[50201:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/7306F29B-A5CC-476F-9713-DCFD4F8297A2/HelloCordova.app/www/index.html#/
+2014-06-04 20:15:09.540 HelloCordova[50201:70b] what up, callbackdown
+2014-06-04 20:15:09.540 HelloCordova[50201:70b] refresh
+2014-06-04 20:15:11.369 HelloCordova[50201:70b] what up, callbackdown
+2014-06-04 20:15:11.369 HelloCordova[50201:70b] refresh
