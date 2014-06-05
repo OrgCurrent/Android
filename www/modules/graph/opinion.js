@@ -64,7 +64,7 @@ angular.module('app.opinion', [
     .success(function(data) {
       // $scope.coworkerData = true;
       // too little coworker data to display
-      if (data.length < 50) {
+      if (data.length < 5) {
         $scope.titleDescription = littleDataTitle;
         // $scope.coworkerData = true;
         $scope.refreshButton = refreshLittleData;
