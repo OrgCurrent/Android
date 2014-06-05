@@ -23,7 +23,7 @@ angular.module('app.email', [
     $scope.serverError = false;
     $scope.notUnique = false;
 
-    if($scope.email_form.$valid) {
+    if($scope.email_form.$valid && $scope.email.userInput) {
       $scope.verifyButton = 'Sending...'
       var username = $scope.email.userInput.split('@')[0]
       var domain = $scope.email.userInput.split('@')[1]
