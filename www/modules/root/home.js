@@ -60,19 +60,13 @@ angular.module('app.home', [
   });
 
   $scope.$on('coworkers', function(event) {
-    console.log('coworkers!')
-    // $scope.$apply(function() {
-      $scope.personal = 'completed-step';
-      $scope.coworkers = 'active-step';
-    // })
+    $scope.personal = 'completed-step';
+    $scope.coworkers = 'active-step';
   });
 
   $scope.$on('personal', function(event) {
-    console.log('personal!')
-    // $scope.$apply(function() {
-      $scope.personal = 'active-step';
-      $scope.coworkers = '';
-    // })
+    $scope.personal = 'active-step';
+    $scope.coworkers = '';
   });
 
   // SETTINGS TO RESET EMAIL //
@@ -81,13 +75,13 @@ angular.module('app.home', [
   };
 
   // MODAL TO INVITE COWORKERS //
-  $scope.coworkers = [{email: ''}];
+  $scope.coworkersToInvite = [{email: ''}];
   $scope.addEmail = function() {
-    $scope.coworkers.push({email: ''});
+    $scope.coworkersToInvite.push({email: ''});
   }
 
   $scope.subtractEmail = function($index) {
-    $scope.coworkers.splice($index, 1);
+    $scope.coworkersToInvite.splice($index, 1);
   }
 
   // when you swipe left, invites are opened up
@@ -122,11 +116,18 @@ angular.module('app.home', [
   });
 
   $scope.sendInvites = function() {
-    console.log('Format email, send to provided emails');
-    for (var i = 0; i < $scope.coworkers.length; i++) {
-      console.log($scope.coworkers[i].email);
+    var emailInvites = [];
+    for (var i = 0; i < $scope.coworkersToInvite.length; i++) {
+      emailInvites.push($scope.coworkersToInvite[i].email);
     }
-    $scope.coworkers = [{email: ''}];
+    HttpFactory.sendInviteEmails({'domain': $scope.domain, 'mails': emailInvites})
+    .success(function(data) {
+      console.log('success!', data);
+    })
+    .error(function(data) {
+      console.log('error!')
+    })
+    $scope.coworkersToInvite = [{email: ''}];
   }
   // MODAL TO INVITE COWORKERS //
 
