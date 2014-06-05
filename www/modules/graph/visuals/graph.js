@@ -39,7 +39,7 @@ angular.module('graph', [])
     var finalR = 10;
     var rippleR = 400;
     var thickness = 5;
-    var fontSize = 11;
+    var fontSize = 10;
 
 
     var click = function() {
@@ -199,8 +199,8 @@ angular.module('graph', [])
       })
       .append('text')
       .attr({
-        'text-anchor': 'center',
-        x: (width - margin.left) / 2,
+        'text-anchor': 'middle',
+        x: width / 2,
         dy: fontSize + 14,
         'font-size': fontSize + 10,
         'class': 'graph-domain'
