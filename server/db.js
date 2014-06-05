@@ -1,12 +1,9 @@
-var Promise = require("bluebird"),
+var Promise = require("es6-promise").Promise,
     uuid    = require("node-uuid"),
     model   = require("./models");
 
 exports.updateUser = function (query, attrs, user) {
   return new Promise (function (onResolved, onRejected) {
-    console.log("query", query);
-    console.log("attrs", attrs);
-    console.log("user", user);
     model.User.update(query, { $set: attrs}, {}, function (err, count) {
         if (err) onRejected(err);
         if (count > 0) {

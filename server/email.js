@@ -1,4 +1,4 @@
-var Promise   = require("bluebird"),
+var Promise   = require("es6-promise").Promise,
     templates = require("email-templates"),
     config    = require("./server_config/config");
 
