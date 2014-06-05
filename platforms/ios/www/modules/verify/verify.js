@@ -10,13 +10,13 @@ angular.module('app.verify', [
 
   $scope.$emit('verify');
   $scope.verStatus = 'Check Verification Status';
-  $scope.resentStatus = 'Resend Verification Email'
-  var username = local.getItem('username');
-  var domain = local.getItem('domain');
+  $scope.resentStatus = 'Resend Verification Email';
+  $scope.username = local.getItem('username');
+  $scope.domain = local.getItem('domain');
 
   var checkVerificationLoop = function(totalPings) {
     setTimeout(function() {
-      HttpFactory.verify(username, domain)
+      HttpFactory.verify($scope.username, $scope.domain)
         .success(function(verifyData) {
           if (verifyData.status === true) {
             $state.go('home.opinion');
@@ -29,7 +29,7 @@ angular.module('app.verify', [
   
   $scope.checkVerification = function() {
     $scope.verStatus = 'Checking...';
-    HttpFactory.verify(username, domain)
+    HttpFactory.verify($scope.username, $scope.domain)
       .success(function(verifyData) {
         if (verifyData.status === true) {
           $state.go('home.opinion');
@@ -47,7 +47,7 @@ angular.module('app.verify', [
   $scope.resendVerification = function() {
     $scope.resentStatus = 'Resending...';
     $scope.resending = true;
-    HttpFactory.resendEmail(username, domain)
+    HttpFactory.resendEmail($scope.username, $scope.domain)
       .success(function() {
         $scope.resentStatus = 'Resend Verification Email';
         $scope.resending = false;
@@ -59,6 +59,10 @@ angular.module('app.verify', [
         $scope.resentStatus = 'Resend Verification Email';
       })
   };
+
+  $scope.resubmitEmail = function() {
+    $state.go('home.email');
+  }
 
   // when you first arrive at verification page, kick off check verification loop
   checkVerificationLoop(0);

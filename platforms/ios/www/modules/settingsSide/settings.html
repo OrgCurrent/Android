@@ -3,8 +3,16 @@
 </ion-header-bar>
 
 <ion-pane>
-  <ion-content>
+  <ion-content class="settings-content">
+    <h4> Your workplace domain: </h4>
+    <h3 class="balanced-text"> {{ domain || 'Please enter your work email'}} </h3>
     <br>
-    <button class="button button-balanced button-clear" ng-click="changeEmail()">Change email</button>
+    <button class="button button-assertive" ng-click="changeEmail()">Change email?</button>
+    <div ng-show="verified" class="settings-coordinates">
+      <p> <b> Your graph coordinates are: </b> </p>
+      <p> x: {{ coordinates.x }} </p>
+      <p> y: {{ coordinates.y }} </p>
+      <p> <b> With 100 being highly successful </b> </p>
+    </div>
   </ion-content>
 </ion-pane>

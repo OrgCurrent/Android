@@ -7,6 +7,7 @@ angular.module('app.email', [
   $scope.$emit('email');
   $scope.submitted = false;
   $scope.email = {};
+  $scope.verifyButton = 'Send Verification Email';
 
   var serverError = function(data) {
     console.log('error!', data);
@@ -23,7 +24,7 @@ angular.module('app.email', [
     $scope.notUnique = false;
 
     if($scope.email_form.$valid) {
-      
+      $scope.verifyButton = 'Sending...'
       var username = $scope.email.userInput.split('@')[0]
       var domain = $scope.email.userInput.split('@')[1]
 
@@ -36,31 +37,14 @@ angular.module('app.email', [
 
           // if user already in system, data.status === 'existing'
           // otherwise, status === 'new'
-          if (data.status === 'new') {
-            $state.go('home.verify');
-          } else if (data.status === 'existing') {
-            // if existing, check if verified yet
-            HttpFactory.verify(username, domain)
-              .success(function(verifyData) {
-                if (verifyData.status === false) {
-                  $state.go('home.verify');
-                } else if (verifyData.status === true) {
-                  // if user has already been verified before... resend verification
-                  // update email to be non-verified
-                  // show error message - verified email already exists - MIGHT WANT TO UPDATE LOGIC IN FUTURE
-                  // for now, during testing, just send to verify.js page
-                  $state.go('home.verify');
-                }
-              })
-              .error(function(data) {
-                serverError(data);
-              });
-          }
-      })
-      .error(function(data) {
-          // server error
+          // the logic will not vary - resending email will set verify status to
+          // false, they will need to reverify, send both cases straight to home.verify
+          $state.go('home.verify');
+        })
+        .error(function(data) {
           serverError(data);
-      });
+          $scope.verifyButton = 'Send Verification Email';
+        });
     } else {
       $scope.email_form.submitted = true;
     }

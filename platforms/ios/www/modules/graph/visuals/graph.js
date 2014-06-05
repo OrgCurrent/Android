@@ -190,14 +190,22 @@ angular.module('graph', [])
         y: -(margin.bottom - 10),
         'font-size': fontSize
       })
-      // .style('text-anchor', 'end')
       .text(scope.coordinates.x);
 
     // x-axis top
     svg.append('g').call(xAxis.tickValues([])).attr({
       transform: 'translate(0,' + margin.top + ')',
       class: 'x axis main-axis'
-      });
+      })
+      .append('text')
+      .attr({
+        'text-anchor': 'center',
+        x: (width - margin.left) / 2,
+        dy: fontSize + 14,
+        'font-size': fontSize + 10,
+        'class': 'graph-domain'
+      })
+      .text(scope.domain);
 
     // x-axis middle
     svg.append('g').call(xAxis.tickValues([])).attr({
@@ -249,6 +257,6 @@ angular.module('graph', [])
   return {
     restrict: 'E',
     link: link,
-    scope: {selectedPoint: '=', submitted: '=', coordinates: '=', margin: '='}
+    scope: {selectedPoint: '=', submitted: '=', coordinates: '=', margin: '=', domain: '='}
   }
 })

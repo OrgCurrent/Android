@@ -39,7 +39,7 @@ angular.module('app.home', [
 
   $scope.$on("email", function(event, user) {
     $scope.verified = false;
-    $scope.email = 'button-balanced';
+    $scope.email = 'active-step';
     $scope.verify = '';
     $scope.opinion = '';
     $scope.showSettings = false;
@@ -47,8 +47,8 @@ angular.module('app.home', [
 
   $scope.$on("verify", function(event, user) {
     $scope.verified = false;
-    $scope.email = '';
-    $scope.verify = 'button-balanced';
+    $scope.email = 'completed-step';
+    $scope.verify = 'active-step';
     $scope.opinion = '';
     $scope.showSettings = true;
   });
@@ -59,23 +59,33 @@ angular.module('app.home', [
     $scope.showSettings = true;
   });
 
+  $scope.$on('coworkers', function(event) {
+    $scope.personal = 'completed-step';
+    $scope.coworkers = 'active-step';
+  });
+
+  $scope.$on('personal', function(event) {
+    $scope.personal = 'active-step';
+    $scope.coworkers = '';
+  });
+
   // SETTINGS TO RESET EMAIL //
   $scope.toggleSettings = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
 
-
   // MODAL TO INVITE COWORKERS //
-  $scope.coworkers = [{email: ''}];
+  $scope.coworkersToInvite = [{email: ''}];
   $scope.addEmail = function() {
-    $scope.coworkers.push({email: ''});
+    $scope.coworkersToInvite.push({email: ''});
   }
 
   $scope.subtractEmail = function($index) {
-    $scope.coworkers.splice($index, 1);
+    $scope.coworkersToInvite.splice($index, 1);
   }
 
-  $scope.$on('invite', function() {
+  // when you swipe left, invites are opened up
+  $scope.$on('swipeInvite', function() {
     $scope.invite();
   })
 
@@ -106,12 +116,38 @@ angular.module('app.home', [
   });
 
   $scope.sendInvites = function() {
-    console.log('Format email, send to provided emails');
-    for (var i = 0; i < $scope.coworkers.length; i++) {
-      console.log($scope.coworkers[i].email);
+    var emailInvites = [];
+    for (var i = 0; i < $scope.coworkersToInvite.length; i++) {
+      emailInvites.push($scope.coworkersToInvite[i].email);
     }
-    $scope.coworkers = [{email: ''}];
+    HttpFactory.sendInviteEmails({'domain': $scope.domain, 'mails': emailInvites})
+    .success(function(data) {
+      console.log('success!', data);
+    })
+    .error(function(data) {
+      console.log('error!')
+    })
+    $scope.coworkersToInvite = [{email: ''}];
   }
   // MODAL TO INVITE COWORKERS //
 
+}])
+
+.directive('homePage', ['$ionicGesture', '$rootScope',
+  function($ionicGesture, $rootScope) {
+
+  var link = function(scope, element, attr) {
+    $ionicGesture.on('swipeleft', callback, element);
+  }
+
+  var callback = function() {
+    $rootScope.$broadcast('swipeInvite');
+  }
+
+  return {
+    restrict: 'EA',
+    templateUrl: 'modules/root/headers.html',
+    link: link
+  }
+   
 }]);

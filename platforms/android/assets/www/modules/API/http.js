@@ -44,6 +44,15 @@ angular.module('API', [])
         method: 'GET',
         url: serverDomain + 'user/data/' + username + '/' + domain
       })
+    },
+
+    sendInviteEmails: function(data) {
+      return $http({
+        method: 'POST',
+        data: data,
+        'Content-Type': 'application/json',
+        url: serverDomain + 'invites'
+      })
     }
   }
 }]);

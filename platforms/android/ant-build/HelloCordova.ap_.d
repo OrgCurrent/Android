@@ -231,6 +231,7 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/home.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/home.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/loading.html \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/root/workflow.css \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/settingsSide/settings.html \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/settingsSide/settings.js \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/assets/www/modules/verify/verify.html \

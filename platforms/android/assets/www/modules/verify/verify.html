@@ -1,6 +1,6 @@
 <ion-content class="main-content has-header has-footer">
   <h2>Check your email!</h2>
-  <p> An email has been sent to the email address you indicated<p>
+  <p> An email has been sent to the email address you indicated: <b>{{ username }}@{{ domain }}</b> <p>
     <p><b> Please click on the "Verify" link in the email </b></p>
   </p>
 
@@ -9,6 +9,10 @@
     We're sorry, your email has not been verified yet.
   </small>
   <button class="button button-dark button-block" ng-click="resendVerification()" ng-disabled="resending">{{ resentStatus }}</button>
+  <small class="error">
+    Typo in your email address? Resubmit your work email by clicking below:
+  </small>
+  <button class="button button-dark button-block button-clear" ng-click="resubmitEmail()">Resubmit email address</button>
 
 </ion-content>
 
