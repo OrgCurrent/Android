@@ -11,37 +11,30 @@ angular.module('app.opinion', [
 
   $scope.coworkers = [{email: ''}];
   $scope.click = {};
-  var landingDescription = "Touch and hold on the graph below to submit your opinion in order to see your coworkers' sentiments";
-  var noDataDescription = "There isn't any data for your domain yet! Invite your coworkers by clicking below. You will able to resubmit your sentiments tomorrow.";
-  var littleDataDescription = "There isn't very much data for your domain yet! Invite your coworkers by clicking below. You will able to resubmit your sentiments tomorrow.";
-  var introDataDescription = "Each blue dot represents your coworkers' most";
-  var dataDescription = "Each blue dot represents your coworkers' most recent sentiments about their own success and your company's success. Check back recently for updated scores.";
-  
-  var refreshData = "Refresh page and get the latest data!"
-  var refreshNoData = "Refresh to see if there's enough data yet"
-  $scope.validData = false;
 
+  // pre-personal submit
   var landingTitle = 'Your opinion matters!'
+  var introLanding = "Touch and hold on the graph below";
+  var landing = "Touch and hold on the graph below to submit your opinion in order to see your coworkers' sentiments";
+
+  // if too little data to see coworker data
   var littleDataTitle = 'Invite coworkers!'
+  var introLittleData = "There isn't very much data for your domain";
+  var littleData = "There isn't very much data for your domain yet! Invite your coworkers by clicking in the upper right. You will able to resubmit your sentiments tomorrow.";
+  var refreshLittleData = "Refresh to see if there's enough data yet"
+
+  // coworker data displayed
   var dataTitle = "Your coworker's sentiment"
-
-
-  $scope.pageDescription = landingDescription
-  $scope.titleDescription = landingTitle;
-
-  $scope.pageIntro = introDataDescription;
-  $scope.pageFull = dataDescription
+  var introDataDescription = "Each blue dot represents your coworkers' most";
+  var dataDescription = "Each blue dot represents your coworkers' most recent sentiments about their own success and your company's success. Check back frequently for updated scores.";
+  var refreshData = "Refresh page to get the latest data!"
+  
+  // widget for minimizing text on page until
+  // button clicked
   $scope.showingFullPage = false;
   $scope.showFullPage = function() {
     $scope.showingFullPage = true;
   }
-
-  $scope.noData = false;
-  $scope.littleData = false;
-
-  $scope.recentScore = false;
-
-  $scope.refreshButton = refreshNoData;
 
   // set coordinates and margin for graph
   $rootScope.coordinates = {
@@ -57,65 +50,38 @@ angular.module('app.opinion', [
 
   $scope.seeData = function() {
     $scope.clickSubmitted = true;
-    $scope.recentScore = false;
     HttpFactory.getScores($scope.domain)
     .success(function(data) {
-      if (data.length === 1) {
-        $scope.pageDescription = noDataDescription
+      // $scope.coworkerData = true;
+      // too little coworker data to display
+      if (data.length < 50) {
         $scope.titleDescription = littleDataTitle;
-        $scope.noData = true;
+        // $scope.coworkerData = true;
+        $scope.refreshButton = refreshLittleData;
+
+        // refresh button shown when completed = true
         $scope.completed = true;
-      } else if (data.length < 50) {
-        $scope.pageDescription = littleDataDescription;
-        $scope.titleDescription = littleDataTitle;
-        $scope.littleData = true;
-        $scope.completed = true;
+        $scope.pageIntro = introLittleData;
+        $scope.pageFull = littleData;
       } else {
-        // show user to "coworkers data" screen
+        // show user to "coworkers data", #2 on arrow flow
         $scope.$emit('coworkers');
-        $scope.refreshButton = refreshData;
-        $scope.validData = true;
         $scope.titleDescription = dataTitle;
+        $scope.refreshButton = refreshData;
+        $scope.pageIntro = introDataDescription;
+        $scope.pageFull = dataDescription;
+
+        // animate with coworker data
         PointGraph.animate(data, $scope.margin, $scope.domain);
+        // when animation complete, show refresh button
+        $scope.$on("complete", function(event) {
+          $scope.$apply(function() {
+            $scope.completed = true;
+          });
+        });
       }
     });
   };
-
-  $scope.submit = function() {
-    $scope.clickSubmitted = true;
-    $scope.recentScore = false;
-    HttpFactory.sendScore($scope.username, $scope.domain, $scope.click.clickData)
-      .success(function() {
-        $scope.seeData();
-      });
-  };
-
-  $scope.$on("complete", function(event) {
-    $scope.$apply(function() {
-      $scope.completed = true;
-    });
-  });
-
-  $scope.$on("swipeDown", function() {
-    $scope.refresh();
-  });
-  
-  $scope.refresh = function() {
-    // when home broadcasts "reload" we want to reload the page to let
-    // our users revote.
-    console.log('refresh');
-    $state.transitionTo($state.current, $stateParams, {
-      reload: true,
-      inherit: false,
-      notify: true
-    });
-  };
-
-  // trigger modal from home screen
-
-  $scope.invite = function() {
-    $scope.$emit('swipeInvite');
-  }
 
   // on load, check to see if this user has submitted a score in the past
   // 24 hours or on that day. If they have, show them the see co-workers 
@@ -132,11 +98,42 @@ angular.module('app.opinion', [
         return;
       } 
     }
-    $scope.recentScore = false;
+    // user submission is "due"
+    $scope.titleDescription = landingTitle;
+    $scope.pageIntro = introLanding
+    // tells subheader to show us on step 1
     $scope.$emit('personal');
   })
   .error(function(err) {
     console.log(err);
   });
+
+  // when opinion submitted
+  $scope.submit = function() {
+    $scope.clickSubmitted = true;
+    HttpFactory.sendScore($scope.username, $scope.domain, $scope.click.clickData)
+    .success(function() {
+      $scope.seeData();
+    });
+  };
+
+  $scope.refresh = function() {
+    // when refresh button touched or swipedown, refresh page
+    $state.transitionTo($state.current, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true
+    });
+  };
+
+  $scope.$on("swipeDown", function() {
+    $scope.refresh();
+  });
+  
+
+  // when invite button clicked, trigger invite modal from home.
+  $scope.invite = function() {
+    $scope.$emit('swipeInvite');
+  }
 
 }]);
