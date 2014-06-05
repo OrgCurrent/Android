@@ -7,24 +7,41 @@ angular.module('app.opinion', [
  function($scope, $rootScope, $state, $stateParams, $ionicModal, HttpFactory, PointGraph) {
   // notify home controller that we are on opinion page
   $scope.$emit('opinion');
+  $scope.$emit('personal');
+
   $scope.coworkers = [{email: ''}];
   $scope.click = {};
-  var landingDescription = 'Touch and hold on the graph below to submit your opinion';
-  var noDataDescription = "There isn't any data for your domain yet! Invite your coworkers by clicking below";
-  var littleDataDescription = "There isn't very much data for your domain yet! Invite your coworkers by clicking below";
-  var dataDescription = "Each blue dot represents your coworkers' most recent sentiment about their success and your company's success. Check back recently for updated scores."
+  var landingDescription = "Touch and hold on the graph below to submit your opinion in order to see your coworkers' sentiments";
+  var noDataDescription = "There isn't any data for your domain yet! Invite your coworkers by clicking below. You will able to resubmit your sentiments tomorrow.";
+  var littleDataDescription = "There isn't very much data for your domain yet! Invite your coworkers by clicking below. You will able to resubmit your sentiments tomorrow.";
+  var introDataDescription = "Each blue dot represents your coworkers' most";
+  var dataDescription = "Each blue dot represents your coworkers' most recent sentiments about their own success and your company's success. Check back recently for updated scores.";
+  
+  var refreshData = "Refresh page and get the latest data!"
+  var refreshNoData = "Refresh to see if there's enough data yet"
+  $scope.validData = false;
 
   var landingTitle = 'Your opinion matters!'
   var littleDataTitle = 'Invite coworkers!'
   var dataTitle = "Your coworker's sentiment"
 
+
   $scope.pageDescription = landingDescription
   $scope.titleDescription = landingTitle;
+
+  $scope.pageIntro = introDataDescription;
+  $scope.pageFull = dataDescription
+  $scope.showingFullPage = false;
+  $scope.showFullPage = function() {
+    $scope.showingFullPage = true;
+  }
 
   $scope.noData = false;
   $scope.littleData = false;
 
   $scope.recentScore = false;
+
+  $scope.refreshButton = refreshNoData;
 
   // set coordinates and margin for graph
   $rootScope.coordinates = {
@@ -43,7 +60,6 @@ angular.module('app.opinion', [
     $scope.recentScore = false;
     HttpFactory.getScores($scope.domain)
     .success(function(data) {
-      $scope.$emit('coworkers');
       if (data.length === 1) {
         $scope.pageDescription = noDataDescription
         $scope.titleDescription = littleDataTitle;
@@ -55,9 +71,12 @@ angular.module('app.opinion', [
         $scope.littleData = true;
         $scope.completed = true;
       } else {
-        $scope.pageDescription = dataDescription;
+        // show user to "coworkers data" screen
+        $scope.$emit('coworkers');
+        $scope.refreshButton = refreshData;
+        $scope.validData = true;
         $scope.titleDescription = dataTitle;
-        PointGraph.animate(data, $scope.margin);
+        PointGraph.animate(data, $scope.margin, $scope.domain);
       }
     });
   };
