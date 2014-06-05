@@ -1,5 +1,5 @@
 <ion-header-bar class="bar-header bar-balanced">
-  <button class="button button-clear icon ion-gear-a" ng-show="showSettings" ng-click="toggleSettings()"></button>
+  <button class="button button-clear icon ion-gear-a" ng-click="toggleSettings()"></button>
   <h1 class="title">Happy Meter</h1>
   <button class="button button-clear icon ion-android-add-contact" ng-click="invite()"></button>
 </ion-header-bar>
@@ -8,7 +8,7 @@
   <div ng-class="{row: !verified}"class="wizard-steps" ng-hide="verified">
     <div class="{{ email }} col col-offset-10"><a><span>1</span>email</a></div>
     <div class="{{ verify }} col"><a><span>2</span>verify</a></div>
-    <div class="col"><a><span>3</span>opinion</a></div>
+    <div class="col"><a><span>3</span>meter</a></div>
     <div class="col-offset-10"></div>
   </div>
   <div class="row wizard-steps" ng-show="verified">
