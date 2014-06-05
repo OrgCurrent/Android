@@ -49,7 +49,8 @@ angular.module('graphics', [])
 
       // place co-worker data points.
       var placePoints = function(data) {
-        var radius = 5;
+        var radius = 4;
+        var strokeWidth = 3;
         var delay = 50;
         var duration = 200;
 
@@ -68,6 +69,7 @@ angular.module('graphics', [])
           })
         .transition().delay(function(d, i) { return delay * i }).duration(duration)
           .attr('r', radius)
+          .attr('stroke-width', strokeWidth)
           .each('end', function() {
             // update progress bar 
             progressBarUpdate();
