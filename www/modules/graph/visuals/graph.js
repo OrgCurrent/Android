@@ -250,7 +250,6 @@ angular.module('graph', [])
     scope.$watch('submitted', function(newValue, oldValue) {
       if (newValue) {
         svg.on("touchstart", function() {
-          console.log('touchstart');
           scope.$apply(function() {
             scope.dupeClick = true;
           })
