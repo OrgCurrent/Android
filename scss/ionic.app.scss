@@ -94,6 +94,7 @@ circle.click {
 
 .others {
   fill: $positive;
+  stroke: darken( $positive, 20% );
 }
 
 .error {

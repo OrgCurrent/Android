@@ -6496,7 +6496,8 @@ circle.click {
   stroke-width: 5; }
 
 .others {
-  fill: #4a87ee; }
+  fill: #4a87ee;
+  stroke: #1255c0; }
 
 .error {
   color: #ef4e3a; }
