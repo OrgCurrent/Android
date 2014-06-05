@@ -5969,7 +5969,7 @@ a.button {
   width: 100%; }
 
 .row + .row {
-  /*margin-top: -5px;*/
+  margin-top: -5px;
   padding-top: 0; }
 
 .col {
@@ -6507,10 +6507,10 @@ circle.click {
   stroke-width: 2; }
 
 progress {
-  margin: 5px 0; }
+  margin: 10px 0; }
 
 .graph-button {
-  margin: 10px 0; }
+  margin: 10px 0 20px; }
 
 .footer-color {
   color: white;
@@ -6532,9 +6532,12 @@ progress {
 .settings-coordinates {
   margin: 25px 0; }
 
+.graph-domain {
+  fill: #66cc33; }
+
 /* WIZARD STEPS */
 .wizard-steps {
-  margin: 5px 0 0 0;
+  margin: 3px 0;
   padding: 0;
   position: relative;
   clear: both;

@@ -107,11 +107,11 @@ circle.click {
 }
 
 progress {
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 .graph-button {
-  margin: 10px 0;
+  margin: 10px 0 20px;
 }
 
 .footer-color {
@@ -139,11 +139,14 @@ progress {
   margin: 25px 0;
 }
 
+.graph-domain {
+  fill: $balanced;
+}
 
 /* WIZARD STEPS */
 
 .wizard-steps {
-  margin: 5px 0 0 0;
+  margin: 3px 0;
   padding: 0;
   position: relative;
   clear:both;
