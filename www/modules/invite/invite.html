@@ -9,11 +9,11 @@
   <ion-content class="main-content has-header has-footer">
   
   <form name="email_form" novalidate ng-submit="sendInvites()">
-    <div ng-repeat="coworker in coworkers track by $index">
+    <div ng-repeat="coworker in coworkersToInvite track by $index">
       <div class="row item modal">
-        <input type="email" name="email" class="col col-90" ng-model="coworkers[$index].email" placeholder="coworker@{{ domain || 'example.com' }}">
-        <i class="icon ion-ios7-plus-outline col col-10" ng-hide="coworkers[$index + 1]" ng-click="addEmail()"></i>
-        <i class="icon ion-ios7-minus-outline col col-10" ng-show="coworkers[$index + 1]" ng-click="subtractEmail($index)"></i>
+        <input type="email" name="email" class="col col-90" ng-model="coworkersToInvite[$index].email" placeholder="coworker@{{ domain || 'example.com' }}">
+        <i class="icon ion-ios7-plus-outline col col-10" ng-hide="coworkersToInvite[$index + 1]" ng-click="addEmail()"></i>
+        <i class="icon ion-ios7-minus-outline col col-10" ng-show="coworkersToInvite[$index + 1]" ng-click="subtractEmail($index)"></i>
       </div>
       <br>
     </div>
