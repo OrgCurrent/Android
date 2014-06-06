@@ -25,8 +25,8 @@ angular.module('app.opinion', [
 
   // coworker data displayed
   var dataTitle = "Your coworker's sentiment"
-  var introDataDescription = "Each blue dot represents your coworkers' most";
-  var dataDescription = "Each blue dot represents your coworkers' most recent sentiments about their own success and your company's success. Check back frequently for updated scores.";
+  var introDataDescription = "Each blue dot corresponds to an individual";
+  var dataDescription = "Each blue dot corresponds to an individual coworker's most recent opinion";
   var refreshData = "Refresh page to get the latest data!"
   
   // widget for minimizing text on page until

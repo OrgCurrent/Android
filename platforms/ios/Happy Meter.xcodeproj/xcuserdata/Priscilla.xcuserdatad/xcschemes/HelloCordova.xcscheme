@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-               BuildableName = "HelloCordova.app"
-               BlueprintName = "HelloCordova"
+               BuildableName = "Happy Meter.app"
+               BlueprintName = "Happy Meter"
                ReferencedContainer = "container:HelloCordova.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "HelloCordova.app"
-            BlueprintName = "HelloCordova"
+            BuildableName = "Happy Meter.app"
+            BlueprintName = "Happy Meter"
             ReferencedContainer = "container:HelloCordova.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,8 +52,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "HelloCordova.app"
-            BlueprintName = "HelloCordova"
+            BuildableName = "Happy Meter.app"
+            BlueprintName = "Happy Meter"
             ReferencedContainer = "container:HelloCordova.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,8 +70,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "HelloCordova.app"
-            BlueprintName = "HelloCordova"
+            BuildableName = "Happy Meter.app"
+            BlueprintName = "Happy Meter"
             ReferencedContainer = "container:HelloCordova.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

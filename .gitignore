@@ -2,3 +2,4 @@
 node_modules
 bower_components
 server_config
+my-release-key.keystore

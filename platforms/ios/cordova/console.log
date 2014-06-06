@@ -305,3 +305,10 @@ Terminating in response to SpringBoard's termination.
 2014-06-05 19:19:20.894 Happy Meter[55921:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8002FFA3-77C1-4655-AA01-DD52662A4102/Happy%20Meter.app/www/index.html#/
 2014-06-05 19:19:22.266 Happy Meter[55921:70b] outside Range
 Terminating in response to SpringBoard's termination.
+2014-06-05 23:24:05.442 Happy Meter[59859:70b] Multi-tasking -> Device: YES, App: YES
+2014-06-05 23:24:05.475 Happy Meter[59859:70b] Unlimited access to network resources
+2014-06-05 23:24:05.660 Happy Meter[59859:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-06-05 23:24:05.661 Happy Meter[59859:70b] [CDVTimer][statusbar] 0.913024ms
+2014-06-05 23:24:05.662 Happy Meter[59859:70b] [CDVTimer][TotalPluginStartup] 1.694977ms
+2014-06-05 23:24:05.875 Happy Meter[59859:70b] Resetting plugins due to page load.
+2014-06-05 23:24:06.450 Happy Meter[59859:70b] Finished load of: file:///Users/Priscilla/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8002FFA3-77C1-4655-AA01-DD52662A4102/Happy%20Meter.app/www/index.html#/

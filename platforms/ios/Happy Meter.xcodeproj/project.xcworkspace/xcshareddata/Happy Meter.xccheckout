@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D7E43313-8720-4450-8AC6-206485469C5C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Happy Meter</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>50C83468-ED9E-4FCE-9190-F6CD957070F0</key>
+		<string>https://github.com/OrgCurrent/Android.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/Happy Meter.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>50C83468-ED9E-4FCE-9190-F6CD957070F0</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/OrgCurrent/Android.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>50C83468-ED9E-4FCE-9190-F6CD957070F0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>50C83468-ED9E-4FCE-9190-F6CD957070F0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Android</string>
+		</dict>
+	</array>
+</dict>
+</plist>
