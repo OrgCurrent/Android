@@ -1,4 +1,6 @@
-angular.module('app.home.invite', [])
+angular.module('app.home.invite', [
+  ['ngCordova'])
+  ])
 
 .directive('inviteCoWorkers', function () {
   return {

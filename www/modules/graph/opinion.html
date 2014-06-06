@@ -20,7 +20,7 @@
   </div>
   <div class="graph-button">
     <button class="button button-dark button-block" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
-    <button class="button button-balanced button-block" ng-click="invite()">Invite coworkers!</button>
+    <button class="button button-balanced button-block" ng-show="clickSubmitted" ng-click="invite()">Invite coworkers!</button>
   </div>
 
 </ion-content>

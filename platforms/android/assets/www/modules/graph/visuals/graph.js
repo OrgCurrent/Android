@@ -2,8 +2,8 @@ angular.module('graph', [])
 
 .directive('circleKey', function() {
   var link = function(scope, element, attr) {
-    var outerRadius = 2;
-    var innerRadius = 4;
+    var outerRadius = 3;
+    var innerRadius = 3;
     var radius = 5;
 
     var svg = d3.select(element[0])
@@ -14,15 +14,14 @@ angular.module('graph', [])
       })
       .append('circle')
       .attr('cx', 5)
-      .attr('cy', 5);
+      .attr('cy', 5)
+      .attr('r', innerRadius)
+      .style('stroke-width', outerRadius);
 
     if (scope.user === 'true') {
-      svg.attr('r', innerRadius)
-        .attr('class', 'click')
-        .style('stroke-width', outerRadius);
+      svg.attr('class', 'click');
     } else {
-      svg.attr('r', radius)
-        .attr('class', 'others');
+      svg.attr('class', 'others');
     }
   };
 
@@ -245,10 +244,16 @@ angular.module('graph', [])
     svg.on("touchstart", click)
       .on("touchend", click);
 
-    // watch for submitted - when submitted, turn off listeners for touchend, touchstart
+    // watch for submitted - when submitted, turn off listeners for touchend, 
+    // change listener for touchstart to prompt some UI feedback
+    // "can only submit once per day"
     scope.$watch('submitted', function(newValue, oldValue) {
       if (newValue) {
-        svg.on("touchstart", null)
+        svg.on("touchstart", function() {
+          scope.$apply(function() {
+            scope.dupeClick = true;
+          })
+        })
           .on("touchend", null);
       }
     });
@@ -257,6 +262,6 @@ angular.module('graph', [])
   return {
     restrict: 'E',
     link: link,
-    scope: {selectedPoint: '=', submitted: '=', coordinates: '=', margin: '=', domain: '='}
+    scope: {selectedPoint: '=', submitted: '=', dupeClick: '=', coordinates: '=', margin: '=', domain: '='}
   }
 })

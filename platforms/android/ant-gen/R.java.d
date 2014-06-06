@@ -1,5 +1,6 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-gen/com/ionicframework/starter/R.java \
- : /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable/icon.png \
+ : /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable/default_icon.png \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable/icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable-hdpi/icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable-land-hdpi/screen.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable-land-ldpi/screen.png \
@@ -14,6 +15,7 @@
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable-xhdpi/icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/values/strings.xml \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/xml/config.xml \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-build/res/drawable/default_icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-build/res/drawable/icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-build/res/drawable-hdpi/icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-build/res/drawable-land-hdpi/screen.png \

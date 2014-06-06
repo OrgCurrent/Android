@@ -6496,7 +6496,8 @@ circle.click {
   stroke-width: 5; }
 
 .others {
-  fill: #4a87ee; }
+  fill: #4a87ee;
+  stroke: #1255c0; }
 
 .error {
   color: #ef4e3a; }
@@ -6537,7 +6538,7 @@ progress {
 
 /* WIZARD STEPS */
 .wizard-steps {
-  margin: 3px 0;
+  margin: 3px 0 0 0;
   padding: 0;
   position: relative;
   clear: both;
@@ -6619,7 +6620,8 @@ progress {
 .wizard-steps .completed-step span {
   border: 2px solid #3f7a1f;
   color: #444;
-  text-shadow: none; }
+  text-shadow: none;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); }
 
 /* = ACTIVE STEPS
 ----------------------------*/

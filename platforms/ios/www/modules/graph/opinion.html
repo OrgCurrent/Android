@@ -1,30 +1,25 @@
 <ion-content class="main-content has-header" ng-class="{'has-footer': completed}">
     <h3>{{ titleDescription }}</h3>
-    <div ng-hide="validData">
-      <p>{{ pageDescription }}</p>
-    </div>
-    <div ng-show="validData">
-      <p ng-hide="showingFullPage">
-        {{ pageIntro }}
-        <i class="icon ion-more" ng-click="showFullPage()"></i>
-      </p>
-      <p ng-show="showingFullPage">
-        {{ pageFull }}
-      </p>
-    </div>
+    <p ng-hide="showingFullPage">
+      {{ pageIntro }}
+      <i class="icon ion-more" ng-click="showFullPage()"></i>
+    </p>
+    <p ng-show="showingFullPage">
+      {{ pageFull }}
+    </p>
+    <p class="error" ng-show="dupeClick">
+      Sorry, you may only submit once per day
+    </p>
 
   <div class="graph">
-    <happy-graph selected-point="click.clickData" submitted="clickSubmitted" coordinates="coordinates" margin="margin" domain="domain"></happy-graph>
+    <happy-graph selected-point="click.clickData" submitted="clickSubmitted" dupe-click="dupeClick" coordinates="coordinates" margin="margin" domain="domain"></happy-graph>
     <circle-key user="true"></circle-key> Your sentiment
     <br>
     <circle-key user="false"></circle-key> Your co-workers' most recent sentiment
     <br>
-<!--     <small class="error" ng-show="noData">No data for your domain yet! Invite your coworkers by sliding to the left</small>
-    <small class="error" ng-show="littleData">There isn't very much data for your domain yet! Invite your coworkers by clicking below</small>
- -->  </div>
+  </div>
   <div class="graph-button">
     <button class="button button-dark button-block" ng-click="submit()" ng-show="click.clickData && !clickSubmitted">Submit</button>
-    <!-- <button class="graph-button button button-small button-dark col" ng-click="seeData()" ng-show="recentScore">See most recent coworkers data</button> -->
     <button class="button button-balanced button-block" ng-click="invite()">Invite coworkers!</button>
   </div>
 

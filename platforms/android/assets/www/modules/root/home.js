@@ -42,7 +42,6 @@ angular.module('app.home', [
     $scope.email = 'active-step';
     $scope.verify = '';
     $scope.opinion = '';
-    $scope.showSettings = false;
   });
 
   $scope.$on("verify", function(event, user) {
@@ -50,13 +49,11 @@ angular.module('app.home', [
     $scope.email = 'completed-step';
     $scope.verify = 'active-step';
     $scope.opinion = '';
-    $scope.showSettings = true;
   });
   
   $scope.$on("opinion", function(event, user) {
     $scope.verified = true;
     $scope.completed = false;
-    $scope.showSettings = true;
   });
 
   $scope.$on('coworkers', function(event) {
@@ -137,11 +134,16 @@ angular.module('app.home', [
   function($ionicGesture, $rootScope) {
 
   var link = function(scope, element, attr) {
-    $ionicGesture.on('swipeleft', callback, element);
+    $ionicGesture.on('swipeleft', callbackLeft, element);
+    $ionicGesture.on('swipedown', callbackDown, element);
   }
 
-  var callback = function() {
+  var callbackLeft = function() {
     $rootScope.$broadcast('swipeInvite');
+  }
+
+  var callbackDown = function() {
+    $rootScope.$broadcast('swipeDown');
   }
 
   return {
