@@ -27,10 +27,10 @@
     </feature>
     <name>Happy Meter</name>
     <description>
-        An Ionic Framework and Cordova project.
+        The best way to understand the sentiments of you and your coworkers
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+    <author email="stellar@hackreactor.com" href="http://hackreactor.com/">
+      Hack Reactor
     </author>
     <content src="index.html" />
     <access origin="*" />

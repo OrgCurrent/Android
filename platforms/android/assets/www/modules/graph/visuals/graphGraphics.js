@@ -82,9 +82,9 @@ angular.module('graphics', [])
       var ripple = function(position) {
         // constants for the ripple
         var initR = 10;
-        var finalR = 50;
+        var finalR = 40;
         var thickness = 3;
-        var duration = 1000;
+        var duration = 500;
 
         var circle = svg.append('circle')
           .attr({

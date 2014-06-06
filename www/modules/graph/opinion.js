@@ -15,7 +15,7 @@ angular.module('app.opinion', [
   // pre-personal submit
   var landingTitle = 'Your opinion matters!'
   var introLanding = "Touch and hold on the graph below";
-  var landing = "Touch and hold on the graph below to submit your opinion in order to see your coworkers' sentiments";
+  var landing = "Touch and hold on the graph below to submit your opinion in order to see your coworkers' sentiments. Touch higher up if you believe you will be successful. Tough further to the right if you believe the company will be successful.";
 
   // if too little data to see coworker data
   var littleDataTitle = 'Invite coworkers!'
@@ -38,8 +38,8 @@ angular.module('app.opinion', [
 
   // set coordinates and margin for graph
   $rootScope.coordinates = {
-    x: 'How successful this company will be',
-    y: 'How successful you will be at this company'
+    x: '>> How successful this company will be >>',
+    y: '>> How successful you will be at this company >>'
   };
   $scope.margin = {top: 10, right: 10, bottom: 20, left: 30};
 
@@ -58,7 +58,7 @@ angular.module('app.opinion', [
   };
 
   $scope.seeData = function() {
-    $scope.clickSubmitted = true;
+    $scope.clicklickSubmitted = true;
     $scope.showingFullPage = false;
     HttpFactory.getScores($scope.domain)
     .success(function(data) {
