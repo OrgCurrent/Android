@@ -1,4 +1,4 @@
-/Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-gen/com/ionicframework/starter/R.java \
+/Users/Priscilla/Documents/HackReactor/Android/platforms/android/ant-gen/com/stellar/ryan/R.java \
  : /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable/android_icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable/default_icon.png \
 /Users/Priscilla/Documents/HackReactor/Android/platforms/android/res/drawable-hdpi/icon.png \
