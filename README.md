@@ -1,6 +1,6 @@
 ## Welcome to Happy Meter.
 
-Happy Meter is an interface that provides insight into employee happiness.
+Happy Meter is an interface that provides insight into employee sentiment.
 
 ### For Employees...
 
@@ -53,18 +53,18 @@ The front-end Angular.js and D3.js code can be found in the www/modules folders.
 
 ### Developed By...
 
-- [Ryan Stellar](http://www.hackreactor.com/team/)
+#### [Ryan Stellar](http://www.hackreactor.com/team/)
 
 Ryan Stellar is the man with the plan. During the few moments when he's not busy shifting paradigms, he is cracking      jokes and stacking stacks.
     
-- [Andrew Jones](http://andrewjones.us)
+#### [Andrew Jones](http://andrewjones.us)
 
 Andrew Jones is a full-stack software engineer from San Francisco. When he's not developing, he seeks out epic           long-distance running, hiking, and biking sufferfests.
 
-- [Steve Hall](https://github.com/sghall)
+#### [Steve Hall](https://github.com/sghall)
 
 Steve Hall is a full-stack JavaScript engineer in the San Francisco Bay Area. Away from the keyboard, he enjoys          traveling the world, hiking in the great outdoors, and playing guitar.
     
-- [Keith Grout](http://keithgrout.com)
+#### [Keith Grout](http://keithgrout.com)
 
 Keith Grout is a full-stack developer from beautiful Southern California. In addition to keeping up with the latest      technologies, he enjoys spending time at the beach and exploring Los Angeles!
