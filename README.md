@@ -24,19 +24,19 @@ Happy Meter was developed using the MEAN stack, with a starring role by the Ioni
 
 MongoDB: 
 
-   (from "humongous") is an open-source document database, and the leading NoSQL database.
+   (from "humongous") An open-source document database, and the leading NoSQL database.
 
 Express.js: 
 
-   a minimal and flexible node.js web application framework, providing a robust set of features for building single and     multi-page, and hybrid web applications.
+   A minimal and flexible node.js web application framework, providing a robust set of features for building single and     multi-page, and hybrid web applications.
 
 AngularJS: 
 
-   a structural framework for dynamic web apps. It lets you use HTML as your template language and lets you extend          HTML's syntax to express your application's components clearly and succinctly.
+   A structural framework for dynamic web apps. It lets you use HTML as your template language and lets you extend          HTML's syntax to express your application's components clearly and succinctly.
 
 Node.js: 
 
-   a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses    an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time    applications that run across distributed devices.
+   A platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses    an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time    applications that run across distributed devices.
 
 Ionic:
 
