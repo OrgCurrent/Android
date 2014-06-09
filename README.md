@@ -47,7 +47,7 @@ Ionic:
 
 Developed By...
 
-Ryan Stellar:
+Ryan Stellar: http://www.hackreactor.com/team/
 
    Ryan Stellar is the man with the plan. During the few moments when he's not busy shifting paradigms, he is cracking      jokes and stacking stacks.
     
