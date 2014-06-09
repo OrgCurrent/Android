@@ -44,6 +44,12 @@ A structural framework for dynamic web apps. It lets you use HTML as your templa
 
 A platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses    an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time    applications that run across distributed devices.
 
+With a guest appearance by:
+
+#### [D3.js](http://d3js.org/):
+
+A JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG and CSS.
+
 ### Codebase
 
 The back-end Expressjs and Mongoose code can be found in the server folder. 
