@@ -59,7 +59,7 @@ The front-end Angular.js and D3.js code can be found in the www/modules folders.
 
 ### Developed By...
 
-#### [Ryan Stellar](http://www.hackreactor.com/team/)
+#### Ryan Stellar
 
 Ryan Stellar is the man with the plan. During the few moments when he's not busy shifting paradigms, he is cracking      jokes and stacking stacks.
     
